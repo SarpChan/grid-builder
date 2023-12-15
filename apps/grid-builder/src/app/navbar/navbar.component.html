@@ -1,4 +1,20 @@
-<div class="w-full py-4 flex justify-between items-center bg-sky-50 h-full">
+<div
+  class="w-full py-4 flex justify-between items-center bg-gray-200 h-full px-16"
+>
   <div class="">Logo</div>
-  <div class="flex gap-4"></div>
+  <div class="flex gap-8">
+    <a
+      [routerLink]="['/preview']"
+      routerLinkActive="text-blue-600 relative after:rounded-full after:w-full after:h-1 after:bg-blue-600 after:block after:absolute"
+      class="text-xl"
+      >Preview</a
+    >
+    <a
+      [routerLink]="['/']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="text-blue-600 relative after:rounded-full after:w-full after:h-1 after:bg-blue-600 after:block after:absolute"
+      class="text-xl"
+      >Edit</a
+    >
+  </div>
 </div>

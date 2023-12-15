@@ -6,6 +6,13 @@ import {
   fluentCard,
   fluentButton,
   fluentTextField,
+  fluentAccordion,
+  fluentAccordionItem,
+  fluentAnchor,
+  fluentNumberField,
+  fluentSelect,
+  fluentOption,
+  fluentDivider,
 } from '@fluentui/web-components';
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
@@ -15,5 +22,12 @@ bootstrapApplication(AppComponent, appConfig).catch((err) =>
 provideFluentDesignSystem().register(
   fluentCard(),
   fluentButton(),
-  fluentTextField()
+  fluentTextField(),
+  fluentAccordion(),
+  fluentAccordionItem(),
+  fluentAnchor(),
+  fluentNumberField(),
+  fluentSelect(),
+  fluentOption(),
+  fluentDivider()
 );

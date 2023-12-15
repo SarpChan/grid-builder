@@ -7,4 +7,9 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     component: MainComponent,
   },
+  {
+    path: 'preview',
+    pathMatch: 'full',
+    component: MainComponent,
+  },
 ];
