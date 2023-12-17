@@ -14,8 +14,4 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 export class AppComponent {
   title = 'grid-builder';
   exampleTextField = 'ExampleText';
-
-  onClick() {
-    console.log('Clicked!');
-  }
 }
