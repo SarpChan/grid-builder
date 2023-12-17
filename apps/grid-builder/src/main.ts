@@ -13,6 +13,9 @@ import {
   fluentSelect,
   fluentOption,
   fluentDivider,
+  fluentTab,
+  fluentTabs,
+  fluentTabPanel,
 } from '@fluentui/web-components';
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
@@ -29,5 +32,8 @@ provideFluentDesignSystem().register(
   fluentNumberField(),
   fluentSelect(),
   fluentOption(),
-  fluentDivider()
+  fluentDivider(),
+  fluentTab(),
+  fluentTabs(),
+  fluentTabPanel()
 );

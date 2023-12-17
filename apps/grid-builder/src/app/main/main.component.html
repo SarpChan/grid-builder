@@ -1,1 +1,12 @@
-<p>main works!</p>
+<fluent-tabs class="h-full w-full" activeid="{{ activeId() }}">
+  @for (grid of grids(); track grid.id) {
+  <fluent-tab id="{{ grid.id }}" (click)="changeTab(grid.id)">
+    {{ grid.name }}
+  </fluent-tab>
+  <fluent-tab-panel id="{{ grid.id }}" class="h-full w-full">
+    <div class="border border-gray-200 rounded-md w-full h-full">
+      content for {{ grid.name }}
+    </div>
+  </fluent-tab-panel>
+  }
+</fluent-tabs>

@@ -1,0 +1,24 @@
+{
+  "name": "models",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "models/src",
+  "prefix": "grid-builder",
+  "tags": ["models"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "models/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["models/**/*.ts", "models/**/*.html"]
+      }
+    }
+  }
+}
