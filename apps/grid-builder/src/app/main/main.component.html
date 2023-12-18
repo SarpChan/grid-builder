@@ -5,7 +5,8 @@
   @for (grid of grids(); track grid.id) {
   <fluent-tab
     id="{{ grid.id }}"
-    class="flex-grow-0"
+    size="Large"
+    class="flex-grow-0 text-lg"
     (click)="changeTab(grid.id)"
   >
     {{ grid.name }}
