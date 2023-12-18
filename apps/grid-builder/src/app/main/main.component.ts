@@ -4,11 +4,13 @@ import {
   WritableSignal,
   signal,
 } from '@angular/core';
-import { Grid } from '@grid-builder/models';
+import { GridComponent } from '@grid-builder/components';
+import { Element, Grid, Unit } from '@grid-builder/models';
+
 @Component({
   selector: 'grid-builder-main',
   standalone: true,
-  imports: [],
+  imports: [GridComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,6 +22,42 @@ export class MainComponent {
     {
       id: 'test',
       name: 'First',
+      cols: [
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+      ],
+      rows: [
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+        {
+          value: 40,
+          unit: Unit.PX,
+        },
+      ],
     },
     {
       id: 'test2',

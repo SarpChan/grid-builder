@@ -1,11 +1,18 @@
-<fluent-tabs class="h-full w-full" activeid="{{ activeId() }}">
+<fluent-tabs
+  class="h-full w-full px-4 py-2 gap-y-2"
+  activeid="{{ activeId() }}"
+>
   @for (grid of grids(); track grid.id) {
-  <fluent-tab id="{{ grid.id }}" (click)="changeTab(grid.id)">
+  <fluent-tab
+    id="{{ grid.id }}"
+    class="flex-grow-0"
+    (click)="changeTab(grid.id)"
+  >
     {{ grid.name }}
   </fluent-tab>
-  <fluent-tab-panel id="{{ grid.id }}" class="h-full w-full">
-    <div class="border border-gray-200 rounded-md w-full h-full">
-      content for {{ grid.name }}
+  <fluent-tab-panel id="{{ grid.id }}" class="h-full w-full flex-grow">
+    <div class="bg-gray-100 rounded-md w-full h-full">
+      <grid-builder-grid [grid]="grid"></grid-builder-grid>
     </div>
   </fluent-tab-panel>
   }

@@ -1,0 +1,59 @@
+<div class="outer-grid relative">
+  <!-- TODO: Replace with FormData -->
+
+  @if (grid) {
+
+  <div
+    [ngStyle]="{ width: 'calc(100% - 16px)' }"
+    class="absolute right-0 horizontal-abs h-full"
+    #absoluteHorizontal
+  >
+    @for (col of grid.cols; track col; let index = $index) {
+    <button
+      class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 group"
+      (click)="selectColumn(index)"
+    >
+      <div
+        class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
+      >
+        Select Column {{ index }}
+      </div>
+    </button>
+
+    }
+  </div>
+
+  <div
+    [ngStyle]="{ height: 'calc(100% - 40px)' }"
+    class="absolute bottom-0 vertical-abs h-full"
+    #absoluteVertical
+  >
+    @for (col of grid.cols; track col; let index = $index) {
+    <button
+      class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 relative group"
+      (click)="selectColumn(index)"
+    >
+      <div
+        class="absolute flex items-center select-none rotate-[270deg] transition-colors -translate-y-1/2 top-1/2 -translate-x-1/4 group-hover:text-white"
+      >
+        Select Row {{ index }}
+      </div>
+    </button>
+
+    }
+  </div>
+  <div #horizontal class="horizontal"></div>
+  <div #vertical class="vertical"></div>
+
+  <div #main class="inner-grid relative">
+    @for (row of grid.rows; track row; let row_index = $index) { @for (col of
+    grid.cols; track col; let col_index = $index) {
+    <grid-builder-element
+      class="w-full h-full block z-[60]"
+      [col]="col_index"
+      [row]="row_index"
+    ></grid-builder-element>
+    } }
+  </div>
+  }
+</div>
