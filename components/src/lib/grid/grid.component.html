@@ -6,7 +6,7 @@
   <div
     [ngStyle]="{ width: 'calc(100% - 16px)' }"
     class="absolute right-0 horizontal-abs h-full"
-    #absoluteHorizontal
+    #rowSelection
   >
     @for (col of grid.cols; track col; let index = $index) {
     <button
@@ -26,7 +26,7 @@
   <div
     [ngStyle]="{ height: 'calc(100% - 40px)' }"
     class="absolute bottom-0 vertical-abs h-full"
-    #absoluteVertical
+    #columnSelection
   >
     @for (col of grid.cols; track col; let index = $index) {
     <button
@@ -42,8 +42,6 @@
 
     }
   </div>
-  <div #horizontal class="horizontal"></div>
-  <div #vertical class="vertical"></div>
 
   <div #main class="inner-grid relative">
     @for (row of grid.rows; track row; let row_index = $index) { @for (col of
