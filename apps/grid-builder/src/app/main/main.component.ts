@@ -68,4 +68,8 @@ export class MainComponent {
   changeTab(e: unknown) {
     console.log(e);
   }
+
+  addNewGrid() {
+    console.log('adding new grid');
+  }
 }
