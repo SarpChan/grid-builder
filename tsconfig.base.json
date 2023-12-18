@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@grid-builder/components": ["components/src/index.ts"],
       "@grid-builder/models": ["models/src/index.ts"]
     }
   },

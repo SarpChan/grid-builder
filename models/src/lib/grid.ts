@@ -1,3 +1,5 @@
+import { Dimension } from './dimension';
+import { Element } from './element';
 import { Unit } from './unit';
 
 export interface Grid {
@@ -12,5 +14,6 @@ export interface Grid {
   height: number;
   heightUnit: Unit;
 
-  elements: string[];
+  cols: Dimension[];
+  rows: Dimension[];
 }
