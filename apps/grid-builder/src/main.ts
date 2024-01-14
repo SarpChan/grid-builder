@@ -1,22 +1,26 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
 import {
-  provideFluentDesignSystem,
-  fluentCard,
-  fluentButton,
-  fluentTextField,
   fluentAccordion,
   fluentAccordionItem,
   fluentAnchor,
-  fluentNumberField,
-  fluentSelect,
-  fluentOption,
+  fluentButton,
+  fluentCard,
+  fluentCheckbox,
   fluentDivider,
+  fluentNumberField,
+  fluentOption,
+  fluentRadio,
+  fluentRadioGroup,
+  fluentSelect,
   fluentTab,
-  fluentTabs,
   fluentTabPanel,
+  fluentTabs,
+  fluentTextField,
+  fluentTooltip,
+  provideFluentDesignSystem,
 } from '@fluentui/web-components';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
   console.error(err)
@@ -35,5 +39,9 @@ provideFluentDesignSystem().register(
   fluentDivider(),
   fluentTab(),
   fluentTabs(),
-  fluentTabPanel()
+  fluentTabPanel(),
+  fluentCheckbox(),
+  fluentRadioGroup(),
+  fluentRadio(),
+  fluentTooltip()
 );

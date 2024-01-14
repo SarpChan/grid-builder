@@ -16,7 +16,7 @@
       <div
         class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
       >
-        Select Column {{ index }}
+        Select Column {{ index + 1 }}
       </div>
     </button>
 
@@ -34,9 +34,9 @@
       (click)="selectColumn(index)"
     >
       <div
-        class="absolute flex items-center select-none rotate-[270deg] transition-colors -translate-y-1/2 top-1/2 -translate-x-1/4 group-hover:text-white"
+        class="h-full absolute flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
       >
-        Select Row {{ index }}
+        Select Row {{ index + 1 }}
       </div>
     </button>
 

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.overridelistbox {
+  .listbox {
+    max-height: 20px;
+    height: 20px;
+  }
+}

@@ -22,3 +22,38 @@ body {
   margin: 0;
   padding: 0;
 }
+
+fluent-radio-group::part(positioning-region) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+.tooltip {
+  position: relative;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  @apply bg-gray-300 ring-accent ring-2 ring-offset-2;
+
+  visibility: hidden;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  padding: 0.5rem;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 900;
+  min-width: 200px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext {
+  top: 50%;
+  left: 60%;
+  transform: translateY(-50%);
+}

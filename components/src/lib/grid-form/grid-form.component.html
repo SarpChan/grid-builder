@@ -1,0 +1,15 @@
+<form [formGroup]="form" class="panel transition-all flex flex-col gap-4">
+  <grid-builder-toggle-value-unit
+    [disabled]="true"
+    valueLabel="Width"
+    [defaultUnit]="defaultUnit"
+    [checkboxLabel]="'Use Width'"
+  ></grid-builder-toggle-value-unit>
+
+  <grid-builder-toggle-value-unit
+    [disabled]="true"
+    valueLabel="Height"
+    [defaultUnit]="defaultUnit"
+    [checkboxLabel]="'Use Height'"
+  ></grid-builder-toggle-value-unit>
+</form>

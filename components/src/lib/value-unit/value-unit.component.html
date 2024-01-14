@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="flex flex-nowrap gap-2 relative">
+  <fluent-number-field
+    ngDefaultControl
+    formControlName="value"
+    value="defaultValue"
+    min="0"
+    appearance="filled"
+  >
+    {{ valueLabel }}
+  </fluent-number-field>
+
+  <div class="h-full gap-1 flex flex-col min-w-[40%]">
+    <h2 [ngClass]="{ 'opacity-30 cursor-not-allowed': disabled }">
+      {{ unitLabel }}
+    </h2>
+
+    <fluent-select
+      disabled="{{ disabled }}"
+      appearance="filled"
+      style="min-width: 0%; width: 100%; --max-height: 200px"
+    >
+      <div slot="selected-value">{{ selected }}</div>
+      @for (option of options; track option) {
+      <fluent-option
+        (click)="select(option)"
+        class="mb-1"
+        selected="{{ option === defaultUnit }}"
+        >{{ option }}</fluent-option
+      >
+      }
+    </fluent-select>
+  </div>
+</form>
