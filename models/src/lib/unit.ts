@@ -68,3 +68,5 @@ export const container_units = [
   Unit.CQMIN,
   Unit.CQMAX,
 ];
+
+export const units = Object.values(Unit).sort();

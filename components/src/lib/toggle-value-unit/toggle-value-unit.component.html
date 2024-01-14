@@ -1,0 +1,16 @@
+<form [formGroup]="form" class="flex flex-col gap-2">
+  <fluent-checkbox value="active" (click)="toggleActive()">{{
+    checkboxLabel
+  }}</fluent-checkbox>
+
+  <div [ngClass]="{ hidden: !active }">
+    <grid-builder-value-unit
+      [disabled]="!active"
+      [valueLabel]="valueLabel"
+      [defaultValue]="defaultValue"
+      [unitLabel]="unitLabel"
+      [defaultUnit]="defaultUnit"
+      [options]="options"
+    ></grid-builder-value-unit>
+  </div>
+</form>

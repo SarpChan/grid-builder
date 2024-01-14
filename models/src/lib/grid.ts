@@ -1,5 +1,4 @@
 import { Dimension } from './dimension';
-import { Element } from './element';
 import { Unit } from './unit';
 
 export interface Grid {

@@ -1,0 +1,54 @@
+<form [formGroup]="form" class="flex flex-col gap-2">
+  <!-- Media Dimension -->
+
+  <fluent-radio-group class="[>div]:gap-2 flex" [value]="selected">
+    <fluent-radio
+      [value]="mediaDimension.NONE"
+      (click)="select(mediaDimension.NONE)"
+      >None</fluent-radio
+    >
+    <fluent-radio
+      [value]="mediaDimension.FROM"
+      (click)="select(mediaDimension.FROM)"
+      >From</fluent-radio
+    >
+    <fluent-radio
+      [value]="mediaDimension.TO"
+      (click)="select(mediaDimension.TO)"
+      >To</fluent-radio
+    >
+    <fluent-radio
+      [value]="mediaDimension.FROM_TO"
+      (click)="select(mediaDimension.FROM_TO)"
+      >From/ To</fluent-radio
+    >
+  </fluent-radio-group>
+
+  @switch (selected) { @case (mediaDimension.FROM) {
+  <div>
+    <grid-builder-value-unit
+      valueLabel="From"
+      [defaultUnit]="defaultUnit"
+    ></grid-builder-value-unit>
+  </div>
+  } @case (mediaDimension.TO) {
+  <div>
+    <grid-builder-value-unit
+      valueLabel="To"
+      [defaultUnit]="defaultUnit"
+    ></grid-builder-value-unit>
+  </div>
+
+  } @case (mediaDimension.FROM_TO) {
+  <div class="flex flex-col gap-2">
+    <grid-builder-value-unit
+      valueLabel="From"
+      [defaultUnit]="defaultUnit"
+    ></grid-builder-value-unit>
+    <grid-builder-value-unit
+      valueLabel="To"
+      [defaultUnit]="defaultUnit"
+    ></grid-builder-value-unit>
+  </div>
+  } }
+</form>

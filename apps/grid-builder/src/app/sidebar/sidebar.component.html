@@ -1,110 +1,78 @@
-<div class="flex flex-col gap-4 relative">
-  <div class="flex flex-col p-4 gap-4 rounded-lg border-gray-300">
-    <fluent-button appearance="accent" class="w-full">Generate</fluent-button>
+<div class="grid grid-flow-row h-full">
+  <form [formGroup]="form" class="flex flex-col gap-4 relative">
+    <div class="flex flex-col p-4 pt-10 gap-4 rounded-lg border-gray-300">
+      <fluent-button appearance="accent" class="w-full">Generate</fluent-button>
 
-    <div class="w-full flex justify-center gap-4">
-      <fluent-button appearance="stealth" class="w-1/2 group"
-        ><span class="group-hover:text-red-500">Reset</span></fluent-button
-      >
-      <fluent-button appearance="outline" class="w-1/2">Preview</fluent-button>
+      <div class="w-full flex justify-center gap-4">
+        <fluent-button appearance="stealth" class="w-1/2 group"
+          ><span class="group-hover:text-red-500">Reset</span></fluent-button
+        >
+        <fluent-button appearance="outline" class="w-1/2"
+          >Preview</fluent-button
+        >
+      </div>
     </div>
-  </div>
-  <fluent-divider
-    appearance="strong"
-    orientation="horizontal"
-    role="separator"
-    style="border-width: 0.1px"
-    >test</fluent-divider
-  >
-  <fluent-text-field appearance="filled" label="Name">Name</fluent-text-field>
-  <fluent-accordion expand-mode="single">
-    <fluent-accordion-item>
-      <span slot="heading">Selection</span>
-      <div class="panel">
-        <div class="">row: height</div>
-        <div class="">col: width</div>
-        <div class="">item: col and row start/end, bg-color</div>
-      </div>
-    </fluent-accordion-item>
-    <fluent-accordion-item>
-      <span slot="heading">Viewport</span>
-      <div class="panel flex flex-col gap-2">
-        <div class="">for screen / print / both = Radio default both</div>
-        <div class="">viewport / container = Radio?</div>
-        <div class="">from / to / fromto = Radio?</div>
-      </div>
-    </fluent-accordion-item>
-    <fluent-accordion-item>
-      <span slot="heading">Grid</span>
-      <div class="panel transition-all py-4 flex flex-col gap-2">
-        <div class="flex flex-nowrap gap-2">
-          <fluent-number-field min="0" appearance="filled">
-            Horizontal
-          </fluent-number-field>
-          <div class="h-full gap-1 flex flex-col">
-            <h2>Unit</h2>
-
-            <fluent-select
-              appearance="filled"
-              style="min-width: 0%; width: 100%"
-            >
-              <fluent-option>Tets</fluent-option>
-            </fluent-select>
-          </div>
+    <fluent-divider
+      appearance="strong"
+      orientation="horizontal"
+      role="separator"
+      style="border-width: 0.1px"
+    ></fluent-divider>
+    <fluent-text-field appearance="filled" label="Name">Name</fluent-text-field>
+    <fluent-accordion expand-mode="single">
+      <fluent-accordion-item>
+        <span slot="heading">
+          <grid-builder-tooltip-title
+            [title]="'Selection'"
+            [tooltip]="'Tooltip describing the selection form'"
+          ></grid-builder-tooltip-title>
+        </span>
+        <div class="panel">
+          <grid-builder-selectable-form></grid-builder-selectable-form>
         </div>
+      </fluent-accordion-item>
 
-        <div class="flex flex-nowrap gap-2">
-          <fluent-number-field min="0" appearance="filled">
-            Vertical
-          </fluent-number-field>
-          <div class="h-full gap-1 flex flex-col">
-            <h2>Unit</h2>
-
-            <fluent-select
-              appearance="filled"
-              style="min-width: 0%; width: 100%"
-            >
-              <fluent-option>Tets</fluent-option>
-            </fluent-select>
-          </div>
+      <fluent-accordion-item>
+        <span slot="heading">
+          <grid-builder-tooltip-title
+            [title]="'Viewport'"
+            [tooltip]="'Tooltip describing the viewport form'"
+          ></grid-builder-tooltip-title>
+        </span>
+        <div class="panel flex flex-col gap-2">
+          <grid-builder-viewport-form></grid-builder-viewport-form>
         </div>
-      </div>
-    </fluent-accordion-item>
-    <fluent-accordion-item size="extra-large">
-      <span slot="heading">Gaps</span>
-      <div class="panel transition-all py-4 flex flex-col gap-2">
-        <div class="flex flex-nowrap gap-2">
-          <fluent-number-field min="0" appearance="filled">
-            Horizontal gap
-          </fluent-number-field>
-          <div class="h-full gap-1 flex flex-col">
-            <h2>Unit</h2>
+      </fluent-accordion-item>
 
-            <fluent-select
-              appearance="filled"
-              style="min-width: 0%; width: 100%"
-            >
-              <fluent-option>Tets</fluent-option>
-            </fluent-select>
-          </div>
-        </div>
+      <fluent-accordion-item>
+        <span slot="heading">
+          <grid-builder-tooltip-title
+            [title]="'Grid'"
+            [tooltip]="'Tooltip describing the grid form'"
+          ></grid-builder-tooltip-title>
+        </span>
+        <grid-builder-grid-form></grid-builder-grid-form>
+      </fluent-accordion-item>
 
-        <div class="flex flex-nowrap gap-2">
-          <fluent-number-field min="0" appearance="filled">
-            Vertical gap
-          </fluent-number-field>
-          <div class="h-full gap-1 flex flex-col">
-            <h2>Unit</h2>
+      <fluent-accordion-item size="extra-large">
+        <span slot="heading">
+          <grid-builder-tooltip-title
+            [title]="'Gaps'"
+            [tooltip]="'Tooltip describing the gaps form'"
+          ></grid-builder-tooltip-title>
+        </span>
+        <grid-builder-gap-form></grid-builder-gap-form>
+      </fluent-accordion-item>
 
-            <fluent-select
-              appearance="filled"
-              style="min-width: 0%; width: 100%"
-            >
-              <fluent-option>Tets</fluent-option>
-            </fluent-select>
-          </div>
-        </div>
-      </div>
-    </fluent-accordion-item>
-  </fluent-accordion>
+      <fluent-accordion-item>
+        <span slot="heading">
+          <grid-builder-tooltip-title
+            [title]="'Globals'"
+            [tooltip]="'Tooltip describing the globals form'"
+          ></grid-builder-tooltip-title>
+        </span>
+        <grid-builder-globals-form></grid-builder-globals-form>
+      </fluent-accordion-item>
+    </fluent-accordion>
+  </form>
 </div>
