@@ -1,4 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Grid } from '@grid-builder/models';
 import { ElementComponent } from '../element/element.component';
@@ -11,10 +16,19 @@ import { ElementComponent } from '../element/element.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class GridComponent {
-  @Input()
-  grid?: Grid;
+  grid = input.required<Grid>();
+  gridStyle = computed(() => {
+    const rowText = this.grid()
+      .rows.map((row) => row.height.value + row.height.unit)
+      .join(' ');
+    const columnText = this.grid()
+      .columns.map((column) => column.width.value + column.width.unit)
+      .join(' ');
 
-  selectColumn(index: number) {
-    console.log('selected:', index);
-  }
+    return {
+      row: rowText,
+      column: columnText,
+    };
+  });
+  selectColumn(index: number) {}
 }

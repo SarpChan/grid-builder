@@ -1,14 +1,14 @@
 <div class="outer-grid relative">
   <!-- TODO: Replace with FormData -->
 
-  @if (grid) {
+  @if (grid()) {
 
   <div
     [ngStyle]="{ width: 'calc(100% - 16px)' }"
     class="absolute right-0 horizontal-abs h-full"
     #rowSelection
   >
-    @for (col of grid.cols; track col; let index = $index) {
+    @for (col of grid().columns; track col; let index = $index) {
     <button
       class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 group"
       (click)="selectColumn(index)"
@@ -28,7 +28,7 @@
     class="absolute bottom-0 vertical-abs h-full"
     #columnSelection
   >
-    @for (col of grid.cols; track col; let index = $index) {
+    @for (row of grid().rows; track row; let index = $index) {
     <button
       class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 relative group"
       (click)="selectColumn(index)"
@@ -43,9 +43,16 @@
     }
   </div>
 
-  <div #main class="inner-grid relative">
-    @for (row of grid.rows; track row; let row_index = $index) { @for (col of
-    grid.cols; track col; let col_index = $index) {
+  <div
+    #main
+    class="inner-grid relative"
+    [ngStyle]="{
+      'grid-template-rows': gridStyle().row,
+      'grid-template-columns': gridStyle().column
+    }"
+  >
+    @for (row of grid().rows; track row; let row_index = $index) { @for (col of
+    grid().columns; track col; let col_index = $index) {
     <grid-builder-element
       class="w-full h-full block z-[60]"
       [col]="col_index"

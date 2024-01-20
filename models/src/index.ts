@@ -2,3 +2,8 @@ export * from './lib/element';
 export * from './lib/grid';
 export * from './lib/unit';
 export * from './lib/selectable';
+export * from './lib/row';
+export * from './lib/column';
+export * from './lib/valueunit';
+export * from './lib/viewport';
+export * from './lib/limiter';

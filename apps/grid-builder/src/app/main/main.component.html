@@ -1,27 +1,33 @@
-<fluent-tabs
-  class="h-full w-full px-4 py-2 gap-y-2"
-  activeid="{{ activeId() }}"
+<div
+  class="h-full w-full px-4 py-2 flex flex-col gap-2"
+  brnTabs="{{ activeId() }}"
 >
+  <hlm-tabs-list class="flex justify-between w-full" aria-label="tabs example">
+    <div class="grid grid-flow-col justify-start w-full gap-2">
+      @for (grid of grids(); track grid.id) {
+      <button
+        class="data-[state=active]:bg-accent data-[state=active]:shadow-sm data-[state=active]:text-white disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring font-medium inline-flex items-center justify-center px-3 py-1.5 ring-offset-background rounded-sm text-sm transition-all whitespace-nowrap"
+        hlmTabsTrigger="{{ grid.id }}"
+        (click)="select(grid.id)"
+      >
+        {{ grid.name }}
+      </button>
+      }
+    </div>
+    <fluent-button
+      class="pr-2 justify-self-end"
+      slot="end"
+      appearance="accent"
+      (click)="addNewGrid()"
+      >+</fluent-button
+    >
+  </hlm-tabs-list>
+
   @for (grid of grids(); track grid.id) {
-  <fluent-tab
-    id="{{ grid.id }}"
-    size="Large"
-    class="flex-grow-0 text-lg"
-    (click)="changeTab(grid.id)"
-  >
-    {{ grid.name }}
-  </fluent-tab>
-  <fluent-tab-panel id="{{ grid.id }}" class="h-full w-full flex-grow">
+  <div class="h-full w-full flex-grow" hlmTabsContent="{{ grid.id }}">
     <div class="bg-gray-100 rounded-md w-full h-full">
       <grid-builder-grid [grid]="grid"></grid-builder-grid>
     </div>
-  </fluent-tab-panel>
+  </div>
   }
-  <fluent-button
-    class="pr-2"
-    slot="end"
-    appearance="accent"
-    (click)="addNewGrid()"
-    >+</fluent-button
-  >
-</fluent-tabs>
+</div>

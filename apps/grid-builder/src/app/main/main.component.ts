@@ -1,75 +1,59 @@
+import { NgFor } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
+  ChangeDetectionStrategy,
   Component,
-  WritableSignal,
-  signal,
+  Signal,
+  inject,
 } from '@angular/core';
 import { GridComponent } from '@grid-builder/components';
-import { Element, Grid, Unit } from '@grid-builder/models';
+import { Grid } from '@grid-builder/models';
+import { GridsFacade } from '@grid-builder/state';
+import { Store } from '@ngrx/store';
+
+import {
+  BrnTabsDirective,
+  BrnTabsContentDirective,
+  BrnTabsListDirective,
+  BrnTabsTriggerDirective,
+} from '@spartan-ng/ui-tabs-brain';
+import {
+  HlmTabsContentDirective,
+  HlmTabsListComponent,
+  HlmTabsTriggerDirective,
+} from '@spartan-ng/ui-tabs-helm';
 
 @Component({
   selector: 'grid-builder-main',
   standalone: true,
-  imports: [GridComponent],
+  imports: [
+    GridComponent,
+    NgFor,
+    BrnTabsDirective,
+    BrnTabsContentDirective,
+    BrnTabsListDirective,
+    BrnTabsTriggerDirective,
+    HlmTabsContentDirective,
+    HlmTabsListComponent,
+    HlmTabsTriggerDirective,
+  ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {
-  activeId = signal('test');
+  facade = inject(GridsFacade);
+  store = inject(Store);
 
-  grids: WritableSignal<Grid[]> = signal([
-    {
-      id: 'test',
-      name: 'First',
-      cols: [
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-      ],
-      rows: [
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-        {
-          value: 40,
-          unit: Unit.PX,
-        },
-      ],
-    },
-    {
-      id: 'test2',
-      name: 'Second',
-    },
-  ] as Grid[]);
+  activeId = this.facade.selectedId$;
+  grids: Signal<Grid[]> = this.facade.allGrids$;
 
-  changeTab(e: unknown) {
-    console.log(e);
+  select(id: string) {
+    this.facade.select(id);
   }
 
   addNewGrid() {
-    console.log('adding new grid');
+    this.facade.add();
   }
 }

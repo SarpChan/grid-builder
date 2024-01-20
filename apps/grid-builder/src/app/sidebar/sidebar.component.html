@@ -18,7 +18,15 @@
       role="separator"
       style="border-width: 0.1px"
     ></fluent-divider>
-    <fluent-text-field appearance="filled" label="Name">Name</fluent-text-field>
+
+    <div>
+      <label hlmLabel>Name</label>
+      <input class="w-full" formControlName="name" hlmInput />
+      @if (name?.errors?.['required']) {
+      <span hlmInputError>A name is required</span>
+      }
+    </div>
+
     <fluent-accordion expand-mode="single">
       <fluent-accordion-item>
         <span slot="heading">

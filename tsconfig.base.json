@@ -10,14 +10,36 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@grid-builder/components": ["components/src/index.ts"],
-      "@grid-builder/models": ["models/src/index.ts"]
+      "@grid-builder/components": [
+        "components/src/index.ts"
+      ],
+      "@grid-builder/models": [
+        "models/src/index.ts"
+      ],
+      "@grid-builder/state": [
+        "state/src/index.ts"
+      ],
+      "@spartan-ng/ui-tabs-helm": [
+        "ui-tabs-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-input-helm": [
+        "ui-input-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-label-helm": [
+        "ui-label-helm/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
