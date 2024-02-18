@@ -1,6 +1,4 @@
-<div>
-  <div class="tooltip">
-    {{ title }}
-    <span class="tooltiptext">{{ tooltip }}</span>
-  </div>
-</div>
+<hlm-tooltip>
+  <button hlmTooltipTrigger aria-describedby="title">{{ title }}</button>
+  <span *brnTooltipContent>{{ tooltip }}</span>
+</hlm-tooltip>

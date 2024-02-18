@@ -1,0 +1,11 @@
+<form [formGroup]="form" class="flex flex-col gap-4 items-center">
+  <grid-builder-value-unit
+    [id]="id()"
+    valueLabel="Row height"
+    formName="height"
+    [defaultUnit]="defaultUnit"
+  ></grid-builder-value-unit>
+  <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"
+    ><span class="group-hover:text-white">Delete</span>
+  </fluent-button>
+</form>

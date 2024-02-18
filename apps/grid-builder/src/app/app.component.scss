@@ -6,8 +6,9 @@
 .layout {
   display: grid;
   grid-template-columns: minmax(200px, 276px) 7fr;
-  grid-template-rows: 64px repeat(2, 1fr);
+  grid-template-rows: 64px auto;
   height: 100%;
+  overflow: hidden;
 }
 
 .nav {

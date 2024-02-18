@@ -1,76 +1,9 @@
 <form [formGroup]="form" class="flex flex-col gap-2">
-  @switch (selected) { @case (selectable.ROW) {
-  <div class="flex flex-col gap-4 items-center">
-    <grid-builder-value-unit
-      valueLabel="Row height"
-      [defaultUnit]="defaultUnit"
-    ></grid-builder-value-unit>
-    <fluent-button appearance="accent" class="group w-1/2"
-      ><span class="group-hover:text-white">Delete</span>
-    </fluent-button>
-  </div>
+  @switch (selected()?.selectedType) { @case (selectable.ROW) {
+  <grid-builder-row-form [id]="selected()?.id"></grid-builder-row-form>
   } @case (selectable.COLUMN) {
-  <div class="flex flex-col gap-4 items-center">
-    <grid-builder-value-unit
-      valueLabel="Column width"
-      [defaultUnit]="defaultUnit"
-    ></grid-builder-value-unit>
-    <fluent-button appearance="accent" class="group w-1/2"
-      ><span class="group-hover:text-white">Delete</span>
-    </fluent-button>
-  </div>
-
+  <grid-builder-column-form [id]="selected()?.id"></grid-builder-column-form>
   } @case (selectable.ITEM) {
-  <div class="flex flex-col gap-4">
-    <div class="flex gap-2">
-      <fluent-number-field
-        ngDefaultControl
-        formControlName="value"
-        value="defaultValue"
-        min="0"
-        appearance="filled"
-      >
-        Column Start
-      </fluent-number-field>
-      <fluent-number-field
-        ngDefaultControl
-        formControlName="value"
-        value="defaultValue"
-        min="0"
-        appearance="filled"
-      >
-        Column End
-      </fluent-number-field>
-    </div>
-    <div class="flex gap-2">
-      <fluent-number-field
-        ngDefaultControl
-        formControlName="value"
-        value="defaultValue"
-        min="0"
-        appearance="filled"
-      >
-        Row Start
-      </fluent-number-field>
-      <fluent-number-field
-        ngDefaultControl
-        formControlName="value"
-        value="defaultValue"
-        min="0"
-        appearance="filled"
-      >
-        Row End
-      </fluent-number-field>
-    </div>
-    <fluent-number-field
-      ngDefaultControl
-      formControlName="value"
-      value="defaultValue"
-      min="0"
-      appearance="filled"
-    >
-      Color
-    </fluent-number-field>
-  </div>
+  <grid-builder-element-form [id]="selected()?.id"></grid-builder-element-form>
   } }
 </form>

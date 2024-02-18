@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GRIDS_FEATURE_KEY, GridsState, gridsAdapter } from './grids.reducer';
 
-// Lookup the 'Grids' feature state managed by NgRx
 export const selectGridsState =
   createFeatureSelector<GridsState>(GRIDS_FEATURE_KEY);
 
@@ -34,6 +33,11 @@ export const selectSelectedId = createSelector(
   }
 );
 
+export const selectSelectedElement = createSelector(
+  selectGridsState,
+  (state: GridsState) => state.selection
+);
+
 export const selectEntity = createSelector(
   selectGridsEntities,
   selectSelectedId,
@@ -53,3 +57,35 @@ export const selectGridStyling = createSelector(selectEntity, (entity) => {
 
   return { row: rowText, column: columnText };
 });
+
+export const selectSelectedColumn = createSelector(
+  selectSelectedElement,
+  selectEntity,
+  (selection, grid) => {
+    const id = selection?.id;
+    return grid?.columns.find((c) => c.id === id);
+  }
+);
+
+export const selectSelectedRow = createSelector(
+  selectSelectedElement,
+  selectEntity,
+  (selection, grid) => {
+    const id = selection?.id;
+    return grid?.rows.find((r) => r.id === id);
+  }
+);
+
+export const selectSelectedItem = createSelector(
+  selectSelectedElement,
+  selectEntity,
+  (selection, grid) => {
+    const id = selection?.id;
+    return grid?.items.find((i) => i.id === id);
+  }
+);
+
+export const selectViewport = createSelector(
+  selectEntity,
+  (grid) => grid?.viewport
+);

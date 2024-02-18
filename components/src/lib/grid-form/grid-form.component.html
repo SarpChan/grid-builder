@@ -1,9 +1,14 @@
-<form [formGroup]="form" class="panel transition-all flex flex-col gap-4">
+<form
+  [formGroup]="parentForm.form"
+  class="panel transition-all flex flex-col gap-4"
+>
   <grid-builder-toggle-value-unit
     [disabled]="true"
     valueLabel="Width"
     [defaultUnit]="defaultUnit"
     [checkboxLabel]="'Use Width'"
+    [toggleName]="'shouldUseWidth'"
+    [controlName]="'width'"
   ></grid-builder-toggle-value-unit>
 
   <grid-builder-toggle-value-unit
@@ -11,5 +16,7 @@
     valueLabel="Height"
     [defaultUnit]="defaultUnit"
     [checkboxLabel]="'Use Height'"
+    [toggleName]="'shouldUseHeight'"
+    [controlName]="'height'"
   ></grid-builder-toggle-value-unit>
 </form>

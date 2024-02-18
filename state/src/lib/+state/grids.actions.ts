@@ -1,5 +1,15 @@
-import { AddGrid, Grid } from '@grid-builder/models';
-import { Update } from '@ngrx/entity';
+import {
+  AddGrid,
+  AddItem,
+  AddItemSuccess,
+  Column,
+  Grid,
+  Item,
+  ReferenceContainer,
+  Row,
+  SelectionElement,
+  Viewport,
+} from '@grid-builder/models';
 import { createAction, props } from '@ngrx/store';
 
 export const initGrids = createAction('[Grids Page] Init');
@@ -25,5 +35,65 @@ export const selectGrid = createAction(
 );
 export const updateGrid = createAction(
   '[Grids/API] Update Grid',
-  props<{ grid: Update<Grid> }>()
+  props<{ id: string; changes: Partial<Grid> }>()
+);
+
+export const addColumn = createAction(
+  '[Grids/API] Add Column',
+  props<{ id: string }>()
+);
+
+export const addRow = createAction(
+  '[Grids/API] Add Row',
+  props<{ id: string }>()
+);
+
+export const addItem = createAction(
+  '[Grids/API] Add Item',
+  props<{ id: string; item: AddItem }>()
+);
+
+export const addItemSuccess = createAction(
+  '[Grids/API] Add Item Success',
+  props<{ id: string; item: AddItemSuccess }>()
+);
+
+export const removeColumn = createAction(
+  '[Grids/API] Remove Column',
+  props<{ gridId: string; columnId: string }>()
+);
+
+export const removeRow = createAction(
+  '[Grids/API] Remove Row',
+  props<{ gridId: string; rowId: string }>()
+);
+
+export const selectElement = createAction(
+  '[Grids/API] Select Item',
+  props<{ selection: SelectionElement }>()
+);
+
+export const updateRow = createAction(
+  '[Grids/API] Update Row',
+  props<{ id: string; rowId: string; changes: Partial<Row> }>()
+);
+
+export const updateColumn = createAction(
+  '[Grids/API] Update Column',
+  props<{ id: string; colId: string; changes: Partial<Column> }>()
+);
+
+export const updateItem = createAction(
+  '[Grids/API] Update Item',
+  props<{ id: string; itemId: string; changes: Partial<Item> }>()
+);
+
+export const updateViewport = createAction(
+  '[Grids/API] Update Viewport',
+  props<{ id: string; changes: Partial<Viewport> }>()
+);
+
+export const updateReferenceContainer = createAction(
+  '[Grids/API] Update ReferenceContainer',
+  props<{ referenceContainer: ReferenceContainer }>()
 );

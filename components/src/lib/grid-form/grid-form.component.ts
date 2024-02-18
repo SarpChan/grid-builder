@@ -6,7 +6,12 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Unit, units } from '@grid-builder/models';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroupDirective,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ToggleValueUnitComponent } from '../toggle-value-unit/toggle-value-unit.component';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
@@ -27,7 +32,8 @@ import { ValueUnitComponent } from '../value-unit/value-unit.component';
 })
 export class GridFormComponent {
   fb = inject(FormBuilder);
+  parentForm = inject(FormGroupDirective);
+
   options = units;
-  defaultUnit = Unit.PX;
-  form = this.fb.group({});
+  defaultUnit: Unit = 'px';
 }

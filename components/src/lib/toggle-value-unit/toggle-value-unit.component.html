@@ -1,16 +1,21 @@
 <form [formGroup]="form" class="flex flex-col gap-2">
-  <fluent-checkbox value="active" (click)="toggleActive()">{{
-    checkboxLabel
-  }}</fluent-checkbox>
+  <label class="flex items-center" hlmLabel>
+    <hlm-checkbox
+      (changed)="toggleActive()"
+      class="mr-2"
+      [checked]="toggleControl?.value"
+    ></hlm-checkbox>
+    {{ checkboxLabel() }}
+  </label>
 
-  <div [ngClass]="{ hidden: !active }">
+  <div [ngClass]="{ hidden: !toggleControl?.value }">
     <grid-builder-value-unit
-      [disabled]="!active"
-      [valueLabel]="valueLabel"
-      [defaultValue]="defaultValue"
-      [unitLabel]="unitLabel"
-      [defaultUnit]="defaultUnit"
-      [options]="options"
+      [valueLabel]="valueLabel()"
+      [defaultValue]="defaultValue()"
+      [unitLabel]="unitLabel()"
+      [defaultUnit]="defaultUnit()"
+      [options]="options()"
+      [formName]="controlName()"
     ></grid-builder-value-unit>
   </div>
 </form>

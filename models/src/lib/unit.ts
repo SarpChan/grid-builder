@@ -1,72 +1,46 @@
-export enum Unit {
-  PX = 'px',
-  PERCENT = '%',
-  EM = 'em',
-  REM = 'rem',
-  VW = 'vw',
-  VH = 'vh',
-  VMIN = 'vmin',
-  VMAX = 'vmax',
-  CM = 'cm',
-  MM = 'mm',
-  IN = 'in',
-  PT = 'pt',
-  PC = 'pc',
-  EX = 'ex',
-  CH = 'ch',
-  FR = 'fr',
-  AUTO = 'auto',
-  IC = 'ic',
-  LH = 'lh',
-  RLH = 'rlh',
-  VI = 'vi',
-  VB = 'vb',
-  CQW = 'cqw',
-  CQH = 'cqh',
-  CQI = 'cqi',
-  CQB = 'cqb',
-  CQMIN = 'cqmin',
-  CQMAX = 'cqmax',
-  Q = 'q',
+export const units = [
+  'px',
+  '%',
+  'em',
+  'rem',
+  'vw',
+  'vh',
+  'vmin',
+  'vmax',
+  'cm',
+  'mm',
+  'in',
+  'pt',
+  'pc',
+  'ex',
+  'ch',
+  'fr',
+  'auto',
+  'ic',
+  'lh',
+  'rlh',
+  'vi',
+  'vb',
+  'cqw',
+  'cqh',
+  'cqi',
+  'cqb',
+  'cqmin',
+  'cqmax',
+  'q',
+] as const;
+export type Unit = (typeof units)[number];
+
+export const font_units: Unit[] = ['em', 'rem', 'ch', 'ex', 'ic', 'lh', 'rlh'];
+
+export const absolute_units: Unit[] = ['px', 'cm', 'mm', 'in', 'pt', 'pc'];
+
+export const dynamic_units: Unit[] = ['fr', 'auto', '%'];
+
+export const viewport_units = ['vw', 'vh', 'vmin', 'vmax', 'vb', 'vi'];
+
+export const container_units = ['cqw', 'cqh', 'cqi', 'cqb', 'cqmin', 'cqmax'];
+
+export function isUnit(unit: string | undefined): unit is Unit {
+  return unit !== undefined && units.includes(unit as Unit);
 }
-
-export const font_units = [
-  Unit.EM,
-  Unit.REM,
-  Unit.CH,
-  Unit.EX,
-  Unit.IC,
-  Unit.LH,
-  Unit.RLH,
-];
-
-export const absolute_units = [
-  Unit.PX,
-  Unit.CM,
-  Unit.MM,
-  Unit.IN,
-  Unit.PT,
-  Unit.PC,
-];
-
-export const dynamic_units = [Unit.FR, Unit.AUTO, Unit.PERCENT];
-
-export const viewport_units = [
-  Unit.VW,
-  Unit.VH,
-  Unit.VMIN,
-  Unit.VMAX,
-  Unit.VB,
-  Unit.VI,
-];
-
-export const container_units = [
-  Unit.CQW,
-  Unit.CQH,
-  Unit.CQI,
-  Unit.CQB,
-  Unit.CQMIN,
-  Unit.CQMAX,
-];
-
-export const units = Object.values(Unit).sort();

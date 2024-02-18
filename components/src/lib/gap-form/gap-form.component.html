@@ -1,10 +1,15 @@
-<form [formGroup]="form" class="panel transition-all flex flex-col gap-4">
+<form
+  [formGroup]="parentForm.form"
+  class="panel transition-all flex flex-col gap-4"
+>
   <grid-builder-value-unit
+    [formName]="'hGap'"
     valueLabel="Horizontal gap"
     [defaultUnit]="defaultUnit"
   ></grid-builder-value-unit>
   <grid-builder-value-unit
+    [formName]="'vGap'"
     valueLabel="Vertical gap"
-    [defaultUnit]="'px'"
+    [defaultUnit]="defaultUnit"
   ></grid-builder-value-unit>
 </form>

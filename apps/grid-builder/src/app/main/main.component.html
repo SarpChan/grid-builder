@@ -15,7 +15,7 @@
       }
     </div>
     <fluent-button
-      class="pr-2 justify-self-end"
+      class="justify-self-end"
       slot="end"
       appearance="accent"
       (click)="addNewGrid()"
@@ -24,7 +24,7 @@
   </hlm-tabs-list>
 
   @for (grid of grids(); track grid.id) {
-  <div class="h-full w-full flex-grow" hlmTabsContent="{{ grid.id }}">
+  <div class="h-full w-full flex-grow mt-0" hlmTabsContent="{{ grid.id }}">
     <div class="bg-gray-100 rounded-md w-full h-full">
       <grid-builder-grid [grid]="grid"></grid-builder-grid>
     </div>

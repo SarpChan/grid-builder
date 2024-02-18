@@ -1,0 +1,68 @@
+<form [formGroup]="form" class="flex flex-col gap-4">
+  <div class="flex gap-2">
+    <label hlmLabel class="flex gap-1 flex-col">
+      <span> Column Start </span>
+
+      <input
+        hlmInput
+        class="w-full"
+        type="number"
+        formControlName="colStart"
+        min="0"
+        appearance="filled"
+      />
+    </label>
+
+    <label hlmLabel class="flex gap-1 flex-col">
+      <span> Column End </span>
+
+      <input
+        hlmInput
+        class="w-full"
+        type="number"
+        formControlName="colEnd"
+        min="0"
+        appearance="filled"
+      />
+    </label>
+  </div>
+  <div class="flex gap-2">
+    <label hlmLabel class="flex gap-1 flex-col">
+      <span> Row Start </span>
+
+      <input
+        hlmInput
+        class="w-full"
+        type="number"
+        formControlName="rowStart"
+        min="0"
+        appearance="filled"
+      />
+    </label>
+
+    <label hlmLabel class="flex gap-1 flex-col">
+      <span> Row End </span>
+
+      <input
+        hlmInput
+        class="w-full"
+        type="number"
+        formControlName="rowEnd"
+        min="0"
+        appearance="filled"
+      />
+    </label>
+  </div>
+
+  <label hlmLabel class="flex gap-1 flex-col">
+    <span> Color </span>
+
+    <input
+      class="p-0 invalid:p-0 border-0"
+      class="w-full"
+      type="color"
+      formControlName="color"
+      appearance="filled"
+    />
+  </label>
+</form>
