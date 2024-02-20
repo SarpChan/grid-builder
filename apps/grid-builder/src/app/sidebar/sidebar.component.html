@@ -33,17 +33,16 @@
         <!-- Selection -->
         <div hlmAccordionItem>
           <hlm-tooltip>
-            <button
+            <div
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
-              [disabled]="!selectedElement()"
               #selection
             >
               Selection
               <hlm-icon hlmAccIcon />
-            </button>
+            </div>
             <span *brnTooltipContent>
               @if (!selectedElement()) {
               <div>

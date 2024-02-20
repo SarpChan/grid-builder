@@ -1,4 +1,15 @@
-<form [formGroup]="form" class="flex flex-col gap-4">
+<form [formGroup]="form" class="flex flex-col gap-4 items-center">
+  <label hlmLabel class="flex gap-1 flex-col w-full">
+    <span> Name </span>
+
+    <input
+      hlmInput
+      class="w-full"
+      formControlName="name"
+      (keydown)="$event.stopPropagation()"
+    />
+  </label>
+
   <div class="flex gap-2">
     <label hlmLabel class="flex gap-1 flex-col">
       <span> Column Start </span>
@@ -22,7 +33,6 @@
         type="number"
         formControlName="colEnd"
         min="0"
-        appearance="filled"
       />
     </label>
   </div>
@@ -36,7 +46,6 @@
         type="number"
         formControlName="rowStart"
         min="0"
-        appearance="filled"
       />
     </label>
 
@@ -49,20 +58,21 @@
         type="number"
         formControlName="rowEnd"
         min="0"
-        appearance="filled"
       />
     </label>
   </div>
 
-  <label hlmLabel class="flex gap-1 flex-col">
+  <label hlmLabel class="flex gap-1 flex-col w-full">
     <span> Color </span>
 
     <input
-      class="p-0 invalid:p-0 border-0"
-      class="w-full"
+      class="p-0 invalid:p-0 border-0 w-full"
       type="color"
       formControlName="color"
-      appearance="filled"
     />
   </label>
+
+  <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"
+    ><span class="group-hover:text-white">Delete</span>
+  </fluent-button>
 </form>

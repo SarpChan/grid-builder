@@ -68,6 +68,11 @@ export const removeRow = createAction(
   props<{ gridId: string; rowId: string }>()
 );
 
+export const removeItem = createAction(
+  '[Grids/API] Remove Item',
+  props<{ gridId: string; itemId: string }>()
+);
+
 export const selectElement = createAction(
   '[Grids/API] Select Item',
   props<{ selection: SelectionElement }>()

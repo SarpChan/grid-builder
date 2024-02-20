@@ -269,7 +269,6 @@ const reducer = createReducer(
       };
     }, state);
   }),
-
   on(GridsActions.updateItem, (state, { id, itemId, changes }) => {
     return gridsAdapter.map((grid) => {
       if (grid.id !== id) return grid;
@@ -338,9 +337,28 @@ const reducer = createReducer(
         item.id === gridId
           ? {
               ...item,
-              rows: item.rows.filter((col) => col.id !== rowId),
+              rows: item.rows.filter((row) => row.id !== rowId),
             }
           : item,
+      state
+    );
+
+    if (isSelected) {
+      newState.selection = undefined;
+    }
+    return newState;
+  }),
+  on(GridsActions.removeItem, (state, { gridId, itemId }) => {
+    const isSelected = itemId === state.selection?.id;
+
+    const newState = gridsAdapter.map(
+      (grid) =>
+        grid.id === gridId
+          ? {
+              ...grid,
+              items: grid.items.filter((item) => item.id !== itemId),
+            }
+          : grid,
       state
     );
 
