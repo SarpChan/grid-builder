@@ -109,6 +109,10 @@ export class GridsFacade {
   removeRow(gridId: string, rowId: string) {
     this.store.dispatch(GridsActions.removeRow({ gridId, rowId }));
   }
+
+  removeItem(gridId: string, itemId: string) {
+    this.store.dispatch(GridsActions.removeItem({ gridId, itemId }));
+  }
 }
 
 const grid: AddGrid = {

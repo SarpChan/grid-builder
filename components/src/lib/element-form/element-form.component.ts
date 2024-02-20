@@ -18,9 +18,13 @@ import {
 } from '@angular/forms';
 import { GridsFacade } from '@grid-builder/state';
 import { Item, Unit, units } from '@grid-builder/models';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import {
+  HlmInputDirective,
+  HlmInputErrorDirective,
+} from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'grid-builder-element-form',
@@ -31,6 +35,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     HlmInputDirective,
     HlmLabelDirective,
+    HlmInputErrorDirective,
   ],
   templateUrl: './element-form.component.html',
   styleUrl: './element-form.component.scss',
@@ -49,6 +54,7 @@ export class ElementFormComponent implements AfterViewInit {
   gridId = this.facade.selectedId$;
 
   form = this.fb.nonNullable.group({
+    name: [this.selected()?.name, [Validators.required]],
     colStart: [
       this.selected()?.colStart ?? 1,
       [Validators.required, Validators.min(0)],
@@ -69,6 +75,10 @@ export class ElementFormComponent implements AfterViewInit {
   });
   ready = signal(false);
 
+  get name() {
+    return this.form.get('name');
+  }
+
   constructor() {
     effect(
       () => {
@@ -77,15 +87,17 @@ export class ElementFormComponent implements AfterViewInit {
       { allowSignalWrites: true }
     );
 
-    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      if (this.ready()) {
-        this.facade.updateItem(
-          this.gridId() ?? '',
-          this.selected()?.id ?? '',
-          value
-        );
-      }
-    });
+    this.form.valueChanges
+      .pipe(debounceTime(100), takeUntilDestroyed())
+      .subscribe((value) => {
+        if (this.ready()) {
+          this.facade.updateItem(
+            this.gridId() ?? '',
+            this.selected()?.id ?? '',
+            value
+          );
+        }
+      });
   }
 
   resetForm(id: string | undefined) {
@@ -111,5 +123,14 @@ export class ElementFormComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.ready.set(true);
+  }
+
+  delete() {
+    this.facade.removeItem(this.gridId() ?? '', this.id() ?? '');
+  }
+
+  throwsEvent(e: Event) {
+    e.stopPropagation();
+    console.log(e);
   }
 }
