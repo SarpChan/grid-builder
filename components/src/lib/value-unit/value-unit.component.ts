@@ -4,85 +4,139 @@ import {
   Component,
   Input,
   OnInit,
+  computed,
   inject,
+  input,
+  signal,
 } from '@angular/core';
 import {
   ControlContainer,
   FormBuilder,
-  FormGroup,
   FormGroupDirective,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Unit, units } from '@grid-builder/models';
+import { Unit, isUnit, units } from '@grid-builder/models';
+import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { ComboboxComponent } from '../combobox/combobox.component';
+import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+export type Option = { label: string; value: Unit | undefined };
 
 @Component({
   selector: 'grid-builder-value-unit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HlmInputDirective,
+    ComboboxComponent,
+    HlmLabelDirective,
+  ],
   templateUrl: './value-unit.component.html',
   styleUrl: './value-unit.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ValueUnitComponent implements OnInit {
-  @Input()
-  valueLabel = 'Value';
+  valueLabel = input('Value');
+  unitLabel = input('Unit');
 
-  @Input()
-  defaultValue = 1;
+  options = input<Unit[] | undefined>([...units]);
 
-  @Input()
-  unitLabel = 'Unit';
+  actualOptions = computed(() => {
+    const options = this.options();
+    if (options) {
+      return options.map((unit) => ({ value: unit, label: unit }));
+    }
 
-  @Input()
-  defaultUnit?: Unit | string;
+    return [] as Option[];
+  });
 
-  @Input()
-  options = units;
+  formName = input('value-unit');
+
+  defaultValue = input<number>(1);
+  defaultUnit = input<Unit>('px' as Unit);
+
+  id = input<string | undefined>();
+
+  currentValue = signal<number | undefined>(undefined);
+  currentOption = signal<Option | undefined>(undefined);
 
   _disabled = false;
   @Input()
   set disabled(value: boolean) {
     this._disabled = value;
-    this.toggleForm(value);
+    this.setDisabledStatus(value);
   }
 
   get disabled() {
     return this._disabled;
   }
 
-  selected?: string;
-  form!: FormGroup;
-
-  controlContainer = inject(ControlContainer);
+  selected = computed<Option | undefined>(() =>
+    this.defaultUnit()
+      ? {
+          value: this.defaultUnit(),
+          label: this.defaultUnit()?.toString() ?? '',
+        }
+      : undefined
+  );
   fb = inject(FormBuilder);
 
+  form = this.fb.nonNullable.group({
+    value: [this.defaultValue(), [Validators.min(0)]],
+    unit: [this.defaultUnit(), [Validators.required]],
+  });
+
+  controlContainer = inject(ControlContainer);
+
+  constructor() {
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((changed) => {
+      if (changed.unit === undefined || changed.unit === null) {
+        this.currentOption.set({
+          value: this.defaultUnit(),
+          label: this.defaultUnit() ?? '',
+        });
+        this.form.get('unit')?.setValue(this.defaultUnit());
+      }
+      this.currentValue.set(changed.value);
+      const unit = changed.unit;
+      if (isUnit(unit)) {
+        this.currentOption.set({ value: unit, label: unit });
+      }
+    });
+  }
+
   ngOnInit() {
-    this.selected = this.defaultUnit;
+    this.currentValue.set(this.form.value.value);
+    const unit = this.form.value.unit;
+    if (isUnit(unit)) {
+      this.currentOption.set({ value: unit, label: unit });
+    }
+
     const parent = (this.controlContainer.formDirective as FormGroupDirective)
       .form;
-
-    this.form = this.fb.group({
-      value: [this.defaultValue, [Validators.min(0)]],
-      unit: [this.defaultUnit, [Validators.required]],
+    parent.addControl(this.formName(), this.form, {
+      emitEvent: false,
     });
-
-    parent.addControl('horizontal', this.form);
-    this.toggleForm(this._disabled);
   }
 
-  select(option: string): void {
-    this.selected = option;
-    this.form?.get('unit')?.setValue(option);
+  select(option: Option): void {
+    const unit = option.value;
+
+    if (isUnit(unit)) {
+      this.form?.get('unit')?.setValue(unit);
+    }
   }
 
-  toggleForm(toggle: boolean) {
+  setDisabledStatus(toggle: boolean, shouldEmit = false) {
     if (toggle) {
-      this.form?.get('value')?.disable();
-      this.form?.get('unit')?.disable();
+      this.form?.get('value')?.disable({ emitEvent: shouldEmit });
+      this.form?.get('unit')?.disable({ emitEvent: shouldEmit });
     } else {
-      this.form?.get('value')?.enable();
-      this.form?.get('unit')?.enable();
+      this.form?.get('value')?.enable({ emitEvent: shouldEmit });
+      this.form?.get('unit')?.enable({ emitEvent: shouldEmit });
     }
   }
 }

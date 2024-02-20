@@ -1,42 +1,111 @@
 import {
+  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
+  signal,
+  untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Unit, units } from '@grid-builder/models';
+import {
+  Limiter,
+  MediaType,
+  Unit,
+  isLimiter,
+  isMediaType,
+  units,
+} from '@grid-builder/models';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import {
+  BrnRadioComponent,
+  BrnRadioGroupComponent,
+} from '@spartan-ng/ui-radiogroup-brain';
+import {
+  HlmRadioDirective,
+  HlmRadioGroupDirective,
+  HlmRadioIndicatorComponent,
+} from '@spartan-ng/ui-radiogroup-helm';
+import { GridsFacade } from '@grid-builder/state';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'grid-builder-viewport-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ValueUnitComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ValueUnitComponent,
+    BrnRadioComponent,
+    BrnRadioGroupComponent,
+    HlmRadioDirective,
+    HlmRadioIndicatorComponent,
+    HlmRadioGroupDirective,
+  ],
   templateUrl: './viewport-form.component.html',
   styleUrl: './viewport-form.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewportFormComponent {
+export class ViewportFormComponent implements AfterViewInit {
   fb = inject(FormBuilder);
+  facade = inject(GridsFacade);
+  viewport = this.facade.selectViewport$;
+  gridId = this.facade.selectedId$;
   options = units;
-  defaultUnit = Unit.PX;
-  mediaDimension = MediaDimension;
-  selected = MediaDimension.NONE;
-  form = this.fb.group({
-    mediaDimension: [this.selected, [Validators.required]],
+  defaultUnit: Unit = 'px';
+  mediaTypeValue: MediaType = 'both';
+
+  selectedLimiter: Limiter = 'none';
+
+  ready = signal(false);
+  oldId: string | undefined;
+  form = this.fb.nonNullable.group({
+    limiter: [this.selectedLimiter, [Validators.required]],
+    mediaType: [this.mediaTypeValue, [Validators.required]],
   });
 
-  select(dimension: MediaDimension) {
-    this.form.get('mediaDimension')?.setValue(dimension);
-    this.selected = dimension;
+  constructor() {
+    effect(
+      () => {
+        this.resetForm(this.viewport()?.limiter);
+      },
+      { allowSignalWrites: true }
+    );
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      const limiter = value.limiter;
+      if (limiter && isLimiter(limiter)) {
+        this.selectedLimiter = limiter;
+      }
+      this.facade.updateViewport(this.gridId() ?? '', value);
+    });
   }
-}
 
-enum MediaDimension {
-  NONE = 'NONE',
-  FROM = 'FROM',
-  TO = 'TO',
-  FROM_TO = 'FROM_TO',
+  select(dimension: Limiter) {
+    this.form.get('limiter')?.setValue(dimension);
+    this.selectedLimiter = dimension;
+  }
+
+  resetForm(id: string | undefined) {
+    if (id && this.oldId !== id) {
+      this.form.reset(
+        untracked(() => this.viewport()),
+        { emitEvent: this.form.pristine, onlySelf: true }
+      );
+    }
+    this.oldId = id;
+  }
+
+  selectMediaType(mt: string) {
+    if (isMediaType(mt)) {
+      this.mediaTypeValue = mt;
+      this.form.get('mediaType')?.setValue(mt);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.ready.set(true);
+  }
 }

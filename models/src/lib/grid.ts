@@ -1,18 +1,25 @@
-import { Dimension } from './dimension';
-import { Unit } from './unit';
+import { Column } from './column';
+import { Item } from './item';
+import { Row } from './row';
+import { ValueUnit } from './valueunit';
+import { Viewport } from './viewport';
 
 export interface Grid {
-  id: string;
-
+  id: string; // Primary ID
   name: string;
-  mediaQuery: string;
 
-  width: number;
-  widthUnit: Unit;
+  rows: Row[];
+  columns: Column[];
+  items: Item[];
+  vGap: ValueUnit | undefined;
+  hGap: ValueUnit | undefined;
+  viewport: Viewport;
 
-  height: number;
-  heightUnit: Unit;
+  shouldUseWidth: boolean;
+  width: ValueUnit | undefined;
 
-  cols: Dimension[];
-  rows: Dimension[];
+  shouldUseHeight: boolean;
+  height: ValueUnit | undefined;
 }
+
+export type AddGrid = Omit<Grid, 'id'>;

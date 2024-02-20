@@ -1,26 +1,26 @@
 <form [formGroup]="form" class="flex flex-col gap-2">
-  <!-- Media Type -->
-
-  <fluent-radio-group class="gap-2">
-    <h2 slot="label">Choose a Mediatype</h2>
-    <fluent-radio [value]="mediaType.SCREEN">Screen</fluent-radio>
-    <fluent-radio [value]="mediaType.PRINT">Print</fluent-radio>
-    <fluent-radio [value]="mediaType.BOTH">Both</fluent-radio>
-  </fluent-radio-group>
-
-  <fluent-divider
-    appearance="strong"
-    orientation="horizontal"
-    role="separator"
-    style="border-width: 0.1px"
-  ></fluent-divider>
   <!-- Reference Container -->
+  <brn-radio-group
+    hlm
+    [value]="referenceContainerValue"
+    class="gap-2 grid grid-cols-2"
+  >
+    <h2 class="col-span-2">Reference Conainter</h2>
 
-  <fluent-radio-group class="gap-2">
-    <h2 slot="label">Reference Conainter</h2>
-    <fluent-radio [value]="referenceContainer.VIEWPORT">Viewport</fluent-radio>
-    <fluent-radio [value]="referenceContainer.CONTAINER"
-      >Container</fluent-radio
-    >
-  </fluent-radio-group>
+    <brn-radio hlm value="viewport" (click)="select('viewport')">
+      <hlm-radio-indicator
+        (click)="select('viewport')"
+        indicator
+      ></hlm-radio-indicator>
+      Viewport
+    </brn-radio>
+
+    <brn-radio hlm value="container" (click)="select('container')">
+      <hlm-radio-indicator
+        (click)="select('container')"
+        indicator
+      ></hlm-radio-indicator>
+      Container
+    </brn-radio>
+  </brn-radio-group>
 </form>

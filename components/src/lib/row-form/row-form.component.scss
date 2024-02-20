@@ -1,0 +1,5 @@
+fluent-button::part(control) {
+  background: unset;
+
+  @apply bg-red-500 hover:brightness-105;
+}

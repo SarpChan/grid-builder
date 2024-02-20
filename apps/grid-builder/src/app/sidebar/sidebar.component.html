@@ -1,9 +1,9 @@
 <div class="grid grid-flow-row h-full">
-  <form [formGroup]="form" class="flex flex-col gap-4 relative">
-    <div class="flex flex-col p-4 pt-10 gap-4 rounded-lg border-gray-300">
+  <form [formGroup]="form" class="flex flex-col gap-2 relative">
+    <div class="flex flex-col px-4 pb-2 gap-4 rounded-lg border-gray-300">
       <fluent-button appearance="accent" class="w-full">Generate</fluent-button>
 
-      <div class="w-full flex justify-center gap-4">
+      <div class="w-full flex justify-center gap-2">
         <fluent-button appearance="stealth" class="w-1/2 group"
           ><span class="group-hover:text-red-500">Reset</span></fluent-button
         >
@@ -18,61 +18,170 @@
       role="separator"
       style="border-width: 0.1px"
     ></fluent-divider>
-    <fluent-text-field appearance="filled" label="Name">Name</fluent-text-field>
-    <fluent-accordion expand-mode="single">
-      <fluent-accordion-item>
-        <span slot="heading">
-          <grid-builder-tooltip-title
-            [title]="'Selection'"
-            [tooltip]="'Tooltip describing the selection form'"
-          ></grid-builder-tooltip-title>
-        </span>
-        <div class="panel">
-          <grid-builder-selectable-form></grid-builder-selectable-form>
+
+    <div>
+      <label hlmLabel>Name</label>
+      <input class="w-full" formControlName="name" type="text" hlmInput />
+
+      @if (name?.errors?.['required']) {
+      <span hlmInputError>A name is required</span>
+      }
+    </div>
+
+    <div class="flex flex-col justify-between flex-grow">
+      <div hlmAccordion>
+        <!-- Selection -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+              [disabled]="!selectedElement()"
+              #selection
+            >
+              Selection
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent>
+              @if (!selectedElement()) {
+              <div>
+                <p class="text-destructive">
+                  You did not select an interactable element
+                </p>
+                <p>Try selecting a row, column or item!</p>
+              </div>
+              } @else {
+              <div>
+                <p>Select a column, row or cell to edit this form</p>
+                <p>Try selecting a row, column or item!</p>
+              </div>
+              }
+            </span>
+          </hlm-tooltip>
+
+          <brn-accordion-content hlm class="pb-0">
+            <grid-builder-selectable-form></grid-builder-selectable-form>
+          </brn-accordion-content>
         </div>
-      </fluent-accordion-item>
 
-      <fluent-accordion-item>
-        <span slot="heading">
-          <grid-builder-tooltip-title
-            [title]="'Viewport'"
-            [tooltip]="'Tooltip describing the viewport form'"
-          ></grid-builder-tooltip-title>
-        </span>
-        <div class="panel flex flex-col gap-2">
-          <grid-builder-viewport-form></grid-builder-viewport-form>
+        <!-- Viewport -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+            >
+              Viewport
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent>Tooltip describing the viewport form</span>
+          </hlm-tooltip>
+          <brn-accordion-content hlm>
+            <grid-builder-viewport-form></grid-builder-viewport-form>
+          </brn-accordion-content>
         </div>
-      </fluent-accordion-item>
 
-      <fluent-accordion-item>
-        <span slot="heading">
-          <grid-builder-tooltip-title
-            [title]="'Grid'"
-            [tooltip]="'Tooltip describing the grid form'"
-          ></grid-builder-tooltip-title>
-        </span>
-        <grid-builder-grid-form></grid-builder-grid-form>
-      </fluent-accordion-item>
+        <!-- Grid -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+            >
+              Grid
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent>
+              <p>Change the Width and Height of your grid</p>
+              <p class="text-destructive">
+                Changing these values to low static values may make interaction
+                hard and may cause weird visuals
+              </p>
+              <p class="text-destructive">
+                You may want to select a row or column instead to change their
+                dimensions
+              </p>
+            </span>
+          </hlm-tooltip>
+          <brn-accordion-content hlm>
+            <grid-builder-grid-form></grid-builder-grid-form>
+          </brn-accordion-content>
+        </div>
 
-      <fluent-accordion-item size="extra-large">
-        <span slot="heading">
-          <grid-builder-tooltip-title
-            [title]="'Gaps'"
-            [tooltip]="'Tooltip describing the gaps form'"
-          ></grid-builder-tooltip-title>
-        </span>
-        <grid-builder-gap-form></grid-builder-gap-form>
-      </fluent-accordion-item>
+        <!-- Gaps -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+            >
+              Gaps
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent
+              >Change the space between cells in row and column directions</span
+            >
+          </hlm-tooltip>
+          <brn-accordion-content hlm>
+            <grid-builder-gap-form></grid-builder-gap-form>
+          </brn-accordion-content>
+        </div>
+        <!-- Globals -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+            >
+              Globals
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent>Tooltip describing the globals form</span>
+          </hlm-tooltip>
+          <brn-accordion-content hlm>
+            <grid-builder-globals-form></grid-builder-globals-form>
+          </brn-accordion-content>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="w-full flex justify-center gap-4">
+          <fluent-button
+            appearance="stealth"
+            class="w-1/2 group"
+            (click)="removeRow()"
+            ><span class="group-hover:text-red-500"
+              >Remove row</span
+            ></fluent-button
+          >
+          <fluent-button appearance="accent" class="w-1/2" (click)="addRow()"
+            >Add row</fluent-button
+          >
+        </div>
 
-      <fluent-accordion-item>
-        <span slot="heading">
-          <grid-builder-tooltip-title
-            [title]="'Globals'"
-            [tooltip]="'Tooltip describing the globals form'"
-          ></grid-builder-tooltip-title>
-        </span>
-        <grid-builder-globals-form></grid-builder-globals-form>
-      </fluent-accordion-item>
-    </fluent-accordion>
+        <div class="w-full flex justify-center gap-4">
+          <fluent-button
+            appearance="stealth"
+            class="w-1/2 group"
+            (click)="removeCol()"
+            ><span class="group-hover:text-red-500"
+              >Remove column</span
+            ></fluent-button
+          >
+          <fluent-button appearance="accent" class="w-1/2" (click)="addCol()"
+            >Add column</fluent-button
+          >
+        </div>
+      </div>
+    </div>
   </form>
 </div>

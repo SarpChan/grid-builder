@@ -1,54 +1,101 @@
 <form [formGroup]="form" class="flex flex-col gap-2">
+  <!-- Media Type -->
+
+  <brn-radio-group hlm [value]="mediaTypeValue" class="gap-2 grid grid-cols-2">
+    <h2 class="col-span-2">Choose a Mediatype</h2>
+
+    <brn-radio hlm value="screen" (click)="selectMediaType('screen')">
+      <hlm-radio-indicator
+        (click)="selectMediaType('screen')"
+        indicator
+      ></hlm-radio-indicator>
+      Screen
+    </brn-radio>
+
+    <brn-radio hlm value="print" (click)="selectMediaType('print')">
+      <hlm-radio-indicator
+        (click)="selectMediaType('print')"
+        indicator
+      ></hlm-radio-indicator>
+      Print
+    </brn-radio>
+
+    <brn-radio hlm value="both" (click)="selectMediaType('both')">
+      <hlm-radio-indicator
+        (click)="selectMediaType('both')"
+        indicator
+      ></hlm-radio-indicator>
+      Both
+    </brn-radio>
+  </brn-radio-group>
+
+  <fluent-divider
+    appearance="strong"
+    orientation="horizontal"
+    role="separator"
+    style="border-width: 0.1px"
+  ></fluent-divider>
+
   <!-- Media Dimension -->
+  <brn-radio-group
+    hlm
+    [value]="selectedLimiter"
+    formControlName="limiter"
+    class="gap-2 grid grid-cols-2"
+  >
+    <h2 class="col-span-2">Choose a Limiter</h2>
 
-  <fluent-radio-group class="[>div]:gap-2 flex" [value]="selected">
-    <fluent-radio
-      [value]="mediaDimension.NONE"
-      (click)="select(mediaDimension.NONE)"
-      >None</fluent-radio
-    >
-    <fluent-radio
-      [value]="mediaDimension.FROM"
-      (click)="select(mediaDimension.FROM)"
-      >From</fluent-radio
-    >
-    <fluent-radio
-      [value]="mediaDimension.TO"
-      (click)="select(mediaDimension.TO)"
-      >To</fluent-radio
-    >
-    <fluent-radio
-      [value]="mediaDimension.FROM_TO"
-      (click)="select(mediaDimension.FROM_TO)"
-      >From/ To</fluent-radio
-    >
-  </fluent-radio-group>
+    <brn-radio hlm [value]="'none'" (click)="select('none')">
+      <hlm-radio-indicator
+        (click)="select('none')"
+        indicator
+      ></hlm-radio-indicator>
+      None
+    </brn-radio>
 
-  @switch (selected) { @case (mediaDimension.FROM) {
-  <div>
-    <grid-builder-value-unit
-      valueLabel="From"
-      [defaultUnit]="defaultUnit"
-    ></grid-builder-value-unit>
-  </div>
-  } @case (mediaDimension.TO) {
-  <div>
-    <grid-builder-value-unit
-      valueLabel="To"
-      [defaultUnit]="defaultUnit"
-    ></grid-builder-value-unit>
-  </div>
+    <brn-radio hlm [value]="'from'" (click)="select('from')">
+      <hlm-radio-indicator
+        (click)="select('from')"
+        indicator
+      ></hlm-radio-indicator>
+      From
+    </brn-radio>
 
-  } @case (mediaDimension.FROM_TO) {
+    <brn-radio hlm [value]="'to'" (click)="select('to')">
+      <hlm-radio-indicator
+        (click)="select('to')"
+        indicator
+      ></hlm-radio-indicator>
+      To
+    </brn-radio>
+
+    <brn-radio hlm [value]="'from_to'" (click)="select('from_to')">
+      <hlm-radio-indicator
+        (click)="select('from_to')"
+        indicator
+      ></hlm-radio-indicator>
+      From/ To
+    </brn-radio>
+  </brn-radio-group>
+
   <div class="flex flex-col gap-2">
     <grid-builder-value-unit
+      [ngClass]="{
+        hidden: selectedLimiter === 'to' || selectedLimiter === 'none'
+      }"
+      [id]="selectedLimiter + gridId()"
       valueLabel="From"
+      formName="from"
       [defaultUnit]="defaultUnit"
     ></grid-builder-value-unit>
     <grid-builder-value-unit
+      [ngClass]="{
+        hidden: selectedLimiter === 'from' || selectedLimiter === 'none'
+      }"
+      [id]="selectedLimiter + gridId()"
       valueLabel="To"
+      formName="to"
       [defaultUnit]="defaultUnit"
     ></grid-builder-value-unit>
   </div>
-  } }
 </form>

@@ -1,57 +1,158 @@
-<div class="outer-grid relative">
-  <!-- TODO: Replace with FormData -->
+<div class="outer-grid relative p-2">
+  @if (grid()) {
 
-  @if (grid) {
-
-  <div
-    [ngStyle]="{ width: 'calc(100% - 16px)' }"
-    class="absolute right-0 horizontal-abs h-full"
-    #rowSelection
-  >
-    @for (col of grid.cols; track col; let index = $index) {
-    <button
-      class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 group"
-      (click)="selectColumn(index)"
+  <!-- Column Selector -->
+  <div class="w-full relative col-start-2 z-10">
+    <div
+      [ngStyle]="{
+        width: gridStyle().width,
+        gridTemplateColumns: gridStyle().column,
+        gap: gridStyle().hGap,
+        height: selectorStyle().rowSelectionHeight + 'px'
+      }"
+      class="absolute grid grid-flow-col h-full"
+      #rowSelection
     >
+      @for (col of grid().columns; track col; let index = $index) {
       <div
-        class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
+        class="relative h-full w-full flex-grow flex-shrink-0 flex items-start group-hover:z-100 group"
       >
-        Select Column {{ index + 1 }}
+        <hlm-tooltip>
+          <button
+            (click)="select(col.id, selectable.COLUMN)"
+            class="absolute hoverwidth h-full -left-2 group-hover:bg-accent rounded-sm transition-all flex"
+            [ngClass]="{ 'bg-blue-200': selected()?.id === col.id }"
+            hlmTooltipTrigger
+            aria-describedby="title"
+            position="above"
+          >
+            <div
+              class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
+            >
+              <span class="truncate"> Column {{ index + 1 }} </span>
+            </div>
+          </button>
+          <span *brnTooltipContent class="pointer-events-none">
+            <div>
+              <span>Select Column {{ index + 1 }}</span>
+            </div>
+          </span>
+        </hlm-tooltip>
       </div>
-    </button>
 
-    }
+      }
+    </div>
+  </div>
+  <!-- Row Selector -->
+  <div class="h-full relative row-start-2 z-5">
+    <div
+      [ngStyle]="{
+        height: gridStyle().height,
+        gridTemplateRows: gridStyle().row,
+        gap: gridStyle().vGap,
+        width: selectorStyle().colSelectionWidth + 'px'
+      }"
+      class="absolute grid grid-flow-row h-full"
+      #columnSelection
+    >
+      @for (row of grid().rows; track row; let index = $index) {
+      <div
+        class="relative h-full w-full flex-grow flex-shrink-0 flex items-start group-hover:z-50 group"
+      >
+        <hlm-tooltip>
+          <button
+            class="absolute hoverheight -top-2 w-full hover:bg-accent transition-all rounded-sm flex items-start group-hover:z-50"
+            [ngClass]="{ 'bg-blue-200': selected()?.id === row.id }"
+            (click)="select(row.id, selectable.ROW)"
+            hlmTooltipTrigger
+            aria-describedby="title"
+            position="left"
+          >
+            <div
+              class="h-full absolute truncate text-nowrap flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
+            >
+              <span class="truncate"> Row {{ index + 1 }} </span>
+            </div>
+          </button>
+          <span *brnTooltipContent>
+            <div>
+              <span>Select Row {{ index + 1 }}</span>
+            </div>
+          </span>
+        </hlm-tooltip>
+      </div>
+      }
+    </div>
   </div>
 
+  <!-- Main Grid -->
   <div
-    [ngStyle]="{ height: 'calc(100% - 40px)' }"
-    class="absolute bottom-0 vertical-abs h-full"
-    #columnSelection
+    #main
+    class="inner-grid relative"
+    [ngStyle]="{
+      'grid-template-rows': gridStyle().row,
+      'grid-template-columns': gridStyle().column,
+      'column-gap': gridStyle().vGap,
+      'row-gap': gridStyle().hGap,
+      width: gridStyle().width,
+      height: gridStyle().height
+    }"
   >
-    @for (col of grid.cols; track col; let index = $index) {
-    <button
-      class="h-full w-full hover:bg-accent transition-all rounded-sm flex items-start hover:z-50 relative group"
-      (click)="selectColumn(index)"
-    >
-      <div
-        class="h-full absolute flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
-      >
-        Select Row {{ index + 1 }}
-      </div>
-    </button>
-
-    }
-  </div>
-
-  <div #main class="inner-grid relative">
-    @for (row of grid.rows; track row; let row_index = $index) { @for (col of
-    grid.cols; track col; let col_index = $index) {
+    @for (row of grid().rows; track row; let row_index = $index) { @for (col of
+    grid().columns; track col; let col_index = $index) {
     <grid-builder-element
+      (mouseenter)="mouseEnter($event)"
+      #element
       class="w-full h-full block z-[60]"
+      [ngClass]="{
+        'hover:bg-accent hover:text-white': !trackMouse
+      }"
+      [attr.data-x]="row_index"
+      [attr.data-y]="col_index"
       [col]="col_index"
       [row]="row_index"
+      (click)="handleItemCreation($event)"
     ></grid-builder-element>
     } }
+
+    <div
+      class="absolute inline-block grid top-0 left-0 w-full h-full z-[70] pointer-events-none"
+      [ngStyle]="{
+        'grid-template-rows': gridStyle().row,
+        'grid-template-columns': gridStyle().column,
+        'column-gap': gridStyle().vGap,
+        'row-gap': gridStyle().hGap,
+        width: gridStyle().width,
+        height: gridStyle().height
+      }"
+    >
+      @if (trackMouse) {
+      <div
+        class="bg-destructive/60 transition-all duration-[250] absolute z-[70] rounded-[0.125rem]"
+        [ngStyle]="{
+          top: positionValues().top + 'px',
+          left: positionValues().left + 'px',
+          height: positionValues().bottom - positionValues().top + 'px',
+          width: positionValues().right - positionValues().left + 'px'
+        }"
+      ></div>
+      } @for (item of grid().items; track item.id) {
+
+      <div
+        class="w-full h-full opacity-80 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
+        (click)="select(item.id, selectable.ITEM)"
+        [ngStyle]="{
+          'grid-column-start': item.colStart,
+          'grid-column-end': item.colEnd,
+          'grid-row-start': item.rowStart,
+          'grid-row-end': item.rowEnd,
+          'background-color': item.color.startsWith('#')
+            ? item.color
+            : '#' + item.color
+        }"
+      ></div>
+      }
+    </div>
   </div>
   }
 </div>
