@@ -139,18 +139,27 @@
       } @for (item of grid().items; track item.id) {
 
       <div
-        class="w-full h-full opacity-80 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
+        class="w-full h-full opacity-80 border-4 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
         (click)="select(item.id, selectable.ITEM)"
         [ngStyle]="{
           'grid-column-start': item.colStart,
           'grid-column-end': item.colEnd,
           'grid-row-start': item.rowStart,
           'grid-row-end': item.rowEnd,
-          'background-color': item.color.startsWith('#')
+          'border-color': item.color.startsWith('#')
             ? item.color
             : '#' + item.color
         }"
-      ></div>
+      >
+        <div
+          class="opacity-40 w-full h-full"
+          [ngStyle]="{
+            'background-color': item.color.startsWith('#')
+              ? item.color
+              : '#' + item.color
+          }"
+        ></div>
+      </div>
       }
     </div>
   </div>
