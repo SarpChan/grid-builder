@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
-import { ElementComponent } from '../element/element.component';
+import { AreaInstanceComponent } from '../area-instance/area-instance.component';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
@@ -24,7 +24,7 @@ import { GridsFacade } from '@grid-builder/state';
   standalone: true,
   imports: [
     CommonModule,
-    ElementComponent,
+    AreaInstanceComponent,
     BrnTooltipContentDirective,
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,

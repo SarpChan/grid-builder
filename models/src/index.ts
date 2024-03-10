@@ -1,4 +1,5 @@
-export * from './lib/element';
+export * from './lib/area-instance';
+export * from './lib/area';
 export * from './lib/grid';
 export * from './lib/unit';
 export * from './lib/selectable';

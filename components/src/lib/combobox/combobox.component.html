@@ -14,12 +14,7 @@
     {{ currentOption()?.label ? currentOption()?.label : 'Unit' }}
     <hlm-icon size="sm" name="radixCaretSort" />
   </button>
-  <brn-cmd
-    *brnPopoverContent="let ctx"
-    hlmPopoverContent
-    hlm
-    class="p-0 w-[200px]"
-  >
+  <brn-cmd *brnPopoverContent="let ctx" hlmPopoverContent hlm class="p-0">
     <hlm-cmd-input-wrapper>
       <hlm-icon name="radixMagnifyingGlass" />
       <input placeholder="Search Unit" brnCmdInput hlm />

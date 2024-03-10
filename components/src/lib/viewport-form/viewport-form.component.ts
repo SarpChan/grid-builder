@@ -1,11 +1,9 @@
 import {
-  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   effect,
   inject,
-  signal,
   untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,6 +28,7 @@ import {
 } from '@spartan-ng/ui-radiogroup-helm';
 import { GridsFacade } from '@grid-builder/state';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Ready } from '@grid-builder/utils';
 
 @Component({
   selector: 'grid-builder-viewport-form',
@@ -49,7 +48,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewportFormComponent implements AfterViewInit {
+export class ViewportFormComponent extends Ready {
   fb = inject(FormBuilder);
   facade = inject(GridsFacade);
   viewport = this.facade.selectViewport$;
@@ -60,7 +59,6 @@ export class ViewportFormComponent implements AfterViewInit {
 
   selectedLimiter: Limiter = 'none';
 
-  ready = signal(false);
   oldId: string | undefined;
   form = this.fb.nonNullable.group({
     limiter: [this.selectedLimiter, [Validators.required]],
@@ -68,6 +66,7 @@ export class ViewportFormComponent implements AfterViewInit {
   });
 
   constructor() {
+    super();
     effect(
       () => {
         this.resetForm(this.viewport()?.limiter);
@@ -103,9 +102,5 @@ export class ViewportFormComponent implements AfterViewInit {
       this.mediaTypeValue = mt;
       this.form.get('mediaType')?.setValue(mt);
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.ready.set(true);
   }
 }

@@ -5,20 +5,25 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(200px, 276px) 7fr;
+  grid-template-columns: minmax(150px, 226px) 100px 7fr;
   grid-template-rows: 64px auto;
   height: 100%;
   overflow: hidden;
 }
 
 .nav {
-  grid-area: 1 / 1 / 2 / 3;
+  grid-area: 1 / 1 / 2 / 4;
 }
 
 .side {
   grid-area: 2 / 1 / 4 / 1;
+  position: relative;
 }
 
 .main {
+  grid-area: 2 / 3 / 4 / 3;
+}
+
+.itemsbar {
   grid-area: 2 / 2 / 4 / 2;
 }

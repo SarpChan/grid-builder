@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Signal,
   effect,
   inject,
   input,
-  signal,
   untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +13,7 @@ import { GridsFacade } from '@grid-builder/state';
 import { Row, Unit, units } from '@grid-builder/models';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { Ready } from '@grid-builder/utils';
 
 @Component({
   selector: 'grid-builder-row-form',
@@ -24,7 +23,7 @@ import { ValueUnitComponent } from '../value-unit/value-unit.component';
   styleUrl: './row-form.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class RowFormComponent implements AfterViewInit {
+export class RowFormComponent extends Ready {
   fb = inject(FormBuilder);
   facade = inject(GridsFacade);
   options = units;
@@ -35,9 +34,9 @@ export class RowFormComponent implements AfterViewInit {
   selected: Signal<Row | undefined> = this.facade.selectedRow$;
   gridId = this.facade.selectedId$;
   form = this.fb.group({});
-  ready = signal(false);
 
   constructor() {
+    super();
     effect(
       () => {
         this.resetForm(this.id());
@@ -69,9 +68,5 @@ export class RowFormComponent implements AfterViewInit {
     }
 
     this.oldId = id;
-  }
-
-  ngAfterViewInit(): void {
-    this.ready.set(true);
   }
 }

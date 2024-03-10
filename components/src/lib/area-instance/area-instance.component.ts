@@ -1,15 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Element } from '@grid-builder/models';
 
 @Component({
-  selector: 'grid-builder-element',
+  selector: 'grid-builder-area-instance',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './element.component.html',
-  styleUrl: './element.component.scss',
+  templateUrl: './area-instance.component.html',
+  styleUrl: './area-instance.component.scss',
 })
-export class ElementComponent {
+export class AreaInstanceComponent {
   @Input()
   col?: number;
   @Input()

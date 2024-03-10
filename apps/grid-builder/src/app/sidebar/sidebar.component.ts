@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
@@ -8,7 +7,6 @@ import {
   ViewChild,
   effect,
   inject,
-  signal,
   untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -49,6 +47,7 @@ import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
+import { Ready } from '@grid-builder/utils';
 
 @Component({
   selector: 'grid-builder-sidebar',
@@ -81,7 +80,7 @@ import {
   styleUrl: './sidebar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SidebarComponent implements AfterViewInit {
+export class SidebarComponent extends Ready {
   facade = inject(GridsFacade);
   fb = inject(FormBuilder);
   grid: Signal<Grid | undefined> = this.facade.selectedGrid$;
@@ -89,7 +88,7 @@ export class SidebarComponent implements AfterViewInit {
   selectedElement = this.facade.selectedElement$;
   form: FormGroup;
   oldId: string | undefined;
-  ready = signal(false);
+
   get name() {
     return this.form.get('name');
   }
@@ -98,6 +97,7 @@ export class SidebarComponent implements AfterViewInit {
   selectionElement!: ElementRef;
 
   constructor() {
+    super();
     this.form = this.fb.group({
       name: [undefined, Validators.required],
     });
@@ -131,10 +131,6 @@ export class SidebarComponent implements AfterViewInit {
         this.facade.update(grid.id, value);
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.ready.set(true);
   }
 
   resetForm(id: string | undefined) {

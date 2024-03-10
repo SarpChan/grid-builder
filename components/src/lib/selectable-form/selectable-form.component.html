@@ -3,7 +3,11 @@
   <grid-builder-row-form [id]="selected()?.id"></grid-builder-row-form>
   } @case (selectable.COLUMN) {
   <grid-builder-column-form [id]="selected()?.id"></grid-builder-column-form>
-  } @case (selectable.ITEM) {
-  <grid-builder-element-form [id]="selected()?.id"></grid-builder-element-form>
+  } @case (selectable.AREA) {
+  <grid-builder-area-form [id]="selected()?.id"></grid-builder-area-form>
+  } @case (selectable.AREA_INSTANCE) {
+  <grid-builder-area-instance-form
+    [id]="selected()?.id"
+  ></grid-builder-area-instance-form>
   } }
 </form>

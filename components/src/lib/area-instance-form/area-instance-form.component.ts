@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Signal,
   effect,
   inject,
   input,
-  signal,
   untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,9 +23,10 @@ import {
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime } from 'rxjs';
+import { Ready } from '@grid-builder/utils';
 
 @Component({
-  selector: 'grid-builder-element-form',
+  selector: 'grid-builder-area-instance-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -37,11 +36,11 @@ import { debounceTime } from 'rxjs';
     HlmLabelDirective,
     HlmInputErrorDirective,
   ],
-  templateUrl: './element-form.component.html',
-  styleUrl: './element-form.component.scss',
+  templateUrl: './area-instance-form.component.html',
+  styleUrl: './area-instance-form.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ElementFormComponent implements AfterViewInit {
+export class AreaInstanceFormComponent extends Ready {
   fb = inject(FormBuilder);
   facade = inject(GridsFacade);
 
@@ -73,13 +72,13 @@ export class ElementFormComponent implements AfterViewInit {
     ],
     color: [this.selected()?.color ?? '#000000', Validators.required],
   });
-  ready = signal(false);
 
   get name() {
     return this.form.get('name');
   }
 
   constructor() {
+    super();
     effect(
       () => {
         this.resetForm(this.id());
@@ -121,16 +120,7 @@ export class ElementFormComponent implements AfterViewInit {
     this.oldId = id;
   }
 
-  ngAfterViewInit(): void {
-    this.ready.set(true);
-  }
-
   delete() {
     this.facade.removeItem(this.gridId() ?? '', this.id() ?? '');
-  }
-
-  throwsEvent(e: Event) {
-    e.stopPropagation();
-    console.log(e);
   }
 }

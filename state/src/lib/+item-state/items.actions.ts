@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { ItemEntity } from './items.reducer';
+import { Area } from '@grid-builder/models';
 
-export const addItem = createAction(
-  '[Item/API] Add Item',
-  props<{ item: Omit<ItemEntity, 'id'> }>()
+export const addArea = createAction(
+  '[Area/API] Add Area',
+  props<{ item: Omit<Area, 'id'> }>()
 );
 
-export const addItemSuccess = createAction(
-  '[Item/API] Add Item Success',
-  props<{ item: ItemEntity }>()
+export const addAreaSuccess = createAction(
+  '[Area/API] Add Area Success',
+  props<{ item: Area }>()
 );
 
-export const removeItem = createAction(
-  '[Item/API] Remove Item',
+export const removeArea = createAction(
+  '[Area/API] Remove Area',
   props<{ id: string }>()
 );

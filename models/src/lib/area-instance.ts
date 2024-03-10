@@ -1,4 +1,4 @@
-export interface Element {
+export interface AreaInstance {
   id: string;
 
   name: string;

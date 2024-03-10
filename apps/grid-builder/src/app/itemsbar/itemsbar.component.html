@@ -1,0 +1,30 @@
+<div class="h-full w-full flex flex-col gap-2 items-center flex-grow">
+  <h3
+    class="bg-muted w-full h-10 grid place-items-center rounded-md font-medium text-gray-800"
+  >
+    Areas
+  </h3>
+
+  @for (item of items(); track item.id) {
+  <div
+    class="h-14 w-full rounded-sm border-4"
+    (click)="select(item.id)"
+    [ngStyle]="{
+      'border-color': item.color.startsWith('#') ? item.color : '#' + item.color
+    }"
+  >
+    <div
+      class="w-full h-full opacity-40"
+      [ngStyle]="{
+       'background-color': item.color.startsWith('#')
+        ? item.color
+        : '#' + item.color,
+      }"
+    ></div>
+  </div>
+
+  }
+  <fluent-button class="w-full" appearance="accent" (click)="addItem()"
+    >+</fluent-button
+  >
+</div>

@@ -1,5 +1,5 @@
 export * from './lib/grid/grid.component';
-export * from './lib/element/element.component';
+export * from './lib/area-instance/area-instance.component';
 export * from './lib/gap-form/gap-form.component';
 export * from './lib/grid-form/grid-form.component';
 export * from './lib/toggle-value-unit/toggle-value-unit.component';
