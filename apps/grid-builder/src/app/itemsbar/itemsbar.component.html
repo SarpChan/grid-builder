@@ -5,7 +5,6 @@
     Areas
   </h3>
 
-  @if (items().length) {
   <div
     [id]="'areaList'"
     cdkDropList
@@ -40,9 +39,8 @@
     </div>
 
     }
+    <fluent-button class="w-full" appearance="accent" (click)="addItem()"
+      >+</fluent-button
+    >
   </div>
-  }
-  <fluent-button class="w-full" appearance="accent" (click)="addItem()"
-    >+</fluent-button
-  >
 </div>

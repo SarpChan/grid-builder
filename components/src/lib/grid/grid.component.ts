@@ -198,6 +198,11 @@ export class GridComponent {
         row_i: +row_i,
         col_i: +col_i,
       });
+      this.second.set({
+        ...this.positionValues(),
+        row_i: +row_i,
+        col_i: +col_i,
+      });
     }
     this.trackMouse = !this.trackMouse;
   }

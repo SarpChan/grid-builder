@@ -139,6 +139,10 @@ export class GridsFacade {
   reset() {
     this.store.dispatch(GridsActions.reset());
   }
+
+  generate() {
+    this.store.dispatch(GridsActions.generate());
+  }
 }
 
 const grid: AddGrid = {
