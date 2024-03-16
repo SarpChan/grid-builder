@@ -1,20 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import {
-  switchMap,
-  catchError,
-  of,
-  withLatestFrom,
-  switchMapTo,
-  throwError,
-} from 'rxjs';
+import { switchMap, catchError, of, withLatestFrom } from 'rxjs';
 import * as GridsActions from './grids.actions';
 import { Store } from '@ngrx/store';
-import { selectGridsEntities } from './grids.selectors';
-import { selectAreaEntities } from '../+item-state/items.selectors';
-import { Dictionary } from '@ngrx/entity';
-import { Area, Grid } from '@grid-builder/models';
-
+import { selectGridsEntities, selectGridsState } from './grids.selectors';
+import {
+  selectAreaEntities,
+  selectItemState,
+} from '../+item-state/items.selectors';
+import { generateRaw, generateTailwind } from '@grid-builder/utils';
 @Injectable()
 export class GridsEffects {
   private actions$ = inject(Actions);
@@ -113,6 +107,24 @@ export class GridsEffects {
             areaInstanceId: payload.areaInstanceId,
           })
         );
+      })
+    )
+  );
+
+  generateCode$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GridsActions.generate),
+      withLatestFrom(
+        this.store.select(selectGridsState),
+        this.store.select(selectItemState)
+      ),
+      switchMap(([_action, gridState, areaState]) => {
+        const shouldUseTailwind = false;
+
+        const result = shouldUseTailwind
+          ? generateTailwind(gridState, areaState)
+          : generateRaw(gridState, areaState);
+        return of(GridsActions.generateSuccess());
       })
     )
   );

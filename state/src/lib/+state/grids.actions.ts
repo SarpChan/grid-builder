@@ -123,3 +123,10 @@ export const connectAreaToInstanceFailure = createAction(
   '[Grids/API] Connect Area to instance failed',
   props<{ error: string }>()
 );
+
+export const generate = createAction('[Grids/API] Generate Code');
+
+export const generateSuccess = createAction(
+  '[Grids/API] Generate Code Success'
+);
+export const generateFailure = createAction('[Grids/API] Generate Code Failed');

@@ -20,7 +20,7 @@
         <hlm-tooltip>
           <button
             (click)="select(col.id, selectable.COLUMN)"
-            class="absolute hoverwidth h-full -left-2 group-hover:bg-accent rounded-sm transition-all flex"
+            class="absolute w-[calc(100%+1rem)] h-full -left-2 group-hover:bg-accent rounded-sm transition-all flex"
             [ngClass]="{ 'bg-blue-200': selected()?.id === col.id }"
             hlmTooltipTrigger
             aria-describedby="title"
@@ -43,6 +43,7 @@
       }
     </div>
   </div>
+
   <!-- Row Selector -->
   <div class="h-full relative row-start-2 z-5">
     <div
@@ -103,7 +104,7 @@
     <grid-builder-area-instance
       (mouseenter)="mouseEnter($event)"
       #element
-      class="w-full h-full block z-[60]"
+      class="w-full h-full block z-[60] border border-gray-500/20"
       [ngClass]="{
         'hover:bg-accent hover:text-white': !trackMouse
       }"
@@ -136,34 +137,39 @@
           width: positionValues().right - positionValues().left + 'px'
         }"
       ></div>
-      } @for (item of areaInstances(); track item.id) {
+      } @for (areaInstance of areaInstances(); track areaInstance.id) {
 
       <div
         cdkDropList
         [cdkDropListConnectedTo]="['areaList']"
         cdkDropListSortingDisabled="true"
-        (cdkDropListDropped)="drop($event, item.id)"
+        (cdkDropListDropped)="drop($event, areaInstance.id)"
         [cdkDropListData]="'areaInstance'"
         class="w-full h-full opacity-80 border-4 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
-        (click)="select(item.id, selectable.AREA_INSTANCE)"
+        (click)="select(areaInstance.id, selectable.AREA_INSTANCE)"
         [ngStyle]="{
-          'grid-column-start': item.colStart,
-          'grid-column-end': item.colEnd,
-          'grid-row-start': item.rowStart,
-          'grid-row-end': item.rowEnd,
-          'border-color': item.color.startsWith('#')
-            ? item.color
-            : '#' + item.color
+          'grid-column-start': areaInstance.colStart,
+          'grid-column-end': areaInstance.colEnd,
+          'grid-row-start': areaInstance.rowStart,
+          'grid-row-end': areaInstance.rowEnd,
+          'border-color': areaInstance.color.startsWith('#')
+            ? areaInstance.color
+            : '#' + areaInstance.color
         }"
       >
-        <div
-          class="opacity-40 w-full h-full"
-          [ngStyle]="{
-            'background-color': item.color.startsWith('#')
-              ? item.color
-              : '#' + item.color
-          }"
-        ></div>
+        <div class="relative w-full h-full">
+          <div
+            class="opacity-40 absolute w-full h-full"
+            [ngStyle]="{
+              'background-color': areaInstance.color.startsWith('#')
+                ? areaInstance.color
+                : '#' + areaInstance.color
+            }"
+          ></div>
+          <div class="top-4 left-4 absolute">
+            {{ areaInstance.name }}
+          </div>
+        </div>
       </div>
       }
     </div>

@@ -22,7 +22,14 @@ export const initialItemState: ItemState = itemsAdapter.getInitialState({});
 const reducer = createReducer(
   initialItemState,
   on(ItemsActions.addArea, (state, { item }) =>
-    itemsAdapter.addOne({ ...item, id: crypto.randomUUID() }, state)
+    itemsAdapter.addOne(
+      {
+        ...item,
+        id: crypto.randomUUID(),
+        name: `Area-${Math.floor(Math.random() * 10000)}`,
+      },
+      state
+    )
   ),
   on(ItemsActions.updateArea, (state, { id, changes }) =>
     itemsAdapter.map((area) => {

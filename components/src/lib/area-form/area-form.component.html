@@ -3,8 +3,10 @@
     <span> Name </span>
 
     <input
+      #nameInput
       hlmInput
       class="w-full"
+      (click)="nameInput.select()"
       formControlName="name"
       (keydown)="$event.stopPropagation()"
     />

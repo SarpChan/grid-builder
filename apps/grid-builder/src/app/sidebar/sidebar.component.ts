@@ -185,4 +185,8 @@ export class SidebarComponent extends Ready {
   reset() {
     this.facade.reset();
   }
+
+  generate() {
+    this.facade.generate();
+  }
 }
