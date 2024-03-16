@@ -63,13 +63,14 @@
   </div>
 
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Color </span>
+    <span> Area </span>
 
-    <input
-      class="p-0 invalid:p-0 border-0 w-full"
-      type="color"
-      formControlName="color"
-    />
+    <grid-builder-combobox
+      [currentOption]="currentOption()"
+      (selectOption)="select($event)"
+      [options]="options()"
+      [placeholder]="'Area'"
+    ></grid-builder-combobox>
   </label>
 
   <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"

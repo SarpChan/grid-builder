@@ -20,6 +20,28 @@
     />
   </label>
 
+  @if (grids()?.length) {
+  <label hlmLabel class="flex gap-1 flex-col w-full">
+    <span> Connections </span>
+
+    <div class="w-full flex flex-col">
+      @for (grid of grids(); track grid.gridId) {
+      <div
+        class="w-full flex gap-2 p-2 pr-0 first:pt-0 justify-between items-center border-b-2 last:border-b-0"
+      >
+        <div class="font-normal">
+          {{ grid.name }}
+        </div>
+        <fluent-button
+          appearance="accent"
+          (click)="removeConnection(grid.gridId)"
+          >x</fluent-button
+        >
+      </div>
+      }
+    </div>
+  </label>
+  }
   <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"
     ><span class="group-hover:text-white">Delete</span>
   </fluent-button>

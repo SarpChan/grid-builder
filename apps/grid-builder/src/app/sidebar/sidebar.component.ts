@@ -173,4 +173,16 @@ export class SidebarComponent extends Ready {
       }
     }
   }
+
+  removeGrid() {
+    const grid = this.grid();
+
+    if (!grid) return;
+
+    this.facade.removeGrid(grid.id);
+  }
+
+  reset() {
+    this.facade.reset();
+  }
 }

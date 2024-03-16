@@ -5,24 +5,42 @@
     Areas
   </h3>
 
-  @for (item of items(); track item.id) {
+  @if (items().length) {
   <div
-    class="h-14 w-full rounded-sm border-4"
-    (click)="select(item.id)"
-    [ngStyle]="{
-      'border-color': item.color.startsWith('#') ? item.color : '#' + item.color
-    }"
+    [id]="'areaList'"
+    cdkDropList
+    class="flex-grow w-full flex flex-col gap-2"
   >
+    @for (item of items(); track item.id) {
     <div
-      class="w-full h-full opacity-40"
+      cdkDrag
+      [cdkDragData]="item.id"
+      class="h-14 w-full rounded-sm border-4 relative"
+      (click)="select(item.id)"
       [ngStyle]="{
+        'border-color': item.color.startsWith('#')
+          ? item.color
+          : '#' + item.color
+      }"
+    >
+      <div
+        class="w-full h-full opacity-40 grid place-items-center"
+        [ngStyle]="{
        'background-color': item.color.startsWith('#')
         ? item.color
         : '#' + item.color,
       }"
-    ></div>
-  </div>
+      ></div>
+      <div class="absolute top-0 w-full h-full grid place-items-center">
+        <span class="px-2 text-xs break-words backdrop-blur-md opacity-100">{{
+          item.name
+        }}</span>
+      </div>
+      <div class="line" *cdkDragPlaceholder></div>
+    </div>
 
+    }
+  </div>
   }
   <fluent-button class="w-full" appearance="accent" (click)="addItem()"
     >+</fluent-button

@@ -11,19 +11,36 @@
     brnPopoverTrigger
     hlmBtn
   >
-    {{ currentOption()?.label ? currentOption()?.label : 'Unit' }}
+    {{ currentOption()?.label ? currentOption()?.label : placeholder() }}
     <hlm-icon size="sm" name="radixCaretSort" />
   </button>
   <brn-cmd *brnPopoverContent="let ctx" hlmPopoverContent hlm class="p-0">
     <hlm-cmd-input-wrapper>
       <hlm-icon name="radixMagnifyingGlass" />
-      <input placeholder="Search Unit" brnCmdInput hlm />
+      <input placeholder="Search " brnCmdInput hlm />
     </hlm-cmd-input-wrapper>
     <div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
     <brn-cmd-list hlm>
       <brn-cmd-group hlm>
+        @for (option of options(); track option.value) { @if (option.available
+        === false) {
         <button
-          *ngFor="let option of options()"
+          brnCmdItem
+          [value]="option.value ?? ''"
+          disabled
+          (selected)="select(option)"
+          hlm
+        >
+          <hlm-icon
+            [class.opacity-0]="currentOption()?.value !== option.value"
+            name="radixCheck"
+            hlmCmdIcon
+          />
+          {{ option.label }}
+        </button>
+
+        } @else {
+        <button
           brnCmdItem
           [value]="option.value ?? ''"
           (selected)="select(option)"
@@ -36,6 +53,8 @@
           />
           {{ option.label }}
         </button>
+
+        } }
       </brn-cmd-group>
     </brn-cmd-list>
   </brn-cmd>

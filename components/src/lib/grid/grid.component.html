@@ -116,7 +116,7 @@
     } }
 
     <div
-      class="absolute inline-block grid top-0 left-0 w-full h-full z-[70] pointer-events-none"
+      class="absolute grid top-0 left-0 w-full h-full z-[70] pointer-events-none"
       [ngStyle]="{
         'grid-template-rows': gridStyle().row,
         'grid-template-columns': gridStyle().column,
@@ -136,9 +136,14 @@
           width: positionValues().right - positionValues().left + 'px'
         }"
       ></div>
-      } @for (item of grid().items; track item.id) {
+      } @for (item of areaInstances(); track item.id) {
 
       <div
+        cdkDropList
+        [cdkDropListConnectedTo]="['areaList']"
+        cdkDropListSortingDisabled="true"
+        (cdkDropListDropped)="drop($event, item.id)"
+        [cdkDropListData]="'areaInstance'"
         class="w-full h-full opacity-80 border-4 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
         (click)="select(item.id, selectable.AREA_INSTANCE)"
         [ngStyle]="{

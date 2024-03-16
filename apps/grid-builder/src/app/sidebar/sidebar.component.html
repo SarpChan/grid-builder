@@ -4,7 +4,10 @@
       <fluent-button appearance="accent" class="w-full">Generate</fluent-button>
 
       <div class="w-full flex justify-center gap-2">
-        <fluent-button appearance="stealth" class="w-1/2 group"
+        <fluent-button
+          appearance="stealth"
+          class="w-1/2 group"
+          (click)="reset()"
           ><span class="group-hover:text-red-500">Reset</span></fluent-button
         >
         <fluent-button appearance="outline" class="w-1/2"
@@ -177,6 +180,17 @@
           <span>Columns</span>
           <fluent-button appearance="accent" class="" (click)="addCol()"
             >+</fluent-button
+          >
+        </div>
+
+        <div class="w-full flex justify-between items-center gap-4">
+          <fluent-button
+            appearance="outline"
+            class="w-full group"
+            (click)="removeGrid()"
+            ><span class="group-hover:text-red-500"
+              >Delete Grid</span
+            ></fluent-button
           >
         </div>
       </div>

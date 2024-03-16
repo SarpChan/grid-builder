@@ -22,6 +22,7 @@ import {
   HlmInputErrorDirective,
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'grid-builder-area-form',
@@ -44,7 +45,7 @@ export class AreaFormComponent extends Ready {
 
   id = input<string | undefined>();
   selected: Signal<Area | undefined> = this.facade.selected$;
-
+  grids = this.facade.selectGridsForArea$;
   oldId: string | undefined;
 
   form = this.fb.nonNullable.group({
@@ -55,6 +56,12 @@ export class AreaFormComponent extends Ready {
   constructor() {
     super();
     effect(() => this.resetForm(this.id()));
+
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      if (!this.ready()) return;
+
+      this.facade.updateArea(this.id(), value);
+    });
   }
 
   resetForm(id: string | undefined) {
@@ -81,5 +88,13 @@ export class AreaFormComponent extends Ready {
 
   delete() {
     this.facade.remove(this.id());
+  }
+
+  removeConnection(gridId: string) {
+    const id = this.id();
+
+    if (!id) return;
+
+    this.facade.removeConnection(id, gridId);
   }
 }

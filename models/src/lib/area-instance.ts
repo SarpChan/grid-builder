@@ -1,5 +1,6 @@
 export interface AreaInstance {
   id: string;
+  areaId: string | undefined;
 
   name: string;
 
@@ -9,3 +10,5 @@ export interface AreaInstance {
   rowStart: number;
   rowEnd: number;
 }
+
+export interface AddAreaInstance extends Omit<AreaInstance, 'id'> {}

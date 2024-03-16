@@ -8,7 +8,7 @@ export * from './lib/column';
 export * from './lib/valueunit';
 export * from './lib/viewport';
 export * from './lib/limiter';
-export * from './lib/item';
 export * from './lib/selectionElement';
 export * from './lib/referenceContainer';
 export * from './lib/mediaType';
+export * from './lib/colored-area-instance';

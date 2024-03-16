@@ -1,10 +1,9 @@
 import {
+  AddAreaInstance,
   AddGrid,
-  AddItem,
-  AddItemSuccess,
+  AreaInstance,
   Column,
   Grid,
-  Item,
   ReferenceContainer,
   Row,
   SelectionElement,
@@ -13,6 +12,8 @@ import {
 import { createAction, props } from '@ngrx/store';
 
 export const initGrids = createAction('[Grids Page] Init');
+
+export const reset = createAction('[Grids] Reset');
 
 export const loadGridsSuccess = createAction(
   '[Grids/API] Load Grids Success',
@@ -48,14 +49,14 @@ export const addRow = createAction(
   props<{ id: string }>()
 );
 
-export const addItem = createAction(
-  '[Grids/API] Add Item',
-  props<{ id: string; item: AddItem }>()
+export const addAreaInstance = createAction(
+  '[Grids/API] Add AreaInstance',
+  props<{ id: string; item: AddAreaInstance }>()
 );
 
-export const addItemSuccess = createAction(
-  '[Grids/API] Add Item Success',
-  props<{ id: string; item: AddItemSuccess }>()
+export const addAreaInstanceSuccess = createAction(
+  '[Grids/API] Add AreaInstance Success',
+  props<{ id: string; item: AddAreaInstance }>()
 );
 
 export const removeColumn = createAction(
@@ -68,13 +69,18 @@ export const removeRow = createAction(
   props<{ gridId: string; rowId: string }>()
 );
 
-export const removeItem = createAction(
-  '[Grids/API] Remove Item',
+export const removeGrid = createAction(
+  '[Grids/API] Remove Grid',
+  props<{ id: string }>()
+);
+
+export const removeAreaInstance = createAction(
+  '[Grids/API] Remove AreaInstance',
   props<{ gridId: string; itemId: string }>()
 );
 
 export const selectElement = createAction(
-  '[Grids/API] Select Item',
+  '[Grids/API] Select Element',
   props<{ selection: SelectionElement }>()
 );
 
@@ -88,9 +94,9 @@ export const updateColumn = createAction(
   props<{ id: string; colId: string; changes: Partial<Column> }>()
 );
 
-export const updateItem = createAction(
-  '[Grids/API] Update Item',
-  props<{ id: string; itemId: string; changes: Partial<Item> }>()
+export const updateAreaInstance = createAction(
+  '[Grids/API] Update AreaInstance',
+  props<{ id: string; itemId: string; changes: Partial<AreaInstance> }>()
 );
 
 export const updateViewport = createAction(
@@ -101,4 +107,19 @@ export const updateViewport = createAction(
 export const updateReferenceContainer = createAction(
   '[Grids/API] Update ReferenceContainer',
   props<{ referenceContainer: ReferenceContainer }>()
+);
+
+export const connectAreaToInstance = createAction(
+  '[Grids/API] Connect Area to instance',
+  props<{ areaId: string; areaInstanceId: string; gridId: string }>()
+);
+
+export const connectAreaToInstanceSuccess = createAction(
+  '[Grids/API] Connect Area to instance success',
+  props<{ areaId: string; areaInstanceId: string; gridId: string }>()
+);
+
+export const connectAreaToInstanceFailure = createAction(
+  '[Grids/API] Connect Area to instance failed',
+  props<{ error: string }>()
 );

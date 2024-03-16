@@ -11,7 +11,17 @@ export const addAreaSuccess = createAction(
   props<{ item: Area }>()
 );
 
+export const updateArea = createAction(
+  '[Area/API] Update Area',
+  props<{ id: string; changes: Partial<Area> }>()
+);
+
 export const removeArea = createAction(
   '[Area/API] Remove Area',
   props<{ id: string }>()
+);
+
+export const removeConnection = createAction(
+  '[Area/API] Remove connection between Area and Grid',
+  props<{ areaId: string; gridId: string }>()
 );

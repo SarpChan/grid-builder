@@ -76,12 +76,12 @@ export const selectSelectedRow = createSelector(
   }
 );
 
-export const selectSelectedItem = createSelector(
+export const selectSelectedAreaInstance = createSelector(
   selectSelectedElement,
   selectEntity,
   (selection, grid) => {
     const id = selection?.id;
-    return grid?.items.find((i) => i.id === id);
+    return grid?.items?.find((i) => i.id === id);
   }
 );
 

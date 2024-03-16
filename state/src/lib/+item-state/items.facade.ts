@@ -12,6 +12,12 @@ export class ItemsFacade {
 
   allItems$ = this.store.selectSignal(ItemsSelectors.selectAllItems);
   selected$ = this.store.selectSignal(ItemsSelectors.selectSelectedArea);
+  selectGridsForArea$ = this.store.selectSignal(
+    ItemsSelectors.selectGridsForArea
+  );
+  selectAreaOptions$ = this.store.selectSignal(
+    ItemsSelectors.selectAreaOptions
+  );
 
   add() {
     this.store.dispatch(
@@ -21,10 +27,20 @@ export class ItemsFacade {
     );
   }
 
+  updateArea(id: string | undefined, changes: Partial<Area>) {
+    if (!id || !changes) return;
+
+    this.store.dispatch(ItemsActions.updateArea({ id, changes }));
+  }
+
   remove(id: string | undefined) {
     if (!id) return;
 
     this.store.dispatch(ItemsActions.removeArea({ id }));
+  }
+
+  removeConnection(areaId: string, gridId: string) {
+    this.store.dispatch(ItemsActions.removeConnection({ areaId, gridId }));
   }
 
   select(id: string) {
