@@ -1,4 +1,4 @@
-<div class="outer-grid relative p-2">
+<div class="outer-grid relative pb-2 pr-2">
   @if (grid()) {
 
   <!-- Column Selector -->
@@ -100,7 +100,7 @@
   >
     @for (row of grid().rows; track row; let row_index = $index) { @for (col of
     grid().columns; track col; let col_index = $index) {
-    <grid-builder-element
+    <grid-builder-area-instance
       (mouseenter)="mouseEnter($event)"
       #element
       class="w-full h-full block z-[60]"
@@ -112,11 +112,11 @@
       [col]="col_index"
       [row]="row_index"
       (click)="handleItemCreation($event)"
-    ></grid-builder-element>
+    ></grid-builder-area-instance>
     } }
 
     <div
-      class="absolute inline-block grid top-0 left-0 w-full h-full z-[70] pointer-events-none"
+      class="absolute grid top-0 left-0 w-full h-full z-[70] pointer-events-none"
       [ngStyle]="{
         'grid-template-rows': gridStyle().row,
         'grid-template-columns': gridStyle().column,
@@ -136,21 +136,35 @@
           width: positionValues().right - positionValues().left + 'px'
         }"
       ></div>
-      } @for (item of grid().items; track item.id) {
+      } @for (item of areaInstances(); track item.id) {
 
       <div
-        class="w-full h-full opacity-80 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
-        (click)="select(item.id, selectable.ITEM)"
+        cdkDropList
+        [cdkDropListConnectedTo]="['areaList']"
+        cdkDropListSortingDisabled="true"
+        (cdkDropListDropped)="drop($event, item.id)"
+        [cdkDropListData]="'areaInstance'"
+        class="w-full h-full opacity-80 border-4 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
+        (click)="select(item.id, selectable.AREA_INSTANCE)"
         [ngStyle]="{
           'grid-column-start': item.colStart,
           'grid-column-end': item.colEnd,
           'grid-row-start': item.rowStart,
           'grid-row-end': item.rowEnd,
-          'background-color': item.color.startsWith('#')
+          'border-color': item.color.startsWith('#')
             ? item.color
             : '#' + item.color
         }"
-      ></div>
+      >
+        <div
+          class="opacity-40 w-full h-full"
+          [ngStyle]="{
+            'background-color': item.color.startsWith('#')
+              ? item.color
+              : '#' + item.color
+          }"
+        ></div>
+      </div>
       }
     </div>
   </div>

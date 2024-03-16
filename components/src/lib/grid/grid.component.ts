@@ -12,22 +12,25 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
-import { ElementComponent } from '../element/element.component';
+import { AreaInstanceComponent } from '../area-instance/area-instance.component';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
 import { GridsFacade } from '@grid-builder/state';
+import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'grid-builder-grid',
   standalone: true,
   imports: [
     CommonModule,
-    ElementComponent,
+    AreaInstanceComponent,
     BrnTooltipContentDirective,
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
+    CdkDropList,
   ],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss',
@@ -39,6 +42,7 @@ export class GridComponent {
   cdr = inject(ChangeDetectorRef);
   selected: Signal<SelectionElement | undefined> =
     this.gridsFacade.selectedElement$;
+  areaInstances = this.gridsFacade.selectedGridAreaInstances$;
   selectable = Selectable;
 
   gridStyle = computed(() => {
@@ -163,6 +167,8 @@ export class GridComponent {
   handleItemCreation(element: MouseEvent) {
     if (this.trackMouse) {
       this.gridsFacade.addItem(this.grid().id, {
+        areaId: '',
+        name: '',
         colStart: Math.min(this.first().col_i, this.second().col_i) + 1,
         colEnd: Math.max(this.first().col_i, this.second().col_i) + 2,
         rowStart: Math.min(this.first().row_i, this.second().row_i) + 1,
@@ -194,6 +200,13 @@ export class GridComponent {
       });
     }
     this.trackMouse = !this.trackMouse;
+  }
+
+  drop(event: CdkDragDrop<string>, id: string) {
+    if (event?.item?.data) {
+      const areaId = event.item.data;
+      this.gridsFacade.connectAreaToInstance(areaId, id, this.grid().id);
+    }
   }
 
   mouseEnter(event: MouseEvent) {

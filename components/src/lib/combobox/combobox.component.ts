@@ -17,7 +17,6 @@ import {
   radixCheck,
   radixMagnifyingGlass,
 } from '@ng-icons/radix-icons';
-import { Option } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-combobox',
@@ -40,20 +39,22 @@ import { Option } from '../value-unit/value-unit.component';
   templateUrl: './combobox.component.html',
   styleUrl: './combobox.component.scss',
 })
-export class ComboboxComponent {
-  public options = input<Option[] | undefined>();
+export class ComboboxComponent<
+  T extends { value: string; label: string; available?: boolean }
+> {
+  public options = input<T[] | undefined>();
 
-  public currentOption = input<Option | undefined>(undefined);
+  public currentOption = input<T | undefined>(undefined);
   public state = signal<'closed' | 'open'>('closed');
-
+  public placeholder = input<string>('Unit');
   @Output()
-  selectOption = new EventEmitter<Option>();
+  selectOption = new EventEmitter<T>();
 
   stateChanged(state: 'open' | 'closed') {
     this.state.set(state);
   }
 
-  select(option: Option) {
+  select(option: T) {
     this.state.set('closed');
     this.selectOption.emit(option);
   }

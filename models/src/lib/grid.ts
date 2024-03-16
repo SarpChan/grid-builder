@@ -1,5 +1,5 @@
+import { AreaInstance } from './area-instance';
 import { Column } from './column';
-import { Item } from './item';
 import { Row } from './row';
 import { ValueUnit } from './valueunit';
 import { Viewport } from './viewport';
@@ -10,7 +10,7 @@ export interface Grid {
 
   rows: Row[];
   columns: Column[];
-  items: Item[];
+  items: AreaInstance[];
   vGap: ValueUnit | undefined;
   hGap: ValueUnit | undefined;
   viewport: Viewport;

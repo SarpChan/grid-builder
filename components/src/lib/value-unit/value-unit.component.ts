@@ -44,13 +44,13 @@ export class ValueUnitComponent implements OnInit {
 
   options = input<Unit[] | undefined>([...units]);
 
-  actualOptions = computed(() => {
+  actualOptions = computed<Option[]>(() => {
     const options = this.options();
     if (options) {
       return options.map((unit) => ({ value: unit, label: unit }));
     }
 
-    return [] as Option[];
+    return [];
   });
 
   formName = input('value-unit');

@@ -2,6 +2,7 @@ import { Grid } from '@grid-builder/models';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as GridsActions from './grids.actions';
+import * as ItemsActions from '../+item-state/items.actions';
 import { SelectionElement } from '@grid-builder/models';
 
 export const GRIDS_FEATURE_KEY = 'grids';
@@ -269,7 +270,7 @@ const reducer = createReducer(
       };
     }, state);
   }),
-  on(GridsActions.updateItem, (state, { id, itemId, changes }) => {
+  on(GridsActions.updateAreaInstance, (state, { id, itemId, changes }) => {
     return gridsAdapter.map((grid) => {
       if (grid.id !== id) return grid;
 
@@ -287,10 +288,31 @@ const reducer = createReducer(
       };
     }, state);
   }),
+  on(
+    GridsActions.connectAreaToInstanceSuccess,
+    (state, { areaId, areaInstanceId, gridId }) => {
+      return gridsAdapter.map((grid) => {
+        if (grid.id !== gridId) return grid;
+
+        return {
+          ...grid,
+          items: grid.items.map((item) => {
+            if (item.id !== areaInstanceId) return item;
+
+            return {
+              ...item,
+              areaId,
+              id: item.id,
+            };
+          }),
+        };
+      }, state);
+    }
+  ),
   on(GridsActions.updateReferenceContainer, (state, { referenceContainer }) => {
     return { ...state, referenceContainer };
   }),
-  on(GridsActions.addItemSuccess, (state, { id, item }) => {
+  on(GridsActions.addAreaInstanceSuccess, (state, { id, item }) => {
     const newState = gridsAdapter.map(
       (entity) =>
         entity.id === id
@@ -299,9 +321,8 @@ const reducer = createReducer(
               items: [
                 ...entity.items,
                 {
-                  id: crypto.randomUUID(),
-                  name: '',
                   ...item,
+                  id: crypto.randomUUID(),
                 },
               ],
             }
@@ -348,7 +369,7 @@ const reducer = createReducer(
     }
     return newState;
   }),
-  on(GridsActions.removeItem, (state, { gridId, itemId }) => {
+  on(GridsActions.removeAreaInstance, (state, { gridId, itemId }) => {
     const isSelected = itemId === state.selection?.id;
 
     const newState = gridsAdapter.map(
@@ -370,7 +391,36 @@ const reducer = createReducer(
   on(GridsActions.selectElement, (state, { selection }) => ({
     ...state,
     selection,
-  }))
+  })),
+  on(ItemsActions.removeConnection, (state, { areaId, gridId }) =>
+    gridsAdapter.map((grid) => {
+      if (grid.id !== gridId) return grid;
+
+      return {
+        ...grid,
+        items: grid.items.map((areaInstance) => {
+          if (areaInstance.areaId !== areaId) return areaInstance;
+
+          return {
+            ...areaInstance,
+            areaId: undefined,
+          };
+        }),
+      };
+    }, state)
+  ),
+  on(ItemsActions.removeArea, (state, { id }) => ({
+    ...state,
+    selection: state.selection?.id === id ? undefined : state.selection,
+  })),
+  on(GridsActions.removeGrid, (state, { id }) => ({
+    ...gridsAdapter.removeOne(id, state),
+    selectedId:
+      state.ids.length > 1
+        ? `${state.ids.find((gridId) => gridId !== id)}`
+        : undefined,
+  })),
+  on(GridsActions.reset, () => initialGridsState)
 );
 
 export function gridsReducer(state: GridsState | undefined, action: Action) {

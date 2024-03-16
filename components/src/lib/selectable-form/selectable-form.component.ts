@@ -12,7 +12,8 @@ import { Selectable, SelectionElement, units } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
 import { ColumnFormComponent } from '../column-form/column-form.component';
 import { RowFormComponent } from '../row-form/row-form.component';
-import { ElementFormComponent } from '../element-form/element-form.component';
+import { AreaInstanceFormComponent } from '../area-instance-form/area-instance-form.component';
+import { AreaFormComponent } from '../area-form/area-form.component';
 
 @Component({
   selector: 'grid-builder-selectable-form',
@@ -23,7 +24,8 @@ import { ElementFormComponent } from '../element-form/element-form.component';
     ValueUnitComponent,
     ColumnFormComponent,
     RowFormComponent,
-    ElementFormComponent,
+    AreaInstanceFormComponent,
+    AreaFormComponent,
   ],
   templateUrl: './selectable-form.component.html',
   styleUrl: './selectable-form.component.scss',

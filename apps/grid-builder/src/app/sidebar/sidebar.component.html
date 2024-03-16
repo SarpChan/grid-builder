@@ -1,10 +1,13 @@
-<div class="grid grid-flow-row h-full">
+<div class="grid grid-flow-row h-full relative">
   <form [formGroup]="form" class="flex flex-col gap-2 relative">
     <div class="flex flex-col px-4 pb-2 gap-4 rounded-lg border-gray-300">
       <fluent-button appearance="accent" class="w-full">Generate</fluent-button>
 
       <div class="w-full flex justify-center gap-2">
-        <fluent-button appearance="stealth" class="w-1/2 group"
+        <fluent-button
+          appearance="stealth"
+          class="w-1/2 group"
+          (click)="reset()"
           ><span class="group-hover:text-red-500">Reset</span></fluent-button
         >
         <fluent-button appearance="outline" class="w-1/2"
@@ -153,31 +156,41 @@
         </div>
       </div>
       <div class="flex flex-col gap-2">
-        <div class="w-full flex justify-center gap-4">
+        <div class="w-full flex justify-between items-center gap-4">
           <fluent-button
-            appearance="stealth"
-            class="w-1/2 group"
+            appearance="outline"
+            class="group"
             (click)="removeRow()"
-            ><span class="group-hover:text-red-500"
-              >Remove row</span
-            ></fluent-button
+            ><span class="group-hover:text-red-500">-</span></fluent-button
           >
-          <fluent-button appearance="accent" class="w-1/2" (click)="addRow()"
-            >Add row</fluent-button
+          <span>Rows</span>
+
+          <fluent-button appearance="accent" class="" (click)="addRow()"
+            >+</fluent-button
           >
         </div>
 
-        <div class="w-full flex justify-center gap-4">
+        <div class="w-full flex justify-between items-center gap-4">
           <fluent-button
-            appearance="stealth"
-            class="w-1/2 group"
+            appearance="outline"
+            class="group"
             (click)="removeCol()"
-            ><span class="group-hover:text-red-500"
-              >Remove column</span
-            ></fluent-button
+            ><span class="group-hover:text-red-500">-</span></fluent-button
           >
-          <fluent-button appearance="accent" class="w-1/2" (click)="addCol()"
-            >Add column</fluent-button
+          <span>Columns</span>
+          <fluent-button appearance="accent" class="" (click)="addCol()"
+            >+</fluent-button
+          >
+        </div>
+
+        <div class="w-full flex justify-between items-center gap-4">
+          <fluent-button
+            appearance="outline"
+            class="w-full group"
+            (click)="removeGrid()"
+            ><span class="group-hover:text-red-500"
+              >Delete Grid</span
+            ></fluent-button
           >
         </div>
       </div>

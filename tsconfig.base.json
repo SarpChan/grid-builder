@@ -18,6 +18,7 @@
       "@grid-builder/components": ["components/src/index.ts"],
       "@grid-builder/models": ["models/src/index.ts"],
       "@grid-builder/state": ["state/src/index.ts"],
+      "@grid-builder/utils": ["utils/src/index.ts"],
       "@spartan-ng/ui-accordion-helm": ["ui-accordion-helm/src/index.ts"],
       "@spartan-ng/ui-button-helm": ["ui-button-helm/src/index.ts"],
       "@spartan-ng/ui-checkbox-helm": ["ui-checkbox-helm/src/index.ts"],

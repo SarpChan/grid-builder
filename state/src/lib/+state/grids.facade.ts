@@ -3,17 +3,18 @@ import { Store } from '@ngrx/store';
 
 import {
   AddGrid,
-  AddItem,
   Column,
   Grid,
-  Item,
+  AreaInstance,
   ReferenceContainer,
   Row,
   SelectionElement,
   Viewport,
+  AddAreaInstance,
 } from '@grid-builder/models';
 import * as GridsActions from './grids.actions';
 import * as GridsSelectors from './grids.selectors';
+import * as ItemsSelectors from '../+item-state/items.selectors';
 @Injectable()
 export class GridsFacade {
   private readonly store = inject(Store);
@@ -30,6 +31,9 @@ export class GridsFacade {
     },
   });
   selectedGrid$ = this.store.selectSignal(GridsSelectors.selectEntity);
+  selectedGridAreaInstances$ = this.store.selectSignal(
+    ItemsSelectors.selectAreaInstancesOfSelectedGrid
+  );
   styling$ = this.store.selectSignal(GridsSelectors.selectGridStyling);
   selectedElement$ = this.store.selectSignal(
     GridsSelectors.selectSelectedElement
@@ -38,7 +42,9 @@ export class GridsFacade {
     GridsSelectors.selectSelectedColumn
   );
   selectedRow$ = this.store.selectSignal(GridsSelectors.selectSelectedRow);
-  selectedItem$ = this.store.selectSignal(GridsSelectors.selectSelectedItem);
+  selectedItem$ = this.store.selectSignal(
+    ItemsSelectors.selectAreaInstanceOfSelectedGrid
+  );
   selectViewport$ = this.store.selectSignal(GridsSelectors.selectViewport);
   /**
    * Use the initialization action to perform one
@@ -68,8 +74,10 @@ export class GridsFacade {
     this.store.dispatch(GridsActions.updateColumn({ id, colId, changes }));
   }
 
-  updateItem(id: string, itemId: string, changes: Partial<Item>) {
-    this.store.dispatch(GridsActions.updateItem({ id, itemId, changes }));
+  updateItem(id: string, itemId: string, changes: Partial<AreaInstance>) {
+    this.store.dispatch(
+      GridsActions.updateAreaInstance({ id, itemId, changes })
+    );
   }
 
   updateViewport(id: string, changes: Partial<Viewport>) {
@@ -98,8 +106,8 @@ export class GridsFacade {
     this.store.dispatch(GridsActions.addRow({ id }));
   }
 
-  addItem(id: string, item: AddItem) {
-    this.store.dispatch(GridsActions.addItem({ id, item }));
+  addItem(id: string, item: AddAreaInstance) {
+    this.store.dispatch(GridsActions.addAreaInstance({ id, item }));
   }
 
   removeColumn(gridId: string, columnId: string) {
@@ -110,8 +118,26 @@ export class GridsFacade {
     this.store.dispatch(GridsActions.removeRow({ gridId, rowId }));
   }
 
+  removeGrid(id: string) {
+    this.store.dispatch(GridsActions.removeGrid({ id }));
+  }
+
   removeItem(gridId: string, itemId: string) {
-    this.store.dispatch(GridsActions.removeItem({ gridId, itemId }));
+    this.store.dispatch(GridsActions.removeAreaInstance({ gridId, itemId }));
+  }
+
+  connectAreaToInstance(
+    areaId: string,
+    areaInstanceId: string,
+    gridId: string
+  ) {
+    this.store.dispatch(
+      GridsActions.connectAreaToInstance({ areaId, areaInstanceId, gridId })
+    );
+  }
+
+  reset() {
+    this.store.dispatch(GridsActions.reset());
   }
 }
 
