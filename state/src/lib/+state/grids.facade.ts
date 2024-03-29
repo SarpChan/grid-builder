@@ -94,6 +94,14 @@ export class GridsFacade {
     );
   }
 
+  updateUseTailwind(selection: boolean) {
+    this.store.dispatch(GridsActions.updateUseTailwind({ selection }));
+  }
+
+  updateUseClassName(selection: boolean) {
+    this.store.dispatch(GridsActions.updateUseClassName({ selection }));
+  }
+
   select(id: string) {
     this.store.dispatch(GridsActions.selectGrid({ id }));
   }

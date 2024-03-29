@@ -9,7 +9,7 @@ import { generateAreaHtml } from './area-html';
 export const generateRaw = (gridState: GridsState, areaState: ItemState) => {
   const sortedGrids = sortGrids(Object.values(gridState.entities) as Grid[]);
   const areas = Object.values(areaState.entities) as Area[];
-
+  const classText = gridState.useClassName ? 'className' : 'class';
   const lines: string[] = sortedGrids
     .map((grid, i) => {
       const areasCss: string[] = areas
@@ -34,10 +34,10 @@ export const generateRaw = (gridState: GridsState, areaState: ItemState) => {
 
   const areasHtml = areas
     .filter((area) => area.connections.length > 0)
-    .map((item) => generateAreaHtml(item))
+    .map((item) => generateAreaHtml(item, classText))
     .flat();
 
-  const completeHtml = indentHtml(generateGridHtml(areasHtml));
+  const completeHtml = indentHtml(generateGridHtml(areasHtml, classText));
   return { html: completeHtml.join('\n'), css: completeCSSPerGrid.join('\n') };
 };
 
@@ -47,6 +47,7 @@ export const generateTailwind = (
 ) => {
   const sortedGrids = sortGrids(Object.values(gridState.entities) as Grid[]);
   const areas = Object.values(areaState.entities) as Area[];
+  const classText = gridState.useClassName ? 'className' : 'class';
 
   const gridViewportMappings = sortedGrids.map((grid) => {
     if (grid.viewport.limiter === 'to') {
@@ -128,11 +129,11 @@ export const generateTailwind = (
   });
 
   const areaHtml = areaClasses.map((area) => {
-    return `<div class="${area.classes.flat().join(' ')}"></div>`;
+    return `<div ${classText}="${area.classes.flat().join(' ')}"></div>`;
   });
 
   const gridHtml = [
-    `<div class="${gridClasses.flat().join(' ')}">`,
+    `<div ${classText}="${gridClasses.flat().join(' ')}">`,
     ...areaHtml,
     `</div>`,
   ];

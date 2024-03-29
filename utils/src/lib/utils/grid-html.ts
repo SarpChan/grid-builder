@@ -1,3 +1,6 @@
-export const generateGridHtml = (children: string[]): string[] => {
-  return [`<div class="generatedGrid">`, ...children, `</div>`];
+export const generateGridHtml = (
+  children: string[],
+  classText: string
+): string[] => {
+  return [`<div ${classText}="generatedGrid">`, ...children, `</div>`];
 };
