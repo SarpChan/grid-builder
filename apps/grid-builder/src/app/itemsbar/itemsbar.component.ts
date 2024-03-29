@@ -2,12 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemsFacade } from '@grid-builder/state';
 import {
-  CdkDragDrop,
   CdkDrag,
   CdkDropList,
   CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
   CdkDragPlaceholder,
 } from '@angular/cdk/drag-drop';
 

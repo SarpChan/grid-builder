@@ -16,7 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { GridsFacade, ItemsFacade } from '@grid-builder/state';
-import { AreaInstance, Unit, units } from '@grid-builder/models';
+import { AreaInstance, Unit } from '@grid-builder/models';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
@@ -27,7 +27,7 @@ import { debounceTime } from 'rxjs';
 import { Ready } from '@grid-builder/utils';
 import { ComboboxComponent } from '../combobox/combobox.component';
 
-type Option = { label: string; value: string | undefined };
+type Option = { label: string; value: string | undefined; available: boolean };
 
 @Component({
   selector: 'grid-builder-area-instance-form',
@@ -58,13 +58,12 @@ export class AreaInstanceFormComponent extends Ready {
   gridId = this.facade.selectedId$;
 
   areaOptions = this.itemsFacade.selectAreaOptions$;
-
   options = computed<Option[]>(() => {
     const options = this.areaOptions();
     const selected = this.selected();
     if (!options || !selected) return [];
 
-    return options.map((option) => ({
+    const mappedOptions: Option[] = options.map((option) => ({
       value: option.id,
       label: option.name,
       available: !option.connections.find(
@@ -73,6 +72,14 @@ export class AreaInstanceFormComponent extends Ready {
           connection.gridId === this.gridId()
       ),
     }));
+
+    mappedOptions.push({
+      value: '+',
+      label: 'Add new area',
+      available: true,
+    });
+
+    return mappedOptions;
   });
 
   currentOption = computed<Option | undefined>(() => {
@@ -147,8 +154,16 @@ export class AreaInstanceFormComponent extends Ready {
     const areaInstanceId = this.id();
     const gridId = this.gridId();
     const areaId = option.value;
-    if (!areaInstanceId || !gridId || !areaId) return;
 
+    if (!areaInstanceId || !gridId || !areaId) return;
+    if (areaId === '+') {
+      this.itemsFacade.connectNewAreaToInstance(areaInstanceId, gridId);
+      return;
+    }
     this.facade.connectAreaToInstance(areaId, areaInstanceId, gridId);
+  }
+
+  addArea() {
+    this.itemsFacade.add();
   }
 }

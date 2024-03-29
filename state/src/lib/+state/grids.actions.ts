@@ -1,6 +1,7 @@
 import {
   AddAreaInstance,
   AddGrid,
+  Area,
   AreaInstance,
   Column,
   Grid,
@@ -112,6 +113,11 @@ export const updateReferenceContainer = createAction(
 export const connectAreaToInstance = createAction(
   '[Grids/API] Connect Area to instance',
   props<{ areaId: string; areaInstanceId: string; gridId: string }>()
+);
+
+export const connectNewAreaToInstance = createAction(
+  '[Grids/API] Connect New Area to instance',
+  props<{ item: Omit<Area, 'id'>; areaInstanceId: string; gridId: string }>()
 );
 
 export const connectAreaToInstanceSuccess = createAction(

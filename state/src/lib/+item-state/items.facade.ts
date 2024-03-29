@@ -27,6 +27,16 @@ export class ItemsFacade {
     );
   }
 
+  connectNewAreaToInstance(areaInstanceId: string, gridId: string) {
+    this.store.dispatch(
+      GridsActions.connectNewAreaToInstance({
+        item: { ...item, color: getRandomColor() },
+        areaInstanceId,
+        gridId,
+      })
+    );
+  }
+
   updateArea(id: string | undefined, changes: Partial<Area>) {
     if (!id || !changes) return;
 

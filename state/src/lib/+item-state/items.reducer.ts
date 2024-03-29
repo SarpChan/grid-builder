@@ -3,10 +3,11 @@ import { Action, createReducer, on } from '@ngrx/store';
 import * as ItemsActions from './items.actions';
 import * as GridsActions from '../+state/grids.actions';
 import { Area } from '@grid-builder/models';
-import { arraysAreNotAllowedInProps } from '@ngrx/store/src/models';
 export const ITEM_FEATURE_KEY = 'items';
 
-export interface ItemState extends EntityState<Area> {}
+export interface ItemState extends EntityState<Area> {
+  lastAddedId?: string | undefined;
+}
 
 export interface ItemsPartialState {
   readonly [ITEM_FEATURE_KEY]: ItemState;
@@ -21,16 +22,6 @@ export const initialItemState: ItemState = itemsAdapter.getInitialState({});
 
 const reducer = createReducer(
   initialItemState,
-  on(ItemsActions.addArea, (state, { item }) =>
-    itemsAdapter.addOne(
-      {
-        ...item,
-        id: crypto.randomUUID(),
-        name: `Area-${Math.floor(Math.random() * 10000)}`,
-      },
-      state
-    )
-  ),
   on(ItemsActions.updateArea, (state, { id, changes }) =>
     itemsAdapter.map((area) => {
       if (area.id !== id) return area;
@@ -106,6 +97,23 @@ const reducer = createReducer(
       }),
       state
     )
+  ),
+  on(
+    GridsActions.connectNewAreaToInstance,
+    ItemsActions.addArea,
+    (state, { item }) => {
+      const id = crypto.randomUUID();
+      const newState = itemsAdapter.addOne(
+        {
+          ...item,
+          id,
+          name: `Area-${Math.floor(Math.random() * 10000)}`,
+        },
+        state
+      );
+      newState.lastAddedId = id;
+      return newState;
+    }
   ),
   on(GridsActions.reset, () => initialItemState)
 );
