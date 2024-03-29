@@ -324,6 +324,12 @@ const reducer = createReducer(
   on(GridsActions.updateReferenceContainer, (state, { referenceContainer }) => {
     return { ...state, referenceContainer };
   }),
+  on(GridsActions.updateUseTailwind, (state, { selection }) => {
+    return { ...state, useTailwind: selection };
+  }),
+  on(GridsActions.updateUseClassName, (state, { selection }) => {
+    return { ...state, useClassName: selection };
+  }),
   on(GridsActions.addAreaInstanceSuccess, (state, { id, item }) => {
     const newState = gridsAdapter.map(
       (entity) =>

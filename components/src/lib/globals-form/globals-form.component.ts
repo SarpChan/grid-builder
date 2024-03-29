@@ -52,16 +52,30 @@ export class GlobalsFormComponent {
   options = units;
   defaultUnit: Unit = 'px';
   referenceContainerValue: ReferenceContainer = 'viewport';
+  twValue = 'false';
+  classNameValue = 'false';
   ready = signal(false);
 
   form = this.fb.group({
     referenceContainer: ['viewport', [Validators.required]],
+    useTailwind: [false, [Validators.required]],
+    useClassname: [false, [Validators.required]],
   });
 
-  select(rf: string) {
+  selectRf(rf: string) {
     if (isReferenceContainer(rf)) {
       this.referenceContainerValue = rf;
       this.facade.updateReferenceContainer(rf);
     }
+  }
+
+  selectTW(selection: boolean) {
+    this.twValue = selection ? 'true' : 'false';
+    this.facade.updateUseTailwind(selection);
+  }
+
+  selectClass(selection: boolean) {
+    this.classNameValue = selection ? 'true' : 'false';
+    this.facade.updateUseClassName(selection);
   }
 }

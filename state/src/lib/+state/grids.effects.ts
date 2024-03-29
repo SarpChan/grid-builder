@@ -119,9 +119,7 @@ export class GridsEffects {
         this.store.select(selectItemState)
       ),
       switchMap(([_, gridState, areaState]) => {
-        const shouldUseTailwind = true;
-
-        const { html, css } = shouldUseTailwind
+        const { html, css } = gridState.useTailwind
           ? generateTailwind(gridState, areaState)
           : generateRaw(gridState, areaState);
 

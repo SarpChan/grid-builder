@@ -110,6 +110,16 @@ export const updateReferenceContainer = createAction(
   props<{ referenceContainer: ReferenceContainer }>()
 );
 
+export const updateUseClassName = createAction(
+  '[Grids/API] Update use ClassName',
+  props<{ selection: boolean }>()
+);
+
+export const updateUseTailwind = createAction(
+  '[Grids/API] Update use Tailwind',
+  props<{ selection: boolean }>()
+);
+
 export const connectAreaToInstance = createAction(
   '[Grids/API] Connect Area to instance',
   props<{ areaId: string; areaInstanceId: string; gridId: string }>()

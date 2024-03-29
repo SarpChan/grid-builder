@@ -7,20 +7,62 @@
   >
     <h2 class="col-span-2">Reference Conainter</h2>
 
-    <brn-radio hlm value="viewport" (click)="select('viewport')">
+    <brn-radio hlm value="viewport" (click)="selectRf('viewport')">
       <hlm-radio-indicator
-        (click)="select('viewport')"
+        (click)="selectRf('viewport')"
         indicator
       ></hlm-radio-indicator>
       Viewport
     </brn-radio>
 
-    <brn-radio hlm value="container" (click)="select('container')">
+    <brn-radio hlm value="container" (click)="selectRf('container')">
       <hlm-radio-indicator
-        (click)="select('container')"
+        (click)="selectRf('container')"
         indicator
       ></hlm-radio-indicator>
       Container
+    </brn-radio>
+  </brn-radio-group>
+
+  <!-- Use Tailwind -->
+  <brn-radio-group hlm [value]="twValue" class="gap-2 grid grid-cols-2">
+    <h2 class="col-span-2">Generate Tailwind</h2>
+
+    <brn-radio hlm value="true" (click)="selectTW(true)">
+      <hlm-radio-indicator
+        (click)="selectTW(true)"
+        indicator
+      ></hlm-radio-indicator>
+      Yes
+    </brn-radio>
+
+    <brn-radio hlm value="false" (click)="selectTW(false)">
+      <hlm-radio-indicator
+        (click)="selectTW(false)"
+        indicator
+      ></hlm-radio-indicator>
+      No - CSS
+    </brn-radio>
+  </brn-radio-group>
+
+  <!-- Use ClassName -->
+  <brn-radio-group hlm [value]="classNameValue" class="gap-2 grid grid-cols-2">
+    <h2 class="col-span-2">CSS Class Atribute</h2>
+
+    <brn-radio hlm value="true" (click)="selectClass(true)">
+      <hlm-radio-indicator
+        (click)="selectClass(true)"
+        indicator
+      ></hlm-radio-indicator>
+      ClassName
+    </brn-radio>
+
+    <brn-radio hlm value="false" (click)="selectClass(false)">
+      <hlm-radio-indicator
+        (click)="selectClass(false)"
+        indicator
+      ></hlm-radio-indicator>
+      Class
     </brn-radio>
   </brn-radio-group>
 </form>
