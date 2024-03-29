@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { switchMap, catchError, of, withLatestFrom } from 'rxjs';
-import * as GridsActions from './grids.actions';
-import { Store } from '@ngrx/store';
-import { selectGridsEntities, selectGridsState } from './grids.selectors';
+import { generateRaw, generateTailwind } from '@grid-builder/utils';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store, createAction } from '@ngrx/store';
+import { catchError, of, switchMap, withLatestFrom } from 'rxjs';
 import {
   selectAreaEntities,
   selectItemState,
 } from '../+item-state/items.selectors';
-import { generateRaw, generateTailwind } from '@grid-builder/utils';
+import * as GridsActions from './grids.actions';
+import { selectGridsEntities, selectGridsState } from './grids.selectors';
 @Injectable()
 export class GridsEffects {
   private actions$ = inject(Actions);
@@ -118,7 +118,7 @@ export class GridsEffects {
         this.store.select(selectGridsState),
         this.store.select(selectItemState)
       ),
-      switchMap(([_action, gridState, areaState]) => {
+      switchMap(([_, gridState, areaState]) => {
         const shouldUseTailwind = true;
 
         const { html, css } = shouldUseTailwind
@@ -127,6 +127,24 @@ export class GridsEffects {
 
         return of(GridsActions.generateSuccess({ css, html }));
       })
+    )
+  );
+
+  connectNewAreaToInstance$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GridsActions.connectNewAreaToInstance),
+      withLatestFrom(this.store.select(selectItemState)),
+      switchMap(([payload, itemState]) =>
+        itemState.lastAddedId
+          ? of(
+              GridsActions.connectAreaToInstance({
+                areaId: itemState.lastAddedId,
+                areaInstanceId: payload.areaInstanceId,
+                gridId: payload.gridId,
+              })
+            )
+          : of(createAction('noop'))
+      )
     )
   );
 }

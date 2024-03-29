@@ -1,4 +1,4 @@
-import { Area, Grid } from '@grid-builder/models';
+import { Grid } from '@grid-builder/models';
 
 export const generateGridCss = (grid: Grid, children: string[]) => {
   const gridName = grid.name;
