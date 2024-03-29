@@ -89,3 +89,8 @@ export const selectViewport = createSelector(
   selectEntity,
   (grid) => grid?.viewport
 );
+
+export const selectGeneratedCode = createSelector(
+  selectGridsState,
+  (state) => state.generated
+);

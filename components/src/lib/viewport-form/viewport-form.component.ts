@@ -69,7 +69,7 @@ export class ViewportFormComponent extends Ready {
     super();
     effect(
       () => {
-        this.resetForm(this.viewport()?.limiter);
+        this.resetForm(this.gridId());
       },
       { allowSignalWrites: true }
     );
@@ -91,7 +91,7 @@ export class ViewportFormComponent extends Ready {
     if (id && this.oldId !== id) {
       this.form.reset(
         untracked(() => this.viewport()),
-        { emitEvent: this.form.pristine, onlySelf: true }
+        { emitEvent: this.form.pristine }
       );
     }
     this.oldId = id;

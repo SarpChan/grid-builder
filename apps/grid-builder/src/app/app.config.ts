@@ -5,6 +5,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import { appRoutes } from './app.routes';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { GridsEffects, gridsReducer, itemsReducer } from '@grid-builder/state';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,5 +13,11 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(appRoutes),
     provideStoreDevtools({ maxAge: 25, logOnly: false }),
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js'),
+      },
+    },
   ],
 };

@@ -46,6 +46,10 @@ export class GridsFacade {
     ItemsSelectors.selectAreaInstanceOfSelectedGrid
   );
   selectViewport$ = this.store.selectSignal(GridsSelectors.selectViewport);
+  selectGenerated$ = this.store.selectSignal(
+    GridsSelectors.selectGeneratedCode
+  );
+
   /**
    * Use the initialization action to perform one
    * or more tasks in your Effects.
@@ -142,6 +146,10 @@ export class GridsFacade {
 
   generate() {
     this.store.dispatch(GridsActions.generate());
+  }
+
+  clearGenerated() {
+    this.store.dispatch(GridsActions.clearGenerated());
   }
 }
 
