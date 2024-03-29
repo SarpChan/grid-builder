@@ -14,6 +14,8 @@ export interface GridsState extends EntityState<Grid> {
   generated?: { css: string | undefined; html: string };
   selection?: SelectionElement | undefined;
   referenceContainer: 'viewport' | 'container';
+  useTailwind: boolean;
+  useClassName: boolean;
 }
 
 export interface GridsPartialState {
@@ -142,6 +144,8 @@ export const initialGridsState: GridsState = gridsAdapter.getInitialState({
   mediaType: 'both',
   referenceContainer: 'viewport',
   error: null,
+  useTailwind: false,
+  useClassName: false,
 });
 
 const reducer = createReducer(
