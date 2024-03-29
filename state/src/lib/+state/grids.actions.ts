@@ -127,6 +127,9 @@ export const connectAreaToInstanceFailure = createAction(
 export const generate = createAction('[Grids/API] Generate Code');
 
 export const generateSuccess = createAction(
-  '[Grids/API] Generate Code Success'
+  '[Grids/API] Generate Code Success',
+  props<{ css: string | undefined; html: string }>()
 );
 export const generateFailure = createAction('[Grids/API] Generate Code Failed');
+
+export const clearGenerated = createAction('[Grids/API] Clear Generated Code');

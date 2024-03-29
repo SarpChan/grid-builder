@@ -11,7 +11,7 @@ export interface GridsState extends EntityState<Grid> {
   selectedId?: string; // which Grids record has been selected
   loaded: boolean; // has the Grids list been loaded
   error?: string | null; // last known error (if any)
-
+  generated?: { css: string | undefined; html: string };
   selection?: SelectionElement | undefined;
   referenceContainer: 'viewport' | 'container';
 }
@@ -191,6 +191,14 @@ const reducer = createReducer(
       };
     }, state);
   }),
+  on(GridsActions.generateSuccess, (state, { css, html }) => ({
+    ...state,
+    generated: { css, html },
+  })),
+  on(GridsActions.clearGenerated, (state) => ({
+    ...state,
+    generated: undefined,
+  })),
   on(GridsActions.addColumn, (state, { id }) => {
     const newState = gridsAdapter.map(
       (item) =>

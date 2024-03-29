@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ItemsbarComponent } from './itemsbar/itemsbar.component';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ import { CdkDropListGroup } from '@angular/cdk/drag-drop';
     SidebarComponent,
     ItemsbarComponent,
     CdkDropListGroup,
+    HlmButtonDirective,
   ],
   selector: 'grid-builder-root',
   templateUrl: './app.component.html',
@@ -21,9 +23,4 @@ import { CdkDropListGroup } from '@angular/cdk/drag-drop';
   providers: [GridsFacade, ItemsFacade],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppComponent {
-  title = 'grid-builder';
-  exampleTextField = 'ExampleText';
-
-  onClick() {}
-}
+export class AppComponent {}

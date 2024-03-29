@@ -48,6 +48,20 @@ import {
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
 import { Ready } from '@grid-builder/utils';
+import {
+  BrnSheetContentDirective,
+  BrnSheetTriggerDirective,
+} from '@spartan-ng/ui-sheet-brain';
+import {
+  HlmSheetComponent,
+  HlmSheetContentComponent,
+  HlmSheetDescriptionDirective,
+  HlmSheetFooterComponent,
+  HlmSheetHeaderComponent,
+  HlmSheetTitleDirective,
+} from '@spartan-ng/ui-sheet-helm';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'grid-builder-sidebar',
@@ -75,6 +89,16 @@ import { Ready } from '@grid-builder/utils';
     BrnTooltipContentDirective,
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
+    HlmSheetComponent,
+    HlmSheetContentComponent,
+    HlmSheetDescriptionDirective,
+    HlmSheetFooterComponent,
+    HlmSheetHeaderComponent,
+    HlmSheetTitleDirective,
+    BrnSheetContentDirective,
+    BrnSheetTriggerDirective,
+    HlmButtonDirective,
+    HighlightModule,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -86,6 +110,7 @@ export class SidebarComponent extends Ready {
   grid: Signal<Grid | undefined> = this.facade.selectedGrid$;
   selected = this.facade.selectedId$;
   selectedElement = this.facade.selectedElement$;
+  generated = this.facade.selectGenerated$;
   form: FormGroup;
   oldId: string | undefined;
 
@@ -188,5 +213,9 @@ export class SidebarComponent extends Ready {
 
   generate() {
     this.facade.generate();
+  }
+
+  clickedClose() {
+    this.facade.clearGenerated();
   }
 }
