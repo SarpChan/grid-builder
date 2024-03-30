@@ -11,7 +11,7 @@ export interface GridsState extends EntityState<Grid> {
   selectedId?: string; // which Grids record has been selected
   loaded: boolean; // has the Grids list been loaded
   error?: string | null; // last known error (if any)
-  generated?: { css: string | undefined; html: string };
+  generated?: { css: string | undefined; html: string } | undefined;
   selection?: SelectionElement | undefined;
   referenceContainer: 'viewport' | 'container';
   useTailwind: boolean;
@@ -438,6 +438,27 @@ const reducer = createReducer(
         ? `${state.ids.find((gridId) => gridId !== id)}`
         : undefined,
   })),
+  on(GridsActions.setPreset, (state, { preset }) => {
+    const entities = Object.assign(
+      {},
+      ...preset.grids.map((grid) => ({ [grid.id]: grid }))
+    );
+
+    return {
+      ...state,
+      entities,
+      error: null,
+      loaded: true,
+      ids: Object.keys(entities),
+      selectedId: preset.grids[0].id,
+      useClassName: preset.globals.useClassName,
+      useTailwind: preset.globals.useTailwind,
+      mediaType: preset.globals.mediaType,
+      referenceContainer: preset.globals.referenceContainer,
+      generated: undefined,
+      selection: undefined,
+    };
+  }),
   on(GridsActions.reset, () => initialGridsState)
 );
 

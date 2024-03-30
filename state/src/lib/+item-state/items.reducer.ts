@@ -115,6 +115,21 @@ const reducer = createReducer(
       return newState;
     }
   ),
+  on(GridsActions.setPreset, (state, { preset }) => {
+    const entities = Object.assign(
+      {},
+      ...preset.areas.map((area) => ({ [area.id]: area }))
+    );
+
+    return {
+      ...state,
+      entities,
+      ids: Object.keys(entities),
+      lastAddedId: preset.areas.length
+        ? preset.areas[preset.areas.length - 1].id
+        : undefined,
+    };
+  }),
   on(GridsActions.reset, () => initialItemState)
 );
 
