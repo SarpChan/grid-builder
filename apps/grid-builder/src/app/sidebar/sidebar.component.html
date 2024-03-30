@@ -1,62 +1,11 @@
 <div class="grid grid-flow-row h-full relative">
-  <form [formGroup]="form" class="flex flex-col gap-2 relative">
-    <div class="flex flex-col px-4 pb-2 gap-4 rounded-lg border-gray-300">
-      <hlm-sheet>
-        <button
-          side="left"
-          variant="default"
-          brnSheetTrigger
-          hlmBtn
-          class="w-full"
-          (click)="generate()"
-        >
-          Generate
-        </button>
-
-        <hlm-sheet-content
-          *brnSheetContent="let ctx"
-          (closeClicked)="clickedClose()"
-        >
-          <hlm-sheet-header>
-            <h3 hlmSheetTitle>Your Code</h3>
-          </hlm-sheet-header>
-          <div
-            hlmSheetDescription
-            class="h-full flex flex-col gap-4 overflow-y-auto pb-8"
-          >
-            @if(generated()?.css; as css) {
-            <div class="flex flex-col gap-2">
-              <h3 hlmSheetTitle>CSS</h3>
-              <pre><code class="text-xs" [highlight]="css"></code></pre>
-            </div>
-            } @if(generated()?.html; as html) {
-            <div class="flex flex-col gap-2">
-              <h3 hlmSheetTitle>HTML</h3>
-              <pre><code [highlight]="html"></code></pre>
-            </div>
-            }
-          </div>
-        </hlm-sheet-content>
-      </hlm-sheet>
-
-      <div class="w-full flex justify-center gap-2">
-        <fluent-button
-          appearance="stealth"
-          class="w-1/2 group"
-          (click)="reset()"
-          ><span class="group-hover:text-red-500">Reset</span></fluent-button
-        >
-        <fluent-button appearance="outline" class="w-1/2"
-          >Preview</fluent-button
-        >
-      </div>
-    </div>
-    <fluent-divider
-      appearance="strong"
-      orientation="horizontal"
-      role="separator"
-      style="border-width: 0.1px"
-    ></fluent-divider>
+  <form [formGroup]="form" class="flex flex-col relative">
+    <a
+      target="_blank"
+      class="hover:text-white hover:bg-accent transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
+      href="https://www.google.com"
+      >Support me</a
+    >
 
     <div>
       <label hlmLabel>Name</label>
@@ -73,6 +22,7 @@
         <div hlmAccordionItem>
           <hlm-tooltip>
             <div
+              class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
@@ -108,6 +58,7 @@
         <div hlmAccordionItem>
           <hlm-tooltip>
             <button
+              class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
@@ -150,6 +101,7 @@
         <div hlmAccordionItem>
           <hlm-tooltip>
             <button
+              class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
@@ -179,6 +131,7 @@
         <div hlmAccordionItem>
           <hlm-tooltip>
             <button
+              class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
@@ -199,6 +152,7 @@
         <div hlmAccordionItem>
           <hlm-tooltip>
             <button
+              class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
@@ -244,8 +198,14 @@
 
         <div class="w-full flex justify-between items-center gap-4">
           <fluent-button
+            appearance="stealth"
+            class="w-1/2 group"
+            (click)="reset()"
+            ><span class="group-hover:text-red-500">Reset</span></fluent-button
+          >
+          <fluent-button
             appearance="outline"
-            class="w-full group"
+            class="w-1/2 group"
             (click)="removeGrid()"
             ><span class="group-hover:text-red-500"
               >Delete Grid</span

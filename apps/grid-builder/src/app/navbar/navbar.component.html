@@ -1,20 +1,62 @@
 <div
-  class="w-full py-4 flex justify-between items-center bg-gray-200 h-full px-16"
+  class="w-full py-4 flex justify-between items-center bg-gray-200 h-full pl-16 pr-8"
 >
   <div class="">Logo</div>
-  <div class="flex gap-8">
-    <a
-      [routerLink]="['/preview']"
-      routerLinkActive="text-blue-600 relative after:rounded-full after:w-full after:h-1 after:bg-blue-600 after:block after:absolute"
-      class="text-xl"
-      >Preview</a
-    >
-    <a
-      [routerLink]="['/']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      routerLinkActive="text-blue-600 relative after:rounded-full after:w-full after:h-1 after:bg-blue-600 after:block after:absolute"
-      class="text-xl"
-      >Edit</a
-    >
+  <div class="flex gap-2">
+    <hlm-sheet>
+      <button
+        side="left"
+        variant="default"
+        brnSheetTrigger
+        hlmBtn
+        class="w-full"
+        (click)="generate()"
+      >
+        Generate
+      </button>
+
+      <hlm-sheet-content
+        *brnSheetContent="let ctx"
+        (closeClicked)="clickedClose()"
+      >
+        <hlm-sheet-header>
+          <h3 hlmSheetTitle>Your Code</h3>
+        </hlm-sheet-header>
+        <div
+          hlmSheetDescription
+          class="h-full flex flex-col gap-4 overflow-y-auto pb-8"
+        >
+          @if(generated()?.css; as css) {
+          <div class="flex flex-col gap-2">
+            <h3 hlmSheetTitle>CSS</h3>
+            <pre><code class="text-xs" [highlight]="css"></code></pre>
+          </div>
+          } @if(generated()?.html; as html) {
+          <div class="flex flex-col gap-2">
+            <h3 hlmSheetTitle>HTML</h3>
+            <pre><code [highlight]="html"></code></pre>
+          </div>
+          }
+        </div>
+      </hlm-sheet-content>
+    </hlm-sheet>
+    <fluent-button appearance="outline" class="w-1/2">Preview</fluent-button>
+    <button #preset [brnMenuTriggerFor]="menu" variant="outline" hlmBtn>
+      Preset
+    </button>
+    <ng-template #menu>
+      <div class="bg-gray-200 p-2 border border-gray-800/10 rounded-sm mt-4">
+        <hlm-menu-group>
+          <hlm-menu-group>
+            @for (p of presets; track p.id) {
+            <button hlmMenuItem (click)="preset.click(); select(p.id)">
+              {{ p.name }}
+            </button>
+
+            }
+          </hlm-menu-group>
+        </hlm-menu-group>
+      </div>
+    </ng-template>
   </div>
 </div>

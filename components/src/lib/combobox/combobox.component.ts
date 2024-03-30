@@ -40,7 +40,11 @@ import {
   styleUrl: './combobox.component.scss',
 })
 export class ComboboxComponent<
-  T extends { value: string; label: string; available?: boolean }
+  T extends {
+    value: string | undefined;
+    label: string;
+    available?: boolean | undefined;
+  }
 > {
   public options = input<T[] | undefined>();
 

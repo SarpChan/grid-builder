@@ -15,6 +15,8 @@ import {
 import * as GridsActions from './grids.actions';
 import * as GridsSelectors from './grids.selectors';
 import * as ItemsSelectors from '../+item-state/items.selectors';
+import { presets } from '@grid-builder/models';
+
 @Injectable()
 export class GridsFacade {
   private readonly store = inject(Store);
@@ -158,6 +160,13 @@ export class GridsFacade {
 
   clearGenerated() {
     this.store.dispatch(GridsActions.clearGenerated());
+  }
+
+  selectPreset(id: string) {
+    const preset = presets.find((p) => p.id === id);
+    if (preset) {
+      this.store.dispatch(GridsActions.setPreset({ preset }));
+    }
   }
 }
 

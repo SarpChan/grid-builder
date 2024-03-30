@@ -27,7 +27,7 @@ import { debounceTime } from 'rxjs';
 import { Ready } from '@grid-builder/utils';
 import { ComboboxComponent } from '../combobox/combobox.component';
 
-type Option = { label: string; value: string | undefined; available: boolean };
+type Option = { label: string; value: string | undefined; available?: boolean };
 
 @Component({
   selector: 'grid-builder-area-instance-form',

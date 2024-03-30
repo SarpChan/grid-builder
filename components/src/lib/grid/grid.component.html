@@ -29,7 +29,7 @@
             <div
               class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
             >
-              <span class="truncate"> Column {{ index + 1 }} </span>
+              <span class="truncate"> Col {{ index + 1 }} </span>
             </div>
           </button>
           <span *brnTooltipContent class="pointer-events-none">
@@ -129,7 +129,7 @@
     >
       @if (trackMouse) {
       <div
-        class="bg-destructive/60 transition-all duration-[250] absolute z-[70] rounded-[0.125rem]"
+        class="bg-destructive/60 transition-all duration-[250ms] absolute z-[70] rounded-[0.125rem]"
         [ngStyle]="{
           top: positionValues().top + 'px',
           left: positionValues().left + 'px',

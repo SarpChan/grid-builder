@@ -5,6 +5,7 @@ import {
   AreaInstance,
   Column,
   Grid,
+  Preset,
   ReferenceContainer,
   Row,
   SelectionElement,
@@ -149,3 +150,8 @@ export const generateSuccess = createAction(
 export const generateFailure = createAction('[Grids/API] Generate Code Failed');
 
 export const clearGenerated = createAction('[Grids/API] Clear Generated Code');
+
+export const setPreset = createAction(
+  '  [Grids/API] Set Preset',
+  props<{ preset: Preset }>()
+);

@@ -12,3 +12,4 @@ export * from './lib/selectionElement';
 export * from './lib/referenceContainer';
 export * from './lib/mediaType';
 export * from './lib/colored-area-instance';
+export * from './lib/presets';
