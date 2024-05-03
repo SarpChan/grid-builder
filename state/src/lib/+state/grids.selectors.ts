@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GRIDS_FEATURE_KEY, GridsState, gridsAdapter } from './grids.reducer';
+import { checkNoViewportOverlap } from '@grid-builder/utils';
 
 export const selectGridsState =
   createFeatureSelector<GridsState>(GRIDS_FEATURE_KEY);
@@ -93,4 +94,16 @@ export const selectViewport = createSelector(
 export const selectGeneratedCode = createSelector(
   selectGridsState,
   (state) => state.generated
+);
+
+export const selectValidation = createSelector(selectAllGrids, (grids) =>
+  checkNoViewportOverlap(grids)
+);
+
+export const selectWarnings = createSelector(selectValidation, (result) =>
+  Array.from(result?.warnings ?? [])
+);
+
+export const selectErrors = createSelector(selectValidation, (result) =>
+  Array.from(result?.errors ?? [])
 );

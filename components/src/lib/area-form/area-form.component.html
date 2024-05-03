@@ -29,9 +29,9 @@
     <div class="w-full flex flex-col">
       @for (grid of grids(); track grid.gridId) {
       <div
-        class="w-full flex gap-2 p-2 pr-0 first:pt-0 justify-between items-center border-b-2 last:border-b-0"
+        class="relative w-full flex gap-2 p-2 pr-0 first:pt-0 justify-between items-center border-b-2 last:border-b-0"
       >
-        <div class="font-normal">
+        <div class="font-normal max-w-72 overflow-hidden text-ellipsis">
           {{ grid.name }}
         </div>
         <fluent-button

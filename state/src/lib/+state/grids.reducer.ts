@@ -16,6 +16,8 @@ export interface GridsState extends EntityState<Grid> {
   referenceContainer: 'viewport' | 'container';
   useTailwind: boolean;
   useClassName: boolean;
+  warnings: string[];
+  errors: string[];
 }
 
 export interface GridsPartialState {
@@ -146,6 +148,8 @@ export const initialGridsState: GridsState = gridsAdapter.getInitialState({
   error: null,
   useTailwind: false,
   useClassName: false,
+  warnings: [],
+  errors: [],
 });
 
 const reducer = createReducer(
@@ -198,6 +202,11 @@ const reducer = createReducer(
   on(GridsActions.generateSuccess, (state, { css, html }) => ({
     ...state,
     generated: { css, html },
+  })),
+  on(GridsActions.validationResults, (state, { warnings, errors }) => ({
+    ...state,
+    warnings,
+    errors,
   })),
   on(GridsActions.clearGenerated, (state) => ({
     ...state,

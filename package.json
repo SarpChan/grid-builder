@@ -16,8 +16,8 @@
     "@angular/router": "17.3.2",
     "@fluentui/web-components": "^2.5.16",
     "@microsoft/fast-element": "^1.12.0",
-    "@ng-icons/core": "^25.1.0",
-    "@ng-icons/radix-icons": "^26.3.0",
+    "@ng-icons/core": "^25.6.1",
+    "@ng-icons/radix-icons": "^26.5.0",
     "@ngneat/cmdk": "^2.0.0",
     "@ngneat/overview": "^5.1.1",
     "@ngneat/until-destroy": "^9.2.3",
@@ -105,4 +105,3 @@
     "typescript": "5.4.3"
   }
 }
-

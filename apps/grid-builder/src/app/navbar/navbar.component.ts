@@ -28,6 +28,22 @@ import {
   HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
 import { presetOptions } from '@grid-builder/models';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import {
+  radixCrossCircled,
+  radixExclamationTriangle,
+} from '@ng-icons/radix-icons';
+
+import {
+  BrnPopoverCloseDirective,
+  BrnPopoverComponent,
+  BrnPopoverContentDirective,
+  BrnPopoverTriggerDirective,
+} from '@spartan-ng/ui-popover-brain';
+import {
+  HlmPopoverCloseDirective,
+  HlmPopoverContentDirective,
+} from '@spartan-ng/ui-popover-helm';
 
 @Component({
   selector: 'grid-builder-navbar',
@@ -51,14 +67,21 @@ import { presetOptions } from '@grid-builder/models';
     HlmSubMenuComponent,
     HlmMenuItemDirective,
     HlmMenuGroupComponent,
+    NgIconComponent,
+    BrnPopoverComponent,
+    BrnPopoverTriggerDirective,
+    BrnPopoverContentDirective,
+    BrnPopoverCloseDirective,
+    HlmPopoverContentDirective,
+    HlmPopoverCloseDirective,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [provideIcons({ radixExclamationTriangle, radixCrossCircled })],
 })
 export class NavbarComponent {
   facade = inject(GridsFacade);
-  generated = this.facade.selectGenerated$;
   presets = presetOptions;
 
   generate() {

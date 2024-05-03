@@ -14,7 +14,7 @@
     <div
       cdkDrag
       [cdkDragData]="item.id"
-      class="h-14 w-full rounded-sm border-4 relative"
+      class="h-14 w-full rounded-sm border-4 relative cursor-grab"
       (click)="select(item.id)"
       [ngStyle]="{
         'border-color': item.color.startsWith('#')

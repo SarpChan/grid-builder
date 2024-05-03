@@ -147,6 +147,11 @@ export const generateSuccess = createAction(
   '[Grids/API] Generate Code Success',
   props<{ css: string | undefined; html: string }>()
 );
+
+export const validationResults = createAction(
+  '[Grids/API] Validate Grids',
+  props<{ errors: string[]; warnings: string[] }>()
+);
 export const generateFailure = createAction('[Grids/API] Generate Code Failed');
 
 export const clearGenerated = createAction('[Grids/API] Clear Generated Code');
