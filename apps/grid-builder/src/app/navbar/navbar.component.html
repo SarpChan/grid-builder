@@ -2,7 +2,64 @@
   class="w-full py-4 flex justify-between items-center bg-gray-200 h-full pl-16 pr-8"
 >
   <div class="">Logo</div>
-  <div class="flex gap-2">
+  <div class="flex gap-2 items-center">
+    <brn-popover>
+      <button
+        class="text-amber-300 hover:text-amber-500 disabled:text-gray-300 group"
+        brnPopoverTrigger
+        [disabled]="facade.selectWarnings$()?.length === 0"
+      >
+        <ng-icon
+          class="trainsition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
+          name="radixExclamationTriangle"
+          [disabled]="facade.selectWarnings$()?.length === 0"
+          size="1.25rem"
+        ></ng-icon>
+      </button>
+
+      <div
+        class="mt-[1.125rem] border-0 ring ring-amber-200"
+        hlmPopoverContent
+        *brnPopoverContent="let ctx"
+      >
+        @if(facade.selectWarnings$(); as warnings) {
+        <div>
+          @for (w of warnings; track w) {
+          <p class="text-sm">{{ w }}</p>
+          }
+        </div>
+        }
+      </div>
+    </brn-popover>
+
+    <brn-popover>
+      <button
+        class="text-red-300 hover:text-red-600 disabled:text-gray-300 group"
+        brnPopoverTrigger
+        [disabled]="facade.selectErrors$()?.length === 0"
+      >
+        <ng-icon
+          class="transition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
+          name="radixCrossCircled"
+          size="1.25rem"
+        ></ng-icon>
+      </button>
+
+      <div
+        class="mt-[1.125rem] ring border-0 ring-red-200"
+        hlmPopoverContent
+        *brnPopoverContent="let ctx"
+      >
+        @if(facade.selectErrors$(); as errors) {
+        <div class="">
+          @for (err of errors; track err) {
+          <p class="text-sm">{{ err }}</p>
+          }
+        </div>
+        }
+      </div>
+    </brn-popover>
+
     <hlm-sheet>
       <button
         side="left"
@@ -11,6 +68,9 @@
         hlmBtn
         class="w-full"
         (click)="generate()"
+        [disabled]="
+          facade.selectErrors$()?.length && facade.selectErrors$().length > 0
+        "
       >
         Generate
       </button>
@@ -26,12 +86,12 @@
           hlmSheetDescription
           class="h-full flex flex-col gap-4 overflow-y-auto pb-8"
         >
-          @if(generated()?.css; as css) {
+          @if(facade.selectGenerated$()?.css; as css) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>CSS</h3>
             <pre><code class="text-xs" [highlight]="css"></code></pre>
           </div>
-          } @if(generated()?.html; as html) {
+          } @if(facade.selectGenerated$()?.html; as html) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>HTML</h3>
             <pre><code [highlight]="html"></code></pre>

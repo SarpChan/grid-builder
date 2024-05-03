@@ -1,5 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { generateRaw, generateTailwind } from '@grid-builder/utils';
+import {
+  generateRaw,
+  generateTailwind,
+  checkNoViewportOverlap,
+} from '@grid-builder/utils';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, createAction } from '@ngrx/store';
 import { catchError, of, switchMap, withLatestFrom } from 'rxjs';
@@ -9,6 +13,7 @@ import {
 } from '../+item-state/items.selectors';
 import * as GridsActions from './grids.actions';
 import { selectGridsEntities, selectGridsState } from './grids.selectors';
+import { Grid } from '@grid-builder/models';
 @Injectable()
 export class GridsEffects {
   private actions$ = inject(Actions);
@@ -143,6 +148,28 @@ export class GridsEffects {
             )
           : of(createAction('noop'))
       )
+    )
+  );
+
+  validate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GridsActions.connectNewAreaToInstance),
+      withLatestFrom(
+        this.store.select(selectGridsState),
+        this.store.select(selectItemState)
+      ),
+      switchMap(([_, gridState, areaState]) => {
+        const { warnings, errors } = checkNoViewportOverlap(
+          Object.values(gridState.entities) as Grid[]
+        );
+
+        return of(
+          GridsActions.validationResults({
+            warnings: Array.from(warnings),
+            errors: Array.from(errors),
+          })
+        );
+      })
     )
   );
 }

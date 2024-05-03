@@ -1,4 +1,4 @@
-import { Area, Grid, Limiter, Unit, Viewport } from '@grid-builder/models';
+import { Area, Grid, Unit, Viewport } from '@grid-builder/models';
 import { GridsState, ItemState } from '@grid-builder/state';
 import { generateMediaQuery } from './media-query';
 import { generateGridCss } from './grid-css';
@@ -195,7 +195,7 @@ const sortGrids = (grids: Grid[]) => {
   });
 };
 
-const checkNoViewportOverlap = (grids: Grid[]) => {
+export const checkNoViewportOverlap = (grids: Grid[]) => {
   const warnings = new Set<string>();
   const errors = new Set<string>();
   grids.forEach((grid) => {
