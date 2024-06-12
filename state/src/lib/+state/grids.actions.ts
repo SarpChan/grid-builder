@@ -5,6 +5,7 @@ import {
   AreaInstance,
   Column,
   Grid,
+  IValidationModel,
   Preset,
   ReferenceContainer,
   Row,
@@ -150,7 +151,7 @@ export const generateSuccess = createAction(
 
 export const validationResults = createAction(
   '[Grids/API] Validate Grids',
-  props<{ errors: string[]; warnings: string[] }>()
+  props<{ errors: IValidationModel[]; warnings: IValidationModel[] }>()
 );
 export const generateFailure = createAction('[Grids/API] Generate Code Failed');
 

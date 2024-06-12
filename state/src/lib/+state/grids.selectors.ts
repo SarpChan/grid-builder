@@ -1,6 +1,6 @@
+import { unitToPreviewMapping } from '@grid-builder/utils';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GRIDS_FEATURE_KEY, GridsState, gridsAdapter } from './grids.reducer';
-import { checkNoViewportOverlap } from '@grid-builder/utils';
 
 export const selectGridsState =
   createFeatureSelector<GridsState>(GRIDS_FEATURE_KEY);
@@ -50,10 +50,12 @@ export const selectGridStyling = createSelector(selectEntity, (entity) => {
   if (!entity) return;
 
   const rowText = `grid-template-rows: ${entity.rows
-    .map((row) => row.height.value + row.height.unit)
+    .map((row) => row.height.value + unitToPreviewMapping(row.height.unit))
     .join(', ')}`;
   const columnText = `grid-template-columns: ${entity.columns
-    .map((column) => column.width.value + column.width.unit)
+    .map(
+      (column) => column.width.value + unitToPreviewMapping(column.width.unit)
+    )
     .join(', ')}`;
 
   return { row: rowText, column: columnText };
@@ -94,16 +96,4 @@ export const selectViewport = createSelector(
 export const selectGeneratedCode = createSelector(
   selectGridsState,
   (state) => state.generated
-);
-
-export const selectValidation = createSelector(selectAllGrids, (grids) =>
-  checkNoViewportOverlap(grids)
-);
-
-export const selectWarnings = createSelector(selectValidation, (result) =>
-  Array.from(result?.warnings ?? [])
-);
-
-export const selectErrors = createSelector(selectValidation, (result) =>
-  Array.from(result?.errors ?? [])
 );

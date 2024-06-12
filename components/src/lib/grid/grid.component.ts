@@ -1,3 +1,5 @@
+import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectorRef,
@@ -10,16 +12,15 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
-import { AreaInstanceComponent } from '../area-instance/area-instance.component';
+import { GridsFacade } from '@grid-builder/state';
+import { clamp } from '@grid-builder/utils';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
-import { GridsFacade } from '@grid-builder/state';
-import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { AreaInstanceComponent } from '../area-instance/area-instance.component';
 
 @Component({
   selector: 'grid-builder-grid',
@@ -65,12 +66,12 @@ export class GridComponent {
 
     const width =
       this.grid()?.shouldUseWidth && this.grid().width
-        ? `${this.grid()?.width?.value}${this.grid()?.width?.unit}`
+        ? clamp(`${this.grid()?.width?.value}${this.grid()?.width?.unit}`)
         : '';
 
     const height =
       this.grid()?.shouldUseHeight && this.grid().height
-        ? `${this.grid()?.height?.value}${this.grid()?.height?.unit}`
+        ? clamp(`${this.grid()?.height?.value}${this.grid()?.height?.unit}`)
         : '';
 
     return {

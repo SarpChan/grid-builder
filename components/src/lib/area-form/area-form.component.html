@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="flex flex-col gap-4 items-center">
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Name </span>
+    <span>Name</span>
 
     <input
       #nameInput
@@ -13,7 +13,7 @@
   </label>
 
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Color </span>
+    <span>Color</span>
 
     <input
       class="p-0 invalid:p-0 border-0 w-full"
@@ -24,7 +24,7 @@
 
   @if (grids().length) {
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Connections </span>
+    <span>Connections</span>
 
     <div class="w-full flex flex-col">
       @for (grid of grids(); track grid.gridId) {

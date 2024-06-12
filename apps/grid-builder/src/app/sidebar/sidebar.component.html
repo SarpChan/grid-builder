@@ -50,7 +50,17 @@
           </hlm-tooltip>
 
           <brn-accordion-content hlm class="pb-0">
+            @if(selectedElement()) {
+
             <grid-builder-selectable-form></grid-builder-selectable-form>
+            } @else {
+            <div class="flex flex-col gap-2">
+              <p class="text-destructive">
+                You did not select an interactable element
+              </p>
+              <p>Try selecting a row, column or item!</p>
+            </div>
+            }
           </brn-accordion-content>
         </div>
 

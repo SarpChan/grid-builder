@@ -51,8 +51,8 @@ export class GridsFacade {
   selectGenerated$ = this.store.selectSignal(
     GridsSelectors.selectGeneratedCode
   );
-  selectWarnings$ = this.store.selectSignal(GridsSelectors.selectWarnings);
-  selectErrors$ = this.store.selectSignal(GridsSelectors.selectErrors);
+  selectWarnings$ = this.store.selectSignal(ItemsSelectors.selectWarnings);
+  selectErrors$ = this.store.selectSignal(ItemsSelectors.selectErrors);
 
   /**
    * Use the initialization action to perform one
