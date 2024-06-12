@@ -361,16 +361,37 @@ const reducer = createReducer(
   on(GridsActions.removeColumn, (state, { gridId, columnId }) => {
     const isSelected = columnId === state.selection?.id;
 
-    const newState = gridsAdapter.map(
-      (item) =>
-        item.id === gridId
-          ? {
-              ...item,
-              columns: item.columns.filter((col) => col.id !== columnId),
+    const newState = gridsAdapter.map((grid) => {
+      if (grid.id === gridId) {
+        let items = grid.items;
+        if (grid.columns?.length && grid.columns.length > 1) {
+          const colIndex = grid.columns.findIndex((col) => col.id === columnId);
+
+          items = grid.items.map((item) => {
+            const tempItem = { ...item };
+            if (colIndex < tempItem.colStart) {
+              tempItem.colStart = tempItem.colStart - 1;
+              tempItem.colEnd = tempItem.colEnd - 1;
+            } else if (tempItem.colEnd - tempItem.colStart > 1) {
+            } else if (
+              (colIndex > tempItem.colEnd ||
+                tempItem.colEnd > grid.columns.length) &&
+              tempItem.rowEnd - tempItem.rowStart > 1
+            ) {
+              tempItem.colEnd = tempItem.colEnd - 1;
             }
-          : item,
-      state
-    );
+
+            return tempItem;
+          });
+        }
+        return {
+          ...grid,
+          items,
+          columns: grid.columns.filter((col) => col.id !== columnId),
+        };
+      }
+      return grid;
+    }, state);
 
     if (isSelected) {
       newState.selection = undefined;
@@ -380,16 +401,36 @@ const reducer = createReducer(
   on(GridsActions.removeRow, (state, { gridId, rowId }) => {
     const isSelected = rowId === state.selection?.id;
 
-    const newState = gridsAdapter.map(
-      (item) =>
-        item.id === gridId
-          ? {
-              ...item,
-              rows: item.rows.filter((row) => row.id !== rowId),
+    const newState = gridsAdapter.map((grid) => {
+      if (grid.id === gridId) {
+        let items = grid.items;
+        if (grid.rows?.length && grid.rows.length > 1) {
+          const rowIndex = grid.rows.findIndex((row) => row.id === rowId);
+
+          items = grid.items.map((item) => {
+            const tempItem = { ...item };
+            if (rowIndex < tempItem.rowStart) {
+              tempItem.rowStart = tempItem.rowStart - 1;
+              tempItem.rowEnd = tempItem.rowEnd - 1;
+            } else if (
+              (rowIndex > tempItem.rowEnd ||
+                tempItem.rowEnd > grid.rows.length) &&
+              tempItem.rowEnd - tempItem.rowStart > 1
+            ) {
+              tempItem.rowEnd = tempItem.rowEnd - 1;
             }
-          : item,
-      state
-    );
+
+            return tempItem;
+          });
+        }
+        return {
+          ...grid,
+          items,
+          rows: grid.rows.filter((row) => row.id !== rowId),
+        };
+      }
+      return grid;
+    }, state);
 
     if (isSelected) {
       newState.selection = undefined;
