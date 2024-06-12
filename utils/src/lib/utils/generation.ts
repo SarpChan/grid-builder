@@ -1,10 +1,20 @@
-import { Area, Grid, Unit, Viewport } from '@grid-builder/models';
+import {
+  Area,
+  Grid,
+  IValidationModel,
+  Limiter,
+  Unit,
+  ValidationModel,
+  Viewport,
+} from '@grid-builder/models';
 import { GridsState, ItemState } from '@grid-builder/state';
 import { generateMediaQuery } from './media-query';
 import { generateGridCss } from './grid-css';
 import { generateAreaInstanceCss } from './area-instance-css';
 import { generateGridHtml } from './grid-html';
 import { generateAreaHtml } from './area-html';
+import { ErrorCode } from 'models/src/lib/errors';
+import { WarningCode } from 'models/src/lib/warnings';
 
 export const generateRaw = (gridState: GridsState, areaState: ItemState) => {
   const sortedGrids = sortGrids(Object.values(gridState.entities) as Grid[]);
@@ -195,19 +205,144 @@ const sortGrids = (grids: Grid[]) => {
   });
 };
 
-export const checkNoViewportOverlap = (grids: Grid[]) => {
-  const warnings = new Set<string>();
-  const errors = new Set<string>();
+export const validate = (grids: Grid[], areas: Area[]) => {
+  const warnings = new Set<IValidationModel>();
+  const errors = new Set<IValidationModel>();
+
+  checkNoViewportOverlap(grids, warnings, errors);
+  validateGrids(grids, warnings, errors);
+  validateAreas(areas, warnings, errors);
+
+  const actualWarnings = new Set<IValidationModel>();
+  const actualErrors = new Set<IValidationModel>();
+
+  warnings.forEach((w) => {
+    let isUnique = true;
+    warnings.forEach((w2) => {
+      if (w !== w2 && w.isEqual(w, w2)) {
+        isUnique = false;
+      }
+    });
+
+    if (isUnique) {
+      actualWarnings.add(w);
+    }
+  });
+
+  errors.forEach((e) => {
+    let isUnique = true;
+    actualErrors.forEach((e2) => {
+      if (e !== e2 && e.isEqual(e, e2)) {
+        isUnique = false;
+      }
+    });
+
+    if (isUnique) {
+      actualErrors.add(e);
+    }
+  });
+
+  return { warnings: actualWarnings, errors: actualErrors };
+};
+
+export const validateAreas = (
+  areas: Area[],
+  parentWarnings?: Set<IValidationModel>,
+  parentErrors?: Set<IValidationModel>
+) => {
+  const errors = parentErrors ?? new Set<IValidationModel>();
+
+  areas.forEach((area) => {
+    if (!area.name || area.name === '') {
+      errors?.add(
+        new ValidationModel(ErrorCode.AREA_MISSING_NAME, new Set([area.id]))
+      );
+    }
+
+    areas.forEach((area2) => {
+      if (area.id === area2.id) {
+        return;
+      }
+
+      if (area.name && area.name !== '' && area.name === area2.name) {
+        errors.add(
+          new ValidationModel(
+            ErrorCode.AREAS_WITH_SAME_NAME,
+            new Set([area.id, area2.id])
+          )
+        );
+      }
+    });
+  });
+};
+
+export const validateGrids = (
+  grids: Grid[],
+  parentWarnings?: Set<IValidationModel>,
+  parentErrors?: Set<IValidationModel>
+) => {
+  const warnings = parentWarnings ?? new Set<IValidationModel>();
+  const errors = parentErrors ?? new Set<IValidationModel>();
+
+  if (grids.length === 0) {
+    errors.add(new ValidationModel(ErrorCode.NO_GRIDS_DEFINED, new Set([])));
+  }
+
+  grids.forEach((grid) => {
+    if (grids.length >= 2 && (!grid.name || grid.name === '')) {
+      errors.add(
+        new ValidationModel(ErrorCode.GRID_MISSING_NAME, new Set([grid.id]))
+      );
+    }
+
+    if (!grid.rows || grid.rows.length === 0) {
+      errors.add(
+        new ValidationModel(ErrorCode.NO_ROWS_DEFINED, new Set([grid.id]))
+      );
+    }
+
+    if (!grid.columns || grid.columns.length === 0) {
+      errors.add(
+        new ValidationModel(ErrorCode.NO_COLUMNS_DEFINED, new Set([grid.id]))
+      );
+    }
+
+    grids.forEach((grid2) => {
+      if (grid.id === grid2.id) {
+        return;
+      }
+
+      if (grid.name && grid.name !== '' && grid.name === grid2.name) {
+        errors.add(
+          new ValidationModel(
+            ErrorCode.GRIDS_WITH_SAME_NAME,
+            new Set([grid.id, grid2.id])
+          )
+        );
+      }
+    });
+  });
+
+  return { warnings, errors };
+};
+
+export const checkNoViewportOverlap = (
+  grids: Grid[],
+  parentWarnings?: Set<IValidationModel>,
+  parentErrors?: Set<IValidationModel>
+) => {
+  const warnings = parentWarnings ?? new Set<IValidationModel>();
+  const errors = parentErrors ?? new Set<IValidationModel>();
   grids.forEach((grid) => {
     grids.forEach((grid2) => {
       if (grid.id === grid2.id) {
         return;
       }
 
-      checkBothTo(grid.viewport, grid2.viewport, warnings, errors);
-      checkBothFrom(grid.viewport, grid2.viewport, warnings, errors);
-      checkBothNone(grid.viewport, grid2.viewport, errors);
-      checkBothFromTo(grid.viewport, grid2.viewport, warnings, errors);
+      checkBothTo(grid, grid2, warnings, errors);
+      checkBothFrom(grid, grid2, warnings, errors);
+      checkBothNone(grid, grid2, errors);
+      checkBothFromTo(grid, grid2, warnings, errors);
 
       checkFromNone(grid, grid, errors);
       checkToNone(grid, grid2, errors);
@@ -220,7 +355,11 @@ export const checkNoViewportOverlap = (grids: Grid[]) => {
   return { warnings, errors };
 };
 
-const checkFromToNone = (grid1: Grid, grid2: Grid, errors: Set<string>) => {
+const checkFromToNone = (
+  grid1: Grid,
+  grid2: Grid,
+  errors: Set<IValidationModel>
+) => {
   if (
     grid1.viewport.limiter === 'from_to' &&
     grid2.viewport.limiter === 'none' &&
@@ -228,36 +367,57 @@ const checkFromToNone = (grid1: Grid, grid2: Grid, errors: Set<string>) => {
     (!grid1.viewport.to.value || grid1.viewport.to.value === 0)
   ) {
     errors.add(
-      `Grid ${grid1.name} defines both boundaries, but they are equal to not having any at all. This clashes with grid ${grid2.name}`
+      new ValidationModel(
+        ErrorCode.EQUAL_BOUNDARIES,
+        new Set([grid1.id, grid2.id])
+      )
     );
   }
 };
 
-const checkToNone = (grid1: Grid, grid2: Grid, errors: Set<string>) => {
+const checkToNone = (
+  grid1: Grid,
+  grid2: Grid,
+  errors: Set<IValidationModel>
+) => {
   if (
     grid1.viewport.limiter === 'to' &&
     grid2.viewport.limiter === 'none' &&
     (!grid1.viewport.to.value || grid1.viewport.to.value === 0)
   ) {
     errors.add(
-      `Grid ${grid1.name} defines an upper boundary, but it is equal to not having one at all. This clashes with grid ${grid2.name}`
+      new ValidationModel(
+        ErrorCode.UPPER_BOUNDARY_IS_ZERO,
+        new Set([grid1.id, grid2.id])
+      )
     );
   }
 };
 
-const checkFromNone = (grid1: Grid, grid2: Grid, errors: Set<string>) => {
+const checkFromNone = (
+  grid1: Grid,
+  grid2: Grid,
+  errors: Set<IValidationModel>
+) => {
   if (
     grid1.viewport.limiter === 'from' &&
     grid2.viewport.limiter === 'none' &&
     (!grid1.viewport.from.value || grid1.viewport.from.value === 0)
   ) {
     errors.add(
-      `Grid ${grid1.name} defines a lower boundary, but it is equal to not having one at all. This clashes with grid ${grid2.name}`
+      new ValidationModel(
+        ErrorCode.EQUAL_BOUNDARIES,
+        new Set([grid1.id, grid2.id])
+      )
     );
   }
 };
 
-const checkFromTo = (grid1: Grid, grid2: Grid, warnings: Set<string>) => {
+const checkFromTo = (
+  grid1: Grid,
+  grid2: Grid,
+  warnings: Set<IValidationModel>
+) => {
   if (
     grid1.viewport.limiter === 'from' &&
     grid2.viewport.limiter === 'to' &&
@@ -266,16 +426,19 @@ const checkFromTo = (grid1: Grid, grid2: Grid, warnings: Set<string>) => {
     grid1.viewport.from.value <= grid2.viewport.to.value
   ) {
     warnings.add(
-      `Grids ${grid1.name} and ${grid2.name} have overlapping viewports. ${grid1.name} starts at ${grid1.viewport.from.value} and ${grid2.name} ends at ${grid2.viewport.to.value}`
+      new ValidationModel(
+        WarningCode.OVERLAPPING_MEDIA_QUERIES,
+        new Set([grid1.id, grid2.id])
+      )
     );
   }
 };
 
 const checkBothTo = (
-  viewport1: Viewport,
-  viewport2: Viewport,
-  warnings: Set<string>,
-  errors: Set<string>
+  { viewport: viewport1, id: id1 }: { viewport: Viewport; id: string },
+  { viewport: viewport2, id: id2 }: { viewport: Viewport; id: string },
+  warnings: Set<IValidationModel>,
+  errors: Set<IValidationModel>
 ) => {
   if (viewport1.limiter === 'to' && viewport2.limiter === 'to') {
     if (
@@ -285,21 +448,18 @@ const checkBothTo = (
       viewport1.to.unit === viewport2.to.unit
     ) {
       errors.add(
-        'Multiple grids define the same media query. No generation possible'
+        new ValidationModel(ErrorCode.EQUAL_BOUNDARIES, new Set([id1, id2]))
       );
       return;
     }
-    warnings.add(
-      'Multiple grids define an upper boundary only. Overwrites are very probable. Your grids will be sorted in descending order'
-    );
   }
 };
 
 const checkBothFrom = (
-  viewport1: Viewport,
-  viewport2: Viewport,
-  warnings: Set<string>,
-  errors: Set<string>
+  { viewport: viewport1, id: id1 }: { viewport: Viewport; id: string },
+  { viewport: viewport2, id: id2 }: { viewport: Viewport; id: string },
+  warnings: Set<IValidationModel>,
+  errors: Set<IValidationModel>
 ) => {
   if (viewport1.limiter === 'from' && viewport2.limiter === 'from') {
     if (
@@ -309,31 +469,74 @@ const checkBothFrom = (
       viewport1.from.unit === viewport2.from.unit
     ) {
       errors.add(
-        'Multiple grids define the same media query. No generation possible'
+        new ValidationModel(ErrorCode.EQUAL_BOUNDARIES, new Set([id1, id2]))
       );
       return;
     }
+  }
+};
+
+const checkLowerBoundaryZero = (
+  { viewport, id }: { viewport: Viewport; id: string },
+  warnings: Set<IValidationModel>
+) => {
+  if (viewport.limiter === 'from' && viewport.from.value === 0) {
     warnings.add(
-      'Multiple grids define a lower boundary only. Overwrites are very probable. Your grids will be sorted in asscending order'
+      new ValidationModel(WarningCode.LOWER_BOUNDARY_IS_ZERO, new Set([id]))
+    );
+  }
+};
+
+const checkAllViewportsFulfilled = (grids: Grid[]) => {
+  const presentLimiters = new Set<Limiter>(
+    grids.map((grid) => grid.viewport.limiter)
+  );
+  let startsWithZero = false;
+  let endsWithInfinity = false;
+  let hasHole = false;
+
+  if (presentLimiters.has('none')) {
+    return;
+  }
+
+  if (presentLimiters.has('from') || presentLimiters.has('from_to')) {
+    startsWithZero = !!grids.find(
+      (grid) =>
+        (grid.viewport.limiter === 'from' ||
+          grid.viewport.limiter === 'from_to') &&
+        grid.viewport.from.value === 0
+    );
+  }
+
+  if (presentLimiters.has('to') || presentLimiters.has('from_to')) {
+    endsWithInfinity = !!grids.find(
+      (grid) =>
+        grid.viewport.limiter === 'from' || grid.viewport.limiter === 'none'
     );
   }
 };
 
 const checkBothNone = (
-  viewport1: Viewport,
-  viewport2: Viewport,
-  errors: Set<string>
+  { viewport: viewport1, id: id1 }: { viewport: Viewport; id: string },
+  { viewport: viewport2, id: id2 }: { viewport: Viewport; id: string },
+  errors: Set<IValidationModel>
 ) => {
   if (viewport1.limiter === 'none' && viewport2.limiter === 'none') {
-    errors.add('Multiple grids do not define a boundary.');
+    errors.add(
+      new ValidationModel(
+        ErrorCode.MEDIA_QUERY_MISSING_FOR_MULTIPLE_GRIDS,
+        new Set([id1, id2])
+      )
+    );
   }
 };
 
 const checkBothFromTo = (
-  viewport1: Viewport,
-  viewport2: Viewport,
-  warnings: Set<string>,
-  errors: Set<string>
+  { viewport: viewport1, id: id1 }: { viewport: Viewport; id: string },
+  { viewport: viewport2, id: id2 }: { viewport: Viewport; id: string },
+
+  warnings: Set<IValidationModel>,
+  errors: Set<IValidationModel>
 ) => {
   const unit = Array.from(
     new Set<Unit>([
@@ -357,6 +560,16 @@ const checkBothFromTo = (
 
     if (
       // is grid 1 start between grid 2 values
+      from1 === from2 &&
+      to1 === to2
+    ) {
+      errors.add(
+        new ValidationModel(ErrorCode.EQUAL_BOUNDARIES, new Set([id1, id2]))
+      );
+    }
+
+    if (
+      // is grid 1 start between grid 2 values
       (from1 >= from2 && from1 <= to2) ||
       // is grid 1 end between grid 2 values
       (to1 >= from2 && to1 <= to2) ||
@@ -365,13 +578,13 @@ const checkBothFromTo = (
       // is grid 2 end between grid 1 values
       (to2 >= from1 && to2 <= to1)
     ) {
-      errors.add('Viewports of grids are overlapping');
+      warnings.add(
+        new ValidationModel(
+          WarningCode.OVERLAPPING_MEDIA_QUERIES,
+          new Set([id1, id2])
+        )
+      );
     }
-
-    warnings.add(
-      'Multiple grids define a lower boundary only. Overwrites are very probable. Your grids will be sorted in asscending order'
-    );
-
     return;
   }
 };

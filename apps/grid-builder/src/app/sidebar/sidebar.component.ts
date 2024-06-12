@@ -42,12 +42,12 @@ import {
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 import { Grid } from '@grid-builder/models';
+import { Ready } from '@grid-builder/utils';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
-import { Ready } from '@grid-builder/utils';
 
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
@@ -115,15 +115,16 @@ export class SidebarComponent extends Ready {
 
     effect(
       () => {
+        const isOpen =
+          this.selectionElement?.nativeElement?.getAttribute('data-state');
+
         if (this.selectedElement()?.id) {
-          const isOpen =
-            this.selectionElement?.nativeElement?.getAttribute('data-state');
           if (isOpen && isOpen !== 'open') {
             // Queue Task so that disabled state is cleared
             setTimeout(() => this.selectionElement.nativeElement.click(), 0);
           }
-        } else {
-          this.selectionElement?.nativeElement?.click();
+        } else if (isOpen === 'open') {
+          this.selectionElement.nativeElement.click();
         }
       },
       { allowSignalWrites: true }

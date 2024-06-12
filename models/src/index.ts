@@ -13,3 +13,5 @@ export * from './lib/referenceContainer';
 export * from './lib/mediaType';
 export * from './lib/colored-area-instance';
 export * from './lib/presets';
+export * from './lib/validationModel';
+export * from './lib/test-models/grid-mock';

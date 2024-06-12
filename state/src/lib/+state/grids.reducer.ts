@@ -1,4 +1,4 @@
-import { Grid } from '@grid-builder/models';
+import { Grid, IValidationModel } from '@grid-builder/models';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as GridsActions from './grids.actions';
@@ -16,8 +16,8 @@ export interface GridsState extends EntityState<Grid> {
   referenceContainer: 'viewport' | 'container';
   useTailwind: boolean;
   useClassName: boolean;
-  warnings: string[];
-  errors: string[];
+  warnings: IValidationModel[];
+  errors: IValidationModel[];
 }
 
 export interface GridsPartialState {

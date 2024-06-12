@@ -1,12 +1,16 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ITEM_FEATURE_KEY, ItemState, itemsAdapter } from './items.reducer';
-import {
-  selectSelectedElement,
-  selectEntity,
-  selectSelectedAreaInstance,
-  selectGridsEntities,
-} from '../+state/grids.selectors';
 import { Area } from '@grid-builder/models';
+import { validate } from '@grid-builder/utils';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ErrorCode, getErrorMessage } from 'models/src/lib/errors';
+import { WarningCode, getWarningMessage } from 'models/src/lib/warnings';
+import {
+  selectAllGrids,
+  selectEntity,
+  selectGridsEntities,
+  selectSelectedAreaInstance,
+  selectSelectedElement,
+} from '../+state/grids.selectors';
+import { ITEM_FEATURE_KEY, ItemState, itemsAdapter } from './items.reducer';
 
 export const selectItemState =
   createFeatureSelector<ItemState>(ITEM_FEATURE_KEY);
@@ -45,6 +49,31 @@ export const selectSelectedArea = createSelector(
     selection?.id && entities ? entities[selection.id] : undefined
 );
 
+export const selectValidation = createSelector(
+  selectAllGrids,
+  selectAllItems,
+  (grids, areas) => validate(grids, areas)
+);
+export const selectWarnings = createSelector(selectValidation, (result) =>
+  Array.from(result?.warnings ?? [])
+    .map((e) =>
+      (Object.values(WarningCode) as unknown[]).includes(e.code)
+        ? getWarningMessage(e.code as WarningCode)
+        : undefined
+    )
+    .filter(Boolean)
+);
+
+export const selectErrors = createSelector(selectValidation, (result) =>
+  Array.from(result?.errors ?? [])
+    .map((e) =>
+      (Object.values(ErrorCode) as unknown[]).includes(e.code)
+        ? getErrorMessage(e.code as ErrorCode)
+        : undefined
+    )
+    .filter(Boolean)
+);
+
 export const selectGridsForArea = createSelector(
   selectSelectedArea,
   selectGridsEntities,
@@ -71,7 +100,7 @@ export const selectAreaInstancesOfSelectedGrid = createSelector(
         return {
           ...item,
           name: area ? area.name : 'Not assigned to Area yet',
-          color: area ? area.color : '#FF0000',
+          color: area ? area.color : '#016bc4',
         };
       }) ?? []
     );
