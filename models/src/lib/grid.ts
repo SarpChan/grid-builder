@@ -20,6 +20,8 @@ export interface Grid {
 
   shouldUseHeight: boolean;
   height: ValueUnit | undefined;
+
+  autoFlow: 'row' | 'column' | 'row dense' | 'column dense';
 }
 
 export type AddGrid = Omit<Grid, 'id'>;

@@ -3,6 +3,7 @@ import { Grid } from '../grid';
 export const gridMock: Grid = {
   id: '615fcb76-a685-4538-b50c-18002286d1b3',
   name: 'Test Grid',
+  autoFlow: 'row',
   rows: [
     {
       id: 'd698aa75-8e0b-49bf-aa5c-e86e12602f5e',

@@ -2,20 +2,20 @@ import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import {
+  AddAreaInstance,
   AddGrid,
+  AreaInstance,
   Column,
   Grid,
-  AreaInstance,
   ReferenceContainer,
   Row,
   SelectionElement,
   Viewport,
-  AddAreaInstance,
+  presets,
 } from '@grid-builder/models';
+import * as ItemsSelectors from '../+item-state/items.selectors';
 import * as GridsActions from './grids.actions';
 import * as GridsSelectors from './grids.selectors';
-import * as ItemsSelectors from '../+item-state/items.selectors';
-import { presets } from '@grid-builder/models';
 
 @Injectable()
 export class GridsFacade {
@@ -175,6 +175,7 @@ export class GridsFacade {
 const grid: AddGrid = {
   name: 'Neu',
   items: [],
+  autoFlow: 'row',
   rows: [
     {
       id: crypto.randomUUID(),

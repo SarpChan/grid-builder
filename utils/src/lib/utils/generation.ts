@@ -112,8 +112,11 @@ export const generateTailwind = (
       }
       return newArea;
     });
+  const containsMultipleAutoFlows =
+    Array.from(new Set(gridViewportMappings.map((grid) => grid.autoFlow)))
+      .length > 1;
 
-  const gridClasses = gridViewportMappings.map((grid) => {
+  const gridClasses = gridViewportMappings.map((grid, index) => {
     const hGap = `${grid.hGap?.value}${grid.hGap?.unit}`;
     const vGap = `${grid.vGap?.value}${grid.vGap?.unit}`;
     const gap =
@@ -135,7 +138,17 @@ export const generateTailwind = (
         ]
       : [];
 
-    return [`${grid.mediaQuery}grid`, ...gap, ...rows, ...cols];
+    const autoFlow = `${
+      containsMultipleAutoFlows ? '' : grid.mediaQuery
+    }grid-flow-${grid.autoFlow.split(' ').join('-')}`;
+
+    return [
+      `${grid.mediaQuery}grid`,
+      ...gap,
+      ...rows,
+      ...cols,
+      !containsMultipleAutoFlows && index === 0 ? autoFlow : undefined,
+    ].filter(Boolean);
   });
 
   const areaHtml = areaClasses.map((area) => {

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
@@ -8,23 +9,22 @@ import {
   input,
   untracked,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { GridsFacade, ItemsFacade } from '@grid-builder/state';
 import { AreaInstance, Unit } from '@grid-builder/models';
+import { GridsFacade, ItemsFacade } from '@grid-builder/state';
+import { Ready } from '@grid-builder/utils';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime } from 'rxjs';
-import { Ready } from '@grid-builder/utils';
 import { ComboboxComponent } from '../combobox/combobox.component';
 
 type Option = { label: string; value: string | undefined; available?: boolean };

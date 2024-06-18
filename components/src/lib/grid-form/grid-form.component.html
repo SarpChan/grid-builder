@@ -1,7 +1,13 @@
-<form
-  [formGroup]="parentForm.form"
-  class="panel transition-all flex flex-col gap-4"
->
+<form [formGroup]="form" class="panel transition-all flex flex-col gap-4">
+  <grid-builder-combobox
+    [currentOption]="currentOption()"
+    (selectOption)="select($event)"
+    [options]="options"
+    [placeholder]="'Row'"
+    [label]="'Auto Flow'"
+    class="w-full"
+  ></grid-builder-combobox>
+
   <grid-builder-toggle-value-unit
     [disabled]="true"
     valueLabel="Width"

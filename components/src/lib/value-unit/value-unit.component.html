@@ -13,13 +13,10 @@
     />
   </label>
 
-  <label hlmLabel class="flex gap-1 flex-col">
-    <span> {{ unitLabel() }} </span>
-
-    <grid-builder-combobox
-      [currentOption]="currentOption()"
-      (selectOption)="select($event)"
-      [options]="actualOptions()"
-    ></grid-builder-combobox>
-  </label>
+  <grid-builder-combobox
+    [currentOption]="currentOption()"
+    (selectOption)="select($event)"
+    [options]="actualOptions()"
+    [label]="unitLabel()"
+  ></grid-builder-combobox>
 </form>

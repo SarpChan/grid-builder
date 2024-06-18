@@ -1,9 +1,8 @@
-import { Grid, IValidationModel } from '@grid-builder/models';
+import { Grid, IValidationModel, SelectionElement } from '@grid-builder/models';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import * as GridsActions from './grids.actions';
 import * as ItemsActions from '../+item-state/items.actions';
-import { SelectionElement } from '@grid-builder/models';
+import * as GridsActions from './grids.actions';
 
 export const GRIDS_FEATURE_KEY = 'grids';
 
@@ -79,6 +78,7 @@ const initialEntities = () => {
       from: { value: 100, unit: 'px' },
       to: { value: 100, unit: 'px' },
     },
+    autoFlow: 'row',
     shouldUseWidth: true,
     width: { value: 100, unit: '%' },
     shouldUseHeight: true,
@@ -130,6 +130,7 @@ const initialEntities = () => {
       from: { value: 100, unit: 'px' },
       to: { value: 100, unit: 'px' },
     },
+    autoFlow: 'row',
     shouldUseWidth: true,
     width: { value: 100, unit: '%' },
     shouldUseHeight: true,
