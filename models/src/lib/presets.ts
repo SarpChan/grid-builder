@@ -104,6 +104,7 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
     {
       id: 'c9f69980-99ac-43b4-b66d-5dfca50054f5',
       name: 'Desktop',
+      autoFlow: 'row',
       items: [
         {
           areaId: '8fa32f16-ecd9-4418-9265-79966bf8e29c',
@@ -284,6 +285,7 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
     },
     {
       name: 'Mobile',
+      autoFlow: 'row',
       items: [
         {
           areaId: '8fa32f16-ecd9-4418-9265-79966bf8e29c',
@@ -379,6 +381,7 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
     },
     {
       name: 'Tablet',
+      autoFlow: 'row',
       items: [
         {
           areaId: '8fa32f16-ecd9-4418-9265-79966bf8e29c',
@@ -579,6 +582,7 @@ const desktop12ColWithNavSideMainFooter: Preset = {
     {
       id: 'c9f69980-99ac-43b4-b66d-5dfca50054f5',
       name: 'Desktop',
+      autoFlow: 'row',
       items: [
         {
           areaId: '8fa32f16-ecd9-4418-9265-79966bf8e29c',

@@ -62,16 +62,14 @@
     </label>
   </div>
 
-  <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Area </span>
-
-    <grid-builder-combobox
-      [currentOption]="currentOption()"
-      (selectOption)="select($event)"
-      [options]="options()"
-      [placeholder]="'Area'"
-    ></grid-builder-combobox>
-  </label>
+  <grid-builder-combobox
+    [currentOption]="currentOption()"
+    (selectOption)="select($event)"
+    [options]="options()"
+    [placeholder]="'Area'"
+    [label]="'Area'"
+    class="w-full"
+  ></grid-builder-combobox>
 
   <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"
     ><span class="group-hover:text-white">Delete</span>

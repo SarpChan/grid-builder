@@ -20,6 +20,7 @@ export const generateGridCss = (grid: Grid, children: string[]) => {
     `grid-template-columns: ${gridTemplateColumns};`,
     `grid-template-rows: ${gridTemplateRows};`,
     `${gap}`,
+    `grid-auto-flow: ${grid.autoFlow}`,
     ...children,
     `}`,
   ];

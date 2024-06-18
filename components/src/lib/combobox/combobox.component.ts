@@ -1,22 +1,21 @@
-import { Component, EventEmitter, Output, input, signal } from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
-import { Unit } from '@grid-builder/models';
-import { BrnCommandImports } from '@spartan-ng/ui-command-brain';
-import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import {
-  BrnPopoverComponent,
-  BrnPopoverContentDirective,
-  BrnPopoverTriggerDirective,
-} from '@spartan-ng/ui-popover-brain';
-import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { Component, input, output, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import {
   radixCaretSort,
   radixCheck,
   radixMagnifyingGlass,
 } from '@ng-icons/radix-icons';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { BrnCommandImports } from '@spartan-ng/ui-command-brain';
+import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
+import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import {
+  BrnPopoverComponent,
+  BrnPopoverContentDirective,
+  BrnPopoverTriggerDirective,
+} from '@spartan-ng/ui-popover-brain';
+import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 
 @Component({
   selector: 'grid-builder-combobox',
@@ -51,8 +50,8 @@ export class ComboboxComponent<
   public currentOption = input<T | undefined>(undefined);
   public state = signal<'closed' | 'open'>('closed');
   public placeholder = input<string>('Unit');
-  @Output()
-  selectOption = new EventEmitter<T>();
+  public label = input<string>('Unit');
+  selectOption = output<T>();
 
   stateChanged(state: 'open' | 'closed') {
     this.state.set(state);
