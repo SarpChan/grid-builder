@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { GridComponent } from '@grid-builder/components';
 import { Grid } from '@grid-builder/models';
-import { GridsFacade } from '@grid-builder/state';
+import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { Store } from '@ngrx/store';
 
 import {
@@ -36,6 +36,7 @@ import {
     HlmTabsContentDirective,
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
+    CommonModule,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -45,6 +46,7 @@ import {
 export class MainComponent {
   facade = inject(GridsFacade);
   store = inject(Store);
+  appSettingsFacade = inject(AppSettingsFacade);
 
   activeId = this.facade.selectedId$;
   grids: Signal<Grid[]> = this.facade.allGrids$;

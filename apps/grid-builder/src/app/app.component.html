@@ -1,8 +1,23 @@
-<div class="layout" cdkDropListGroup>
+<div
+  class="grid h-full overflow-hidden"
+  [ngClass]="{
+      'grid-cols-[minmax(150px,226px)_100px_7fr] grid-rows-[64px_auto]': !appSettingsFacade.isPreview$(),
+      'grid-cols-1 grid-rows-1': appSettingsFacade.isPreview$(),
+  }"
+  cdkDropListGroup
+>
+  @if (!appSettingsFacade.isPreview$()) {
   <grid-builder-navbar class="nav"></grid-builder-navbar>
   <grid-builder-sidebar class="side p-4 pt-2"></grid-builder-sidebar>
   <grid-builder-itemsbar class="itemsbar p-2 pt-2"></grid-builder-itemsbar>
-  <div class="main">
+  }
+  <div
+    class="transition-all"
+    [ngClass]="{
+      'col-start-3 row-start-2 row-span-2': !appSettingsFacade.isPreview$(),
+      'col-start-1': appSettingsFacade.isPreview$(),
+  }"
+  >
     <router-outlet></router-outlet>
   </div>
 </div>

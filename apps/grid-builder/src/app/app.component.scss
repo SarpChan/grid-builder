@@ -3,14 +3,6 @@
   display: block;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: minmax(150px, 226px) 100px 7fr;
-  grid-template-rows: 64px auto;
-  height: 100%;
-  overflow: hidden;
-}
-
 .nav {
   grid-area: 1 / 1 / 2 / 4;
 }

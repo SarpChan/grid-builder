@@ -1,15 +1,22 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideEffects } from '@ngrx/effects';
-import { provideState, provideStore } from '@ngrx/store';
-import { appRoutes } from './app.routes';
+import {
+  appSettingsReducer,
+  gridsReducer,
+  itemsReducer,
+} from '@grid-builder/state';
+import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { GridsEffects, gridsReducer, itemsReducer } from '@grid-builder/state';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideStore({ grids: gridsReducer, items: itemsReducer }),
+    provideStore({
+      grids: gridsReducer,
+      items: itemsReducer,
+      appSettings: appSettingsReducer,
+    }),
 
     provideRouter(appRoutes),
     provideStoreDevtools({ maxAge: 25, logOnly: false }),

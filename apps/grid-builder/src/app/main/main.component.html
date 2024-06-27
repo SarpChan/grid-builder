@@ -1,8 +1,15 @@
 <div
-  class="h-full w-full pr-4 py-2 flex flex-col gap-2"
+  class="h-full w-full flex flex-col gap-2"
+  [ngClass]="{
+  'pr-4 py-4': !appSettingsFacade.isPreview$(),
+  'pl-2 pt-2': appSettingsFacade.isPreview$(),
+  }"
   brnTabs="{{ activeId() }}"
 >
-  <hlm-tabs-list class="flex justify-between w-full" aria-label="tabs example">
+  <hlm-tabs-list
+    [orientation]="appSettingsFacade.isPreview$() ? 'preview' : 'horizontal'"
+    aria-label="tabs example"
+  >
     <div class="grid grid-flow-col justify-start w-full gap-2">
       @for (grid of grids(); track grid.id) {
       <button
@@ -14,6 +21,7 @@
       </button>
       }
     </div>
+    @if (!appSettingsFacade.isPreview$()) {
     <fluent-button
       class="justify-self-end"
       slot="end"
@@ -21,9 +29,17 @@
       (click)="addNewGrid()"
       >+</fluent-button
     >
+    }
   </hlm-tabs-list>
-
-  @for (grid of grids(); track grid.id) {
+  @if (appSettingsFacade.isPreview$()) {
+  <fluent-button
+    class="justify-self-end absolute top-1 right-8 z-[90]"
+    slot="end"
+    appearance="accent"
+    (click)="appSettingsFacade.togglePreview()"
+    >End Preview</fluent-button
+  >
+  } @for (grid of grids(); track grid.id) {
   <div class="h-full w-full flex-grow mt-0" hlmTabsContent="{{ grid.id }}">
     <div class="bg-gray-100 rounded-md w-full h-full">
       <grid-builder-grid [grid]="grid"></grid-builder-grid>

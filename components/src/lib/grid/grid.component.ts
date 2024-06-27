@@ -2,7 +2,6 @@ import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Signal,
@@ -13,7 +12,7 @@ import {
   signal,
 } from '@angular/core';
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
-import { GridsFacade } from '@grid-builder/state';
+import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { clamp } from '@grid-builder/utils';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
@@ -39,8 +38,10 @@ import { AreaInstanceComponent } from '../area-instance/area-instance.component'
 })
 export class GridComponent {
   grid = input.required<Grid>();
+
   gridsFacade = inject(GridsFacade);
-  cdr = inject(ChangeDetectorRef);
+  appSettingsFacade = inject(AppSettingsFacade);
+
   selected: Signal<SelectionElement | undefined> =
     this.gridsFacade.selectedElement$;
   areaInstances = this.gridsFacade.selectedGridAreaInstances$;

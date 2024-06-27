@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { GridsFacade } from '@grid-builder/state';
+import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { HighlightModule } from 'ngx-highlightjs';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
@@ -81,18 +81,19 @@ import {
   providers: [provideIcons({ radixExclamationTriangle, radixCrossCircled })],
 })
 export class NavbarComponent {
-  facade = inject(GridsFacade);
+  gridsFacade = inject(GridsFacade);
+  appSettingsFacade = inject(AppSettingsFacade);
   presets = presetOptions;
 
   generate() {
-    this.facade.generate();
+    this.gridsFacade.generate();
   }
 
   clickedClose() {
-    this.facade.clearGenerated();
+    this.gridsFacade.clearGenerated();
   }
 
   select(id: string) {
-    this.facade.selectPreset(id);
+    this.gridsFacade.selectPreset(id);
   }
 }
