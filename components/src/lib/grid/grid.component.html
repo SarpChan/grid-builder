@@ -1,13 +1,21 @@
-<div class="outer-grid relative pb-2 pr-2">
+<div
+  class="w-full h-full grid relative pb-2 pr-2"
+  [ngClass]="{
+    'grid-cols-[48px_auto] grid-rows-[48px_auto]':
+      !appSettingsFacade.isPreview$(),
+    'grid-cols-1 grid-rows-1 place-items-center': appSettingsFacade.isPreview$()
+  }"
+>
   @if (grid()) {
 
   <!-- Column Selector -->
+  @if (!appSettingsFacade.isPreview$()) {
   <div class="w-full relative col-start-2 z-10">
     <div
       [ngStyle]="{
         width: gridStyle().width,
         gridTemplateColumns: gridStyle().column,
-        gap: gridStyle().hGap,
+        gap: gridStyle().vGap,
         height: selectorStyle().rowSelectionHeight + 'px'
       }"
       class="absolute grid grid-flow-col h-full"
@@ -43,14 +51,15 @@
       }
     </div>
   </div>
-
+  }
   <!-- Row Selector -->
+  @if (!appSettingsFacade.isPreview$()) {
   <div class="h-full relative row-start-2 z-5">
     <div
       [ngStyle]="{
         height: gridStyle().height,
         gridTemplateRows: gridStyle().row,
-        gap: gridStyle().vGap,
+        gap: gridStyle().hGap,
         width: selectorStyle().colSelectionWidth + 'px'
       }"
       class="absolute grid grid-flow-row h-full"
@@ -85,7 +94,7 @@
       }
     </div>
   </div>
-
+  }
   <!-- Main Grid -->
   <div
     #main
@@ -95,8 +104,8 @@
       'grid-template-columns': gridStyle().column,
       'column-gap': gridStyle().vGap,
       'row-gap': gridStyle().hGap,
-      width: '100%',
-      height: '100%'
+      width: gridStyle().width,
+      height: gridStyle().height
     }"
   >
     @for (row of grid().rows; track row; let row_index = $index) { @for (col of
