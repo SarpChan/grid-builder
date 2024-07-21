@@ -53,7 +53,6 @@ export class MainComponent {
 
   select(id: string) {
     this.facade.select(id);
-    this.appSettingsFacade.setDarkMode(false);
   }
 
   addNewGrid() {

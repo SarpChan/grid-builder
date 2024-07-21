@@ -129,7 +129,7 @@
     <button
       hlmBtn
       variant="outline"
-      class="dark:text-white dark:hover:text-slate-800 dark:hover:bg-white transition-colors"
+      class="dark:text-white transition-colors"
       (click)="appSettingsFacade.togglePreview()"
     >
       Preview
@@ -161,10 +161,41 @@
       </div>
     </ng-template>
 
+    <brn-separator
+      hlmSeparator
+      class="dark:bg-slate-400 bg-gray-400 min-h-4"
+      orientation="vertical"
+    ></brn-separator>
+
+    <div class="flex">
+      <button
+        hlmBtn
+        variant="outline"
+        class="dark:text-white rounded-r-none border-r-[0.5px] border-collapse transition-colors"
+        (click)="save()"
+      >
+        <hlm-icon name="radixDownload" size="1.25rem"></hlm-icon>
+      </button>
+      <button
+        hlmBtn
+        variant="outline"
+        class="dark:text-white rounded-l-none border-l-[0.5px] border-collapse transition-colors"
+        (click)="save()"
+      >
+        <hlm-icon name="radixUpload" size="1.25rem"></hlm-icon>
+      </button>
+    </div>
+
+    <brn-separator
+      hlmSeparator
+      class="dark:bg-slate-400 bg-gray-400 min-h-4"
+      orientation="vertical"
+    ></brn-separator>
+
     <button
       hlmBtn
       variant="outline"
-      class="dark:text-white dark:hover:text-slate-800 dark:hover:bg-white transition-colors"
+      class="dark:text-white transition-colors"
       (click)="
         appSettingsFacade.setDarkMode(
           appSettingsFacade.isDarkMode$() ? false : true

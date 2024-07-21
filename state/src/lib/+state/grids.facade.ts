@@ -170,6 +170,10 @@ export class GridsFacade {
       this.store.dispatch(GridsActions.setPreset({ preset }));
     }
   }
+
+  saveFile() {
+    this.store.dispatch(GridsActions.saveFile());
+  }
 }
 
 const grid: AddGrid = {

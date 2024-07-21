@@ -32,9 +32,11 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   radixClipboardCopy,
   radixCrossCircled,
+  radixDownload,
   radixExclamationTriangle,
   radixMoon,
   radixSun,
+  radixUpload,
 } from '@ng-icons/radix-icons';
 
 import {
@@ -48,6 +50,8 @@ import {
   HlmPopoverContentDirective,
 } from '@spartan-ng/ui-popover-helm';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 
 @Component({
   selector: 'grid-builder-navbar',
@@ -79,6 +83,8 @@ import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
     BrnPopoverCloseDirective,
     HlmPopoverContentDirective,
     HlmPopoverCloseDirective,
+    HlmSeparatorDirective,
+    BrnSeparatorComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -90,6 +96,8 @@ import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
       radixSun,
       radixMoon,
       radixClipboardCopy,
+      radixDownload,
+      radixUpload,
     }),
   ],
 })
@@ -122,5 +130,9 @@ export class NavbarComponent {
         console.error('Failed to copy');
       }
     }
+  }
+
+  save() {
+    this.gridsFacade.saveFile();
   }
 }
