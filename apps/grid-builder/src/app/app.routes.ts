@@ -1,7 +1,12 @@
 import { Route } from '@angular/router';
-import { GridsEffects, gridsReducer } from '@grid-builder/state';
-import { provideState, provideStore } from '@ngrx/store';
+import {
+  AppSettingsEffects,
+  GridsEffects,
+  appSettingsReducer,
+  gridsReducer,
+} from '@grid-builder/state';
 import { provideEffects } from '@ngrx/effects';
+import { provideState } from '@ngrx/store';
 import { MainComponent } from './main/main.component';
 export const appRoutes: Route[] = [
   {
@@ -11,6 +16,8 @@ export const appRoutes: Route[] = [
     providers: [
       provideState('grids', gridsReducer),
       provideEffects(GridsEffects),
+      provideState('appSettings', appSettingsReducer),
+      provideEffects(AppSettingsEffects),
     ],
   },
   {

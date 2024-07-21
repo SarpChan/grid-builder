@@ -1,5 +1,5 @@
 <div
-  class="w-full py-4 flex justify-between items-center bg-gray-200 h-full pl-16 pr-8"
+  class="w-full py-4 flex justify-between items-center bg-gray-200 dark:bg-slate-900 dark:text-white h-full pl-16 pr-8"
 >
   <div>Logo</div>
 
@@ -78,6 +78,7 @@
       </button>
 
       <hlm-sheet-content
+        class="dark:bg-slate-900"
         *brnSheetContent="let ctx"
         (closeClicked)="clickedClose()"
       >
@@ -102,17 +103,28 @@
         </div>
       </hlm-sheet-content>
     </hlm-sheet>
-    <fluent-button
-      appearance="outline"
-      class="w-1/2"
+    <button
+      hlmBtn
+      variant="outline"
+      class="dark:text-white dark:hover:text-slate-800 dark:hover:bg-white transition-colors"
       (click)="appSettingsFacade.togglePreview()"
-      >Preview</fluent-button
     >
-    <button #preset [brnMenuTriggerFor]="menu" variant="outline" hlmBtn>
+      Preview
+    </button>
+
+    <button
+      #preset
+      class="dark:text-white dark:border-slate-600 dark:hover:border-slate-400"
+      [brnMenuTriggerFor]="menu"
+      variant="outline"
+      hlmBtn
+    >
       Preset
     </button>
     <ng-template #menu>
-      <div class="bg-gray-200 p-2 border border-gray-800/10 rounded-sm mt-4">
+      <div
+        class="p-2 border dark:bg-slate-900 dark:border-white bg-white border-slate-800/10 rounded-sm mt-4"
+      >
         <hlm-menu-group>
           <hlm-menu-group>
             @for (p of presets; track p.id) {
@@ -125,5 +137,21 @@
         </hlm-menu-group>
       </div>
     </ng-template>
+
+    <button
+      hlmBtn
+      variant="outline"
+      class="dark:text-white dark:hover:text-slate-800 dark:hover:bg-white transition-colors"
+      (click)="
+        appSettingsFacade.setDarkMode(
+          appSettingsFacade.isDarkMode$() ? false : true
+        )
+      "
+    >
+      <hlm-icon
+        [name]="appSettingsFacade.isDarkMode$() ? 'radixMoon' : 'radixSun'"
+        size="1.25rem"
+      ></hlm-icon>
+    </button>
   </div>
 </div>

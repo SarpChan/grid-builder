@@ -32,6 +32,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   radixCrossCircled,
   radixExclamationTriangle,
+  radixMoon,
+  radixSun,
 } from '@ng-icons/radix-icons';
 
 import {
@@ -44,6 +46,7 @@ import {
   HlmPopoverCloseDirective,
   HlmPopoverContentDirective,
 } from '@spartan-ng/ui-popover-helm';
+import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 
 @Component({
   selector: 'grid-builder-navbar',
@@ -68,6 +71,7 @@ import {
     HlmMenuItemDirective,
     HlmMenuGroupComponent,
     NgIconComponent,
+    HlmIconComponent,
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
     BrnPopoverContentDirective,
@@ -78,7 +82,14 @@ import {
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [provideIcons({ radixExclamationTriangle, radixCrossCircled })],
+  providers: [
+    provideIcons({
+      radixExclamationTriangle,
+      radixCrossCircled,
+      radixSun,
+      radixMoon,
+    }),
+  ],
 })
 export class NavbarComponent {
   gridsFacade = inject(GridsFacade);

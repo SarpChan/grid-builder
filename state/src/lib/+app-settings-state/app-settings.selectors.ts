@@ -12,3 +12,8 @@ export const selectIsPreview = createSelector(
   selectAppSettingsState,
   (state: AppSettingsState) => state.isPreview
 );
+
+export const selectIsDarkMode = createSelector(
+  selectAppSettingsState,
+  (state: AppSettingsState) => state.isDarkMode
+);

@@ -4,7 +4,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
 
 export const inputVariants = cva(
-  'flex rounded-sm font-normal bg-zinc-200 text-sm file:border-0 file:text-foreground file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+  'flex rounded-sm font-normal bg-zinc-200 dark:disabled:bg-zinc-100 dark:text-slate-900 text-sm file:border-0 file:text-foreground file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       size: {

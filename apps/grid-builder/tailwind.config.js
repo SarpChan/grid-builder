@@ -3,6 +3,8 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'selector',
+
   presets: [
     require('../../node_modules/@spartan-ng/ui-core/hlm-tailwind-preset'),
   ],

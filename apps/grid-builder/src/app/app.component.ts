@@ -1,16 +1,21 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AppSettingsFacade,
   GridsFacade,
   ItemsFacade,
 } from '@grid-builder/state';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { ItemsbarComponent } from './itemsbar/itemsbar.component';
-import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { CommonModule } from '@angular/common';
+import { ItemsbarComponent } from './itemsbar/itemsbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   standalone: true,
@@ -29,6 +34,22 @@ import { CommonModule } from '@angular/common';
   providers: [GridsFacade, ItemsFacade, AppSettingsFacade],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   appSettingsFacade = inject(AppSettingsFacade);
+
+  ngOnInit(): void {
+    if (
+      localStorage['theme'] === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      localStorage['theme'] = 'dark';
+      document.documentElement.classList.add('dark');
+      this.appSettingsFacade.setDarkMode(true);
+    } else {
+      localStorage['theme'] = 'light';
+      this.appSettingsFacade.setDarkMode(false);
+      document.documentElement.classList.remove('dark');
+    }
+  }
 }

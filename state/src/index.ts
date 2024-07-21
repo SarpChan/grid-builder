@@ -10,5 +10,6 @@ export * from './lib/+item-state/items.reducer';
 
 export * from './lib/+app-settings-state/app-settings.actions';
 export * from './lib/+app-settings-state/app-settings.facade';
+export * from './lib/+app-settings-state/app-settings.effects';
 export * from './lib/+app-settings-state/app-settings.reducer';
 export * from './lib/+app-settings-state/app-settings.selectors';

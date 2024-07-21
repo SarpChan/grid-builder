@@ -8,14 +8,14 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
 
 export const listVariants = cva(
-  'inline-flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
+  'inline-flex dark:bg-slate-900 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
   {
     variants: {
       orientation: {
         horizontal: 'flex w-full justify-between h-10 space-x-1',
         vertical: 'mt-2 flex-col h-fit space-y-1',
         preview:
-          'bg-blue-50 shadow-sm shadow-gray-400 rounded-b-md flex justify-between w-full pr-3',
+          'bg-blue-50 dark:bg-slate-900 shadow-sm shadow-gray-400 rounded-t-none flex justify-between w-full pr-3',
       },
     },
     defaultVariants: {
@@ -37,7 +37,7 @@ type ListVariants = VariantProps<typeof listVariants>;
     </div>
     @if (_orientation() === 'preview') {
     <button
-      class="block bg-blue-50 hover:bg-blue-100 shadow-sm shadow-gray-400 rounded-b-md ml-6 z-[90] w-min cursor-pointer"
+      class="block bg-blue-50 dark:bg-slate-900 dark:hover:bg-slate-700 hover:bg-blue-100 shadow-sm shadow-gray-400 rounded-b-md ml-6 z-[90] w-min cursor-pointer"
       (click)="togglePreviewTabList(!_state())"
     >
       <span
@@ -97,7 +97,7 @@ export class HlmTabsListComponent {
   }
 
   private _generateHostClass() {
-    return hlm(this._hostCls, this._state() ? 'top-[0rem]' : '-top-[2.5rem]');
+    return hlm(this._hostCls, this._state() ? 'top-[0rem]' : '-top-[3rem]');
   }
 
   togglePreviewTabList(state: boolean) {
