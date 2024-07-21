@@ -36,6 +36,7 @@
           >
             <hlm-icon
               [class.opacity-0]="currentOption()?.value !== option.value"
+              class="dark:text-white"
               name="radixCheck"
               hlmCmdIcon
             />
@@ -44,7 +45,7 @@
 
           } @else {
           <button
-            class="h-6 aria-selected:text-white hover:text-white"
+            class="h-6 aria-selected:text-white hover:text-white dark:text-white"
             brnCmdItem
             [value]="option.value ?? ''"
             (selected)="select(option)"

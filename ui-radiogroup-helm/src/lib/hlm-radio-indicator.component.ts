@@ -13,9 +13,11 @@ const btnLike =
   },
   template: `
     <div
-      class="bg-accent absolute inset-0 hidden scale-[55%] rounded-full group-[.brn-radio-checked]:inline-block"
+      class="bg-accent dark:bg-blue-300 absolute inset-0 hidden scale-[55%] rounded-full group-[.brn-radio-checked]:inline-block"
     ></div>
-    <div class="border-accent ${btnLike} rounded-full border"></div>
+    <div
+      class="border-accent dark:border-blue-300 ${btnLike} rounded-full border"
+    ></div>
   `,
 })
 export class HlmRadioIndicatorComponent {

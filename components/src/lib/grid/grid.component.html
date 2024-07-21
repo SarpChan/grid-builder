@@ -37,7 +37,7 @@
             position="above"
           >
             <div
-              class="w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
+              class="duration-[50] w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
             >
               <span class="truncate"> Col {{ index + 1 }} </span>
             </div>
@@ -83,7 +83,7 @@
             position="left"
           >
             <div
-              class="h-full absolute truncate text-nowrap flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
+              class="duration-[50] h-full absolute truncate text-nowrap flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
             >
               <span class="truncate"> Row {{ index + 1 }} </span>
             </div>
@@ -121,7 +121,7 @@
     <grid-builder-area-instance
       (mouseenter)="mouseEnter($event)"
       #element
-      class="w-full h-full block z-[60] border border-gray-500/20"
+      class="w-full h-full block z-[60] border border-gray-500/20 bg-white dark:bg-gray-700"
       [ngClass]="{
         'hover:bg-accent hover:text-white': !trackMouse
       }"
@@ -150,7 +150,7 @@
     >
       @if (trackMouse) {
       <div
-        class="bg-blue-300/60 transition-all duration-[250ms] absolute z-[70] rounded-[0.125rem]"
+        class="bg-blue-300/60 transition-all absolute z-[70] rounded-[0.125rem]"
         [ngStyle]="{
           top: positionValues().top + 'px',
           left: positionValues().left + 'px',
@@ -166,7 +166,7 @@
         cdkDropListSortingDisabled="true"
         (cdkDropListDropped)="drop($event, areaInstance.id)"
         [cdkDropListData]="'areaInstance'"
-        class="w-full h-full cursor-pointer opacity-80 border-4 transition-all duration-250 pointer-events-auto rounded-[.125rem]"
+        class="w-full h-full cursor-pointer opacity-80 border-4 transition-all pointer-events-auto rounded-[.125rem]"
         (click)="select(areaInstance.id, selectable.AREA_INSTANCE)"
         [ngStyle]="{
           'grid-column-start': areaInstance.colStart,

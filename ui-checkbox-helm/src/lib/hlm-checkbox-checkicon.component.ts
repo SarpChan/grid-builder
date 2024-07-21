@@ -13,7 +13,13 @@ import { BrnCheckboxComponent } from './brn-checkbox.component';
   host: {
     '[class]': '_computedClass()',
   },
-  template: ` <hlm-icon class="bg-accent" size="sm" name="radixCheck" /> `,
+  template: `
+    <hlm-icon
+      class="bg-accent dark:bg-blue-300 dark:text-slate-900"
+      size="sm"
+      name="radixCheck"
+    />
+  `,
 })
 export class HlmCheckboxCheckIconComponent {
   private _brnCheckbox = inject(BrnCheckboxComponent);

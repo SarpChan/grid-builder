@@ -54,7 +54,11 @@ export const sheetVariants = cva(
     <ng-content />
     <button brnSheetClose hlm (click)="closeClicked.emit()">
       <span class="sr-only">Close</span>
-      <hlm-icon class="flex h-4 w-4" size="100%" name="radixCross1" />
+      <hlm-icon
+        class="flex h-4 w-4 dark:text-white"
+        size="100%"
+        name="radixCross1"
+      />
     </button>
   `,
 })

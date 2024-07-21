@@ -2,7 +2,7 @@
   <form [formGroup]="form" class="flex flex-col relative">
     <a
       target="_blank"
-      class="hover:text-white hover:bg-accent transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
+      class="hover:text-white hover:bg-accent dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
       href="https://www.google.com"
       >Buy me a coffee ☕</a
     >
@@ -209,7 +209,7 @@
         </div>
         <!-- Globals -->
         <div hlmAccordionItem>
-          <hlm-tooltip>
+          <hlm-tooltip class="dark:bg-slate-900">
             <button
               class="h-6 py-2"
               hlmAccordionTrigger
@@ -229,47 +229,34 @@
       </div>
       <div class="flex flex-col gap-2">
         <div class="w-full flex justify-between items-center gap-4">
-          <fluent-button
-            appearance="outline"
-            class="group"
-            (click)="removeRow()"
-            ><span class="group-hover:text-red-500">-</span></fluent-button
-          >
+          <button hlmBtn variant="outline" class="group" (click)="removeRow()">
+            <span class="group-hover:text-red-500 dark:text-white">-</span>
+          </button>
           <span>Rows</span>
 
-          <fluent-button appearance="accent" class="" (click)="addRow()"
-            >+</fluent-button
-          >
+          <button hlmBtn variant="default" (click)="addRow()">+</button>
         </div>
 
         <div class="w-full flex justify-between items-center gap-4">
-          <fluent-button
-            appearance="outline"
-            class="group"
-            (click)="removeCol()"
-            ><span class="group-hover:text-red-500">-</span></fluent-button
-          >
+          <button hlmBtn variant="outline" class="group" (click)="removeCol()">
+            <span class="group-hover:text-red-500 dark:text-white">-</span>
+          </button>
           <span>Columns</span>
-          <fluent-button appearance="accent" class="" (click)="addCol()"
-            >+</fluent-button
-          >
+          <button hlmBtn variant="default" (click)="addCol()">+</button>
         </div>
 
-        <div class="w-full flex justify-between items-center gap-4">
-          <fluent-button
-            appearance="stealth"
-            class="w-1/2 group"
-            (click)="reset()"
-            ><span class="group-hover:text-red-500">Reset</span></fluent-button
-          >
-          <fluent-button
-            appearance="outline"
-            class="w-1/2 group"
+        <div class="w-full flex justify-between items-center gap-2">
+          <button hlmBtn variant="ghost" class="w-1/2 group" (click)="reset()">
+            <span class="group-hover:text-red-500">Reset</span>
+          </button>
+          <button
+            hlmBtn
+            variant="outline"
+            class="w-1/2 group text-nowrap"
             (click)="removeGrid()"
-            ><span class="group-hover:text-red-500"
-              >Delete Grid</span
-            ></fluent-button
           >
+            <span class="group-hover:text-red-500">Delete Grid</span>
+          </button>
         </div>
       </div>
     </div>
