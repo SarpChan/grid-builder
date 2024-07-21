@@ -30,6 +30,7 @@ import {
 import { presetOptions } from '@grid-builder/models';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
+  radixClipboardCopy,
   radixCrossCircled,
   radixExclamationTriangle,
   radixMoon,
@@ -88,6 +89,7 @@ import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
       radixCrossCircled,
       radixSun,
       radixMoon,
+      radixClipboardCopy,
     }),
   ],
 })
@@ -106,5 +108,19 @@ export class NavbarComponent {
 
   select(id: string) {
     this.gridsFacade.selectPreset(id);
+  }
+
+  async copy(toCopy: 'html' | 'css') {
+    const generated = this.gridsFacade.selectGenerated$();
+    const { css, html } = generated || { css: undefined, html: undefined };
+    const text = toCopy === 'html' ? html : css;
+
+    if (text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        console.error('Failed to copy');
+      }
+    }
   }
 }

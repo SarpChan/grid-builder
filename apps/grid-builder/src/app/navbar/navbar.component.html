@@ -92,12 +92,35 @@
           @if(gridsFacade.selectGenerated$()?.css; as css) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>CSS</h3>
-            <pre><code  class="text-xs whitespace-pre-wrap inline-block" [highlight]="css"></code></pre>
+            <div class="relative w-full group">
+              <button
+                hlmBtn
+                variant="outline"
+                (click)="copy('css')"
+                class="absolute top-2 right-2 hidden group-hover:grid text-white h-min place-items-center"
+              >
+                <hlm-icon name="radixClipboardCopy" size="1.25rem"></hlm-icon>
+              </button>
+              <pre><code class="text-xs whitespace-pre-wrap inline-block" [highlight]="css"></code></pre>
+            </div>
           </div>
           } @if(gridsFacade.selectGenerated$()?.html; as html) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>HTML</h3>
-            <pre><code class="whitespace-pre-wrap inline-block" [highlight]="html"></code></pre>
+            <div class="relative w-full group">
+              <button
+                hlmBtn
+                variant="outline"
+                (click)="copy('html')"
+                class="absolute top-2 right-2 hidden group-hover:grid text-white h-min place-items-center"
+              >
+                <hlm-icon name="radixClipboardCopy" size="1.25rem"></hlm-icon>
+              </button>
+              <code
+                class="whitespace-pre-wrap inline-block w-full"
+                [highlight]="html"
+              ></code>
+            </div>
           </div>
           }
         </div>
