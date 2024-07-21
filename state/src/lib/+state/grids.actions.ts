@@ -158,6 +158,22 @@ export const generateFailure = createAction('[Grids/API] Generate Code Failed');
 export const clearGenerated = createAction('[Grids/API] Clear Generated Code');
 
 export const setPreset = createAction(
-  '  [Grids/API] Set Preset',
+  '[Grids/API] Set Preset',
   props<{ preset: Preset }>()
+);
+
+export const saveFile = createAction('[Grids/API] Save File');
+
+export const saveFileSuccess = createAction('[Grids/API] Save File Success');
+
+export const saveFileFailure = createAction('[Grids/API] Save File Failed');
+
+export const loadFile = createAction(
+  '[Grids/API] Load File',
+  props<{ file: File }>()
+);
+
+export const loadFileSuccess = createAction(
+  '[Grids/API] Load File Success',
+  props<{ grids: Grid[]; items: Area[] }>()
 );

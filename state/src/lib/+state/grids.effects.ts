@@ -8,11 +8,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, createAction } from '@ngrx/store';
 import { catchError, of, switchMap, withLatestFrom } from 'rxjs';
 import {
+  selectAllItems,
   selectAreaEntities,
   selectItemState,
 } from '../+item-state/items.selectors';
 import * as GridsActions from './grids.actions';
-import { selectGridsEntities, selectGridsState } from './grids.selectors';
+import {
+  selectAllGrids,
+  selectGridsEntities,
+  selectGridsState,
+} from './grids.selectors';
 import { Grid } from '@grid-builder/models';
 @Injectable()
 export class GridsEffects {
@@ -169,6 +174,38 @@ export class GridsEffects {
             errors: Array.from(errors),
           })
         );
+      })
+    )
+  );
+
+  saveFile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GridsActions.saveFile),
+      withLatestFrom(
+        this.store.select(selectAllGrids),
+        this.store.select(selectAllItems)
+      ),
+      switchMap(([_, grids, areas]) => {
+        if (grids?.length && areas?.length) {
+          try {
+            const toDownload = {
+              grids,
+              areas,
+            };
+            const blob = new Blob([JSON.stringify(toDownload, null, 2)], {
+              type: 'application/json',
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'grid.json';
+            a.click();
+            URL.revokeObjectURL(url);
+          } catch (error) {
+            return of(GridsActions.saveFileFailure());
+          }
+        }
+        return of(GridsActions.saveFileSuccess());
       })
     )
   );
