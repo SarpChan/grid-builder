@@ -7,7 +7,7 @@ export interface AppSettingsState {
 }
 
 const initialState: AppSettingsState = {
-  isPreview: true,
+  isPreview: false,
 };
 
 const reducer = createReducer(

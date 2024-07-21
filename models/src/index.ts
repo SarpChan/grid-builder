@@ -16,3 +16,11 @@ export * from './lib/presets';
 export * from './lib/validationModel';
 export * from './lib/test-models/grid-mock';
 export { autoFlowOptions, AutoFlowOptions } from './lib/auto-flow-options';
+export {
+  alignmentContentOptions,
+  AlignmentContentOptions,
+} from './lib/alignment-content';
+export {
+  alignmentItemsOptions,
+  AlignmentItemsOptions,
+} from './lib/alignment-items';

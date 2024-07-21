@@ -18,6 +18,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  AlignmentFormComponent,
   GapFormComponent,
   GlobalsFormComponent,
   GridFormComponent,
@@ -64,6 +65,7 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
     ReactiveFormsModule,
     TooltipTitleComponent,
     SelectableFormComponent,
+    AlignmentFormComponent,
     HlmInputDirective,
     HlmLabelDirective,
     HlmInputErrorDirective,

@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   computed,
+  effect,
   inject,
   input,
   signal,
@@ -106,6 +107,19 @@ export class ValueUnitComponent implements OnInit {
         this.currentOption.set({ value: unit, label: unit });
       }
     });
+
+    effect(
+      () => {
+        if (this.form && this.id()) {
+          this.currentValue.set(this.form.value.value);
+          const unit = this.form.value.unit;
+          if (isUnit(unit)) {
+            this.currentOption.set({ value: unit, label: unit });
+          }
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   ngOnInit() {

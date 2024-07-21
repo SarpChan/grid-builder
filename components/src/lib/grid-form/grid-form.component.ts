@@ -43,14 +43,13 @@ type Option = { label: string; value: string | undefined; available?: boolean };
 })
 export class GridFormComponent extends Ready implements OnInit {
   fb = inject(FormBuilder);
-  parentForm = inject(FormGroupDirective);
   controlContainer = inject(ControlContainer);
 
   facade = inject(GridsFacade);
   form!: FormGroup;
 
   currentGrid = this.facade.selectedGrid$;
-  options = autoFlowOptions.map(
+  afOptions = autoFlowOptions.map(
     (option) =>
       ({
         label: option.charAt(0).toUpperCase() + option.slice(1),
@@ -59,7 +58,7 @@ export class GridFormComponent extends Ready implements OnInit {
       } as Option)
   );
 
-  currentOption = signal<Option | undefined>(undefined);
+  currentAutoFlow = signal<Option | undefined>(undefined);
   defaultUnit: Unit = 'px';
 
   constructor() {
@@ -71,7 +70,7 @@ export class GridFormComponent extends Ready implements OnInit {
           this.autoFlow?.setValue(autoFlow, {
             emitEvent: false,
           });
-          this.currentOption.set({
+          this.currentAutoFlow.set({
             value: autoFlow,
             label: autoFlow.charAt(0).toUpperCase() + autoFlow.slice(1),
             available: true,
@@ -90,7 +89,7 @@ export class GridFormComponent extends Ready implements OnInit {
     this.form.addControl('autoFlow', this.fb.control(autoFlow), {
       emitEvent: false,
     });
-    this.currentOption.set({
+    this.currentAutoFlow.set({
       value: autoFlow,
       label: autoFlow.charAt(0).toUpperCase() + autoFlow.slice(1),
       available: true,
@@ -101,10 +100,10 @@ export class GridFormComponent extends Ready implements OnInit {
     return this.form.get('autoFlow');
   }
 
-  select(option: Option) {
+  selectAutoFlow(option: Option) {
     if (option?.value) {
       this.autoFlow?.setValue(option.value);
-      this.currentOption.set(option);
+      this.currentAutoFlow.set(option);
     }
   }
 }

@@ -15,6 +15,7 @@ import { generateGridHtml } from './grid-html';
 import { generateAreaHtml } from './area-html';
 import { ErrorCode } from 'models/src/lib/errors';
 import { WarningCode } from 'models/src/lib/warnings';
+import { contentAlignmentToTailwindMapping } from './content-alignment-tw-map';
 
 export const generateRaw = (gridState: GridsState, areaState: ItemState) => {
   const sortedGrids = sortGrids(Object.values(gridState.entities) as Grid[]);
@@ -142,11 +143,23 @@ export const generateTailwind = (
       containsMultipleAutoFlows ? '' : grid.mediaQuery
     }grid-flow-${grid.autoFlow.split(' ').join('-')}`;
 
+    const alignItems = `${grid.mediaQuery}items-${grid.alignItems}`;
+    const justifyItems = `${grid.mediaQuery}justify-items-${grid.justifyItems}`;
+    const alignContent = `${
+      grid.mediaQuery
+    }content-${contentAlignmentToTailwindMapping(grid.alignContent)}`;
+    const justifyContent = `${
+      grid.mediaQuery
+    }justify-${contentAlignmentToTailwindMapping(grid.justifyContent)}`;
     return [
       `${grid.mediaQuery}grid`,
       ...gap,
       ...rows,
       ...cols,
+      alignItems,
+      justifyItems,
+      alignContent,
+      justifyContent,
       !containsMultipleAutoFlows && index === 0 ? autoFlow : undefined,
     ].filter(Boolean);
   });
@@ -506,7 +519,7 @@ const checkAllViewportsFulfilled = (grids: Grid[]) => {
   );
   let startsWithZero = false;
   let endsWithInfinity = false;
-  let hasHole = false;
+  const hasHole = false;
 
   if (presentLimiters.has('none')) {
     return;

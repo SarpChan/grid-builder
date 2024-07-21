@@ -224,4 +224,8 @@ const grid: AddGrid = {
   width: { value: 100, unit: '%' },
   shouldUseHeight: true,
   height: { value: 100, unit: '%' },
+  alignItems: 'start',
+  justifyItems: 'start',
+  alignContent: 'flex-start',
+  justifyContent: 'flex-start',
 };

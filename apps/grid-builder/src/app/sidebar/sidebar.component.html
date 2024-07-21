@@ -4,7 +4,7 @@
       target="_blank"
       class="hover:text-white hover:bg-accent transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
       href="https://www.google.com"
-      >Support me</a
+      >Buy me a coffee ☕</a
     >
 
     <div>
@@ -34,16 +34,22 @@
             </div>
             <span *brnTooltipContent>
               @if (!selectedElement()) {
-              <div>
+              <div class="max-w-80">
                 <p class="text-destructive">
                   You did not select an interactable element
                 </p>
-                <p>Try selecting a row, column or item!</p>
+                <p>
+                  Try selecting a row, column, area or item by clicking on the
+                  respective element!
+                </p>
               </div>
               } @else {
-              <div>
+              <div class="max-w-80">
                 <p>Select a column, row or cell to edit this form</p>
-                <p>Try selecting a row, column or item!</p>
+                <p>
+                  Try selecting a row, column, area or item by clicking on the
+                  respective element!
+                </p>
               </div>
               }
             </span>
@@ -121,19 +127,60 @@
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent>
-              <p>Change the Width and Height of your grid</p>
-              <p class="text-destructive">
-                Changing these values to low static values may make interaction
-                hard and may cause weird visuals
-              </p>
-              <p class="text-destructive">
-                You may want to select a row or column instead to change their
-                dimensions
-              </p>
+              <div class="flex flex-col gap-2 max-w-80">
+                <p>Change the Width and Height of your grid</p>
+                <p class="text-destructive">
+                  Changing these values to low static values may make
+                  interaction hard and may cause weird visuals
+                </p>
+                <p class="text-destructive">
+                  You may want to select a row or column instead to change their
+                  dimensions
+                </p>
+              </div>
             </span>
           </hlm-tooltip>
           <brn-accordion-content hlm>
             <grid-builder-grid-form></grid-builder-grid-form>
+          </brn-accordion-content>
+        </div>
+
+        <!-- Alignment -->
+        <div hlmAccordionItem>
+          <hlm-tooltip>
+            <button
+              class="h-6 py-2"
+              hlmAccordionTrigger
+              hlmTooltipTrigger
+              aria-describedby="title"
+              position="right"
+            >
+              Alignment
+              <hlm-icon hlmAccIcon />
+            </button>
+            <span *brnTooltipContent>
+              <div class="flex flex-col gap-2 max-w-80">
+                <p>Change the Alignment of the grids content and its items</p>
+                <p>
+                  [Justify/ Align] Items refers to the items inside the grid.
+                  Changing this will affect the individual position of the items
+                  inside the grid and their ordering
+                </p>
+                <p>
+                  [Justify/ Align] Content refers to the grid itself or its
+                  content as a whole. Changing this will affect the position of
+                  the items mainly if they are not taking up the full width or
+                  height of the grid
+                </p>
+                <p class="text-destructive">
+                  Changes will probably not be visible unless you change the
+                  height and width of the grid itself
+                </p>
+              </div>
+            </span>
+          </hlm-tooltip>
+          <brn-accordion-content hlm>
+            <grid-builder-alignment-form></grid-builder-alignment-form>
           </brn-accordion-content>
         </div>
 
@@ -151,7 +198,9 @@
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent
-              >Change the space between cells in row and column directions</span
+              ><p class="max-w-80">
+                Change the space between cells in row and column directions
+              </p></span
             >
           </hlm-tooltip>
           <brn-accordion-content hlm>

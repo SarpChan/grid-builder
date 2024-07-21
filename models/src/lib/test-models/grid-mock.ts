@@ -39,4 +39,8 @@ export const gridMock: Grid = {
   width: { value: 0, unit: 'rem' },
   shouldUseHeight: false,
   height: { value: 0, unit: 'rem' },
+  alignItems: 'start',
+  justifyItems: 'start',
+  alignContent: 'flex-start',
+  justifyContent: 'flex-start',
 };

@@ -3,6 +3,9 @@ import { Column } from './column';
 import { Row } from './row';
 import { ValueUnit } from './valueunit';
 import { Viewport } from './viewport';
+import { AutoFlowOptions } from './auto-flow-options';
+import { AlignmentItemsOptions } from './alignment-items';
+import { AlignmentContentOptions } from './alignment-content';
 
 export interface Grid {
   id: string; // Primary ID
@@ -21,7 +24,12 @@ export interface Grid {
   shouldUseHeight: boolean;
   height: ValueUnit | undefined;
 
-  autoFlow: 'row' | 'column' | 'row dense' | 'column dense';
+  autoFlow: AutoFlowOptions;
+
+  alignItems: AlignmentItemsOptions;
+  justifyItems: AlignmentItemsOptions;
+  alignContent: AlignmentContentOptions;
+  justifyContent: AlignmentContentOptions;
 }
 
 export type AddGrid = Omit<Grid, 'id'>;

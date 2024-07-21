@@ -75,6 +75,11 @@ export class GridComponent {
         ? clamp(`${this.grid()?.height?.value}${this.grid()?.height?.unit}`)
         : '';
 
+    const justifyContent = this.grid().justifyContent;
+    const alignContent = this.grid().alignContent;
+    const justifyItems = this.grid().justifyItems;
+    const alignItems = this.grid().alignItems;
+
     return {
       row: rowText,
       column: columnText,
@@ -82,6 +87,10 @@ export class GridComponent {
       hGap,
       width,
       height,
+      justifyContent,
+      alignContent,
+      justifyItems,
+      alignItems,
     };
   });
 

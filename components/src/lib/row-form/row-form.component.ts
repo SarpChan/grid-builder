@@ -39,7 +39,9 @@ export class RowFormComponent extends Ready {
     super();
     effect(
       () => {
-        this.resetForm(this.id());
+        if (this.ready()) {
+          this.resetForm(this.id());
+        }
       },
       { allowSignalWrites: true }
     );
