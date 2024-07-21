@@ -1,8 +1,8 @@
 <form [formGroup]="form" class="panel transition-all flex flex-col gap-4">
   <grid-builder-combobox
-    [currentOption]="currentOption()"
-    (selectOption)="select($event)"
-    [options]="options"
+    [currentOption]="currentAutoFlow()"
+    (selectOption)="selectAutoFlow($event)"
+    [options]="afOptions"
     [placeholder]="'Row'"
     [label]="'Auto Flow'"
     class="w-full"

@@ -282,6 +282,10 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
         value: 100,
         unit: '%',
       },
+      alignItems: 'start',
+      justifyItems: 'start',
+      alignContent: 'flex-start',
+      justifyContent: 'flex-start',
     },
     {
       name: 'Mobile',
@@ -378,6 +382,10 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
         unit: '%',
       },
       id: '7886f1d3-8195-46c4-a05f-c91d20332057',
+      alignItems: 'start',
+      justifyItems: 'start',
+      alignContent: 'flex-start',
+      justifyContent: 'flex-start',
     },
     {
       name: 'Tablet',
@@ -495,6 +503,10 @@ const mobileTabletDesktipWithNavSideMainFooter: Preset = {
         unit: '%',
       },
       id: 'ec76f99f-0bce-4880-bb84-25a1f6df70ca',
+      alignItems: 'start',
+      justifyItems: 'start',
+      alignContent: 'flex-start',
+      justifyContent: 'flex-start',
     },
   ],
 };
@@ -760,6 +772,10 @@ const desktop12ColWithNavSideMainFooter: Preset = {
         value: 100,
         unit: '%',
       },
+      alignItems: 'start',
+      justifyItems: 'start',
+      alignContent: 'flex-start',
+      justifyContent: 'flex-start',
     },
   ],
 };

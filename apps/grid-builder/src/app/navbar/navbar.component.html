@@ -91,12 +91,12 @@
           @if(gridsFacade.selectGenerated$()?.css; as css) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>CSS</h3>
-            <pre><code class="text-xs" [highlight]="css"></code></pre>
+            <pre><code  class="text-xs whitespace-pre-wrap inline-block" [highlight]="css"></code></pre>
           </div>
           } @if(gridsFacade.selectGenerated$()?.html; as html) {
           <div class="flex flex-col gap-2">
             <h3 hlmSheetTitle>HTML</h3>
-            <pre><code [highlight]="html"></code></pre>
+            <pre><code class="whitespace-pre-wrap inline-block" [highlight]="html"></code></pre>
           </div>
           }
         </div>

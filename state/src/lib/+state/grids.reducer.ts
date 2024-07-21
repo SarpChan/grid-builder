@@ -83,6 +83,10 @@ const initialEntities = () => {
     width: { value: 100, unit: '%' },
     shouldUseHeight: true,
     height: { value: 100, unit: '%' },
+    alignItems: 'start',
+    justifyItems: 'start',
+    alignContent: 'flex-start',
+    justifyContent: 'flex-start',
   };
 
   const id2 = crypto.randomUUID();
@@ -135,6 +139,10 @@ const initialEntities = () => {
     width: { value: 100, unit: '%' },
     shouldUseHeight: true,
     height: { value: 100, unit: '%' },
+    alignItems: 'start',
+    justifyItems: 'start',
+    alignContent: 'flex-start',
+    justifyContent: 'flex-start',
   };
 
   const entities = { [id]: initialGrid, [id2]: initialGrid2 };

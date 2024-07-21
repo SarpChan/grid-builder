@@ -1,18 +1,21 @@
-import { Component, computed, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, Input, signal } from '@angular/core';
+import { radixChevronDown } from '@ng-icons/radix-icons';
 import { hlm } from '@spartan-ng/ui-core';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { BrnTabsListDirective } from '@spartan-ng/ui-tabs-brain';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
 
 export const listVariants = cva(
-  'inline-flex items-center justify-center rounded-b-md bg-muted p-1 text-muted-foreground',
+  'inline-flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
   {
     variants: {
       orientation: {
         horizontal: 'flex w-full justify-between h-10 space-x-1',
         vertical: 'mt-2 flex-col h-fit space-y-1',
-        preview: 'bg-blue-100 flex justify-between w-full pr-3',
+        preview:
+          'bg-blue-50 shadow-sm shadow-gray-400 rounded-b-md flex justify-between w-full pr-3',
       },
     },
     defaultVariants: {
@@ -25,7 +28,8 @@ type ListVariants = VariantProps<typeof listVariants>;
 @Component({
   selector: 'hlm-tabs-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HlmIconComponent],
+  providers: [provideIcons({ radixChevronDown })],
   hostDirectives: [BrnTabsListDirective],
   template: `
     <div [ngClass]="_computedClass()" (click)="togglePreviewTabList(false)">
@@ -33,20 +37,24 @@ type ListVariants = VariantProps<typeof listVariants>;
     </div>
     @if (_orientation() === 'preview') {
     <button
-      class="block bg-blue-100 rounded-b-md ml-6 w-min cursor-pointer"
+      class="block bg-blue-50 hover:bg-blue-100 shadow-sm shadow-gray-400 rounded-b-md ml-6 z-[90] w-min cursor-pointer"
       (click)="togglePreviewTabList(!_state())"
     >
       <span
         class="w-full h-full grid place-items-center text-nowrap p-2 select-none cursor-pointer"
       >
-        Select Grid
+        <hlm-icon
+          [ngClass]="{ 'rotate-180': _state() }"
+          class="transition-transform"
+          name="radixChevronDown"
+        />
       </span>
     </button>
     }
   `,
   host: {
     '[class]':
-      "_orientation() === 'preview' ? 'w-full block px-8 transition-all absolute z-[80] ' +  _computedHostClass() : 'w-full block'",
+      "_orientation() === 'preview' ? 'w-full block px-8 transition-[top] absolute z-[80] ' +  _computedHostClass() : 'w-full block'",
   },
 })
 export class HlmTabsListComponent {
