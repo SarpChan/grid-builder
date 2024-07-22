@@ -381,7 +381,6 @@ const reducer = createReducer(
             if (colIndex < tempItem.colStart) {
               tempItem.colStart = tempItem.colStart - 1;
               tempItem.colEnd = tempItem.colEnd - 1;
-            } else if (tempItem.colEnd - tempItem.colStart > 1) {
             } else if (
               (colIndex > tempItem.colEnd ||
                 tempItem.colEnd > grid.columns.length) &&
@@ -518,9 +517,28 @@ const reducer = createReducer(
       selection: undefined,
     };
   }),
-  on(GridsActions.reset, () => initialGridsState)
+  on(GridsActions.reset, () => initialGridsState),
+  on(GridsActions.loadFileSuccess, (state, { grids, globals }) => {
+    const entities = Object.assign(
+      {},
+      ...(grids?.map((grid) => ({ [grid.id]: grid })) ?? [])
+    );
+    return {
+      ...state,
+      entities,
+      error: null,
+      loaded: true,
+      ids: entities ? Object.keys(entities) : [],
+      selectedId: grids[0].id,
+      generated: undefined,
+      selection: undefined,
+      useClassName: globals?.useClassName ?? initialGridsState.useClassName,
+      useTailwind: globals?.useTailwind ?? initialGridsState.useTailwind,
+      referenceContainer:
+        globals?.referenceContainer ?? initialGridsState.referenceContainer,
+    };
+  })
 );
-
 export function gridsReducer(state: GridsState | undefined, action: Action) {
   return reducer(state, action);
 }

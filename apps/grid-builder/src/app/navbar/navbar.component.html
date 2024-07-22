@@ -176,11 +176,18 @@
       >
         <hlm-icon name="radixDownload" size="1.25rem"></hlm-icon>
       </button>
+      <input
+        type="file"
+        class="hidden"
+        accept=".json"
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
       <button
         hlmBtn
         variant="outline"
         class="dark:text-white rounded-l-none border-l-[0.5px] border-collapse transition-colors"
-        (click)="save()"
+        (click)="fileUpload.click()"
       >
         <hlm-icon name="radixUpload" size="1.25rem"></hlm-icon>
       </button>

@@ -130,7 +130,19 @@ const reducer = createReducer(
         : undefined,
     };
   }),
-  on(GridsActions.reset, () => initialItemState)
+  on(GridsActions.reset, () => initialItemState),
+  on(GridsActions.loadFileSuccess, (state, { areas }) => {
+    const entities = Object.assign(
+      {},
+      ...(areas?.map((area) => ({ [area.id]: area })) || [])
+    );
+    return {
+      ...state,
+      entities,
+      ids: entities ? Object.keys(entities) : [],
+      lastAddedId: areas?.length ? areas[areas.length - 1].id : undefined,
+    };
+  })
 );
 
 export function itemsReducer(state: ItemState | undefined, action: Action) {
