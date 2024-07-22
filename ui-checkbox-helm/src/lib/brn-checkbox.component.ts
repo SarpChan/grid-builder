@@ -17,7 +17,7 @@ import {
   PLATFORM_ID,
   Renderer2,
   signal,
-  ViewChild,
+  viewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -172,8 +172,7 @@ export class BrnCheckboxComponent implements AfterContentInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onTouched = () => {};
 
-  @ViewChild('checkBox', { static: true })
-  public checkbox?: ElementRef<HTMLInputElement>;
+  public checkbox = viewChild<ElementRef<HTMLInputElement>>('checkBox');
 
   @Output()
   public readonly changed = new EventEmitter<boolean | 'indeterminate'>();
@@ -239,16 +238,16 @@ export class BrnCheckboxComponent implements AfterContentInit, OnDestroy {
         }
       });
 
-    if (!this.checkbox) return;
+    const checkbox = this.checkbox();
+    if (!checkbox) return;
 
-    this.checkbox.nativeElement.indeterminate =
-      this._checked() === 'indeterminate';
-    if (this.checkbox.nativeElement.indeterminate) {
-      this.checkbox.nativeElement.value = 'indeterminate';
+    checkbox.nativeElement.indeterminate = this._checked() === 'indeterminate';
+    if (checkbox.nativeElement.indeterminate) {
+      checkbox.nativeElement.value = 'indeterminate';
     } else {
-      this.checkbox.nativeElement.value = this._checked() ? 'on' : 'off';
+      checkbox.nativeElement.value = this._checked() ? 'on' : 'off';
     }
-    this.checkbox.nativeElement.dispatchEvent(new Event('change'));
+    checkbox.nativeElement.dispatchEvent(new Event('change'));
   }
 
   ngOnDestroy() {

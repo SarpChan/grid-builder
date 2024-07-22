@@ -5,11 +5,12 @@ import {
   Component,
   ElementRef,
   Signal,
-  ViewChild,
   computed,
+  effect,
   inject,
   input,
   signal,
+  viewChild,
 } from '@angular/core';
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
@@ -68,12 +69,12 @@ export class GridComponent {
     const width =
       this.grid()?.shouldUseWidth && this.grid().width
         ? clamp(`${this.grid()?.width?.value}${this.grid()?.width?.unit}`)
-        : '';
+        : '100%';
 
     const height =
       this.grid()?.shouldUseHeight && this.grid().height
         ? clamp(`${this.grid()?.height?.value}${this.grid()?.height?.unit}`)
-        : '';
+        : '100%';
 
     const justifyContent = this.grid().justifyContent;
     const alignContent = this.grid().alignContent;
@@ -99,7 +100,7 @@ export class GridComponent {
     rowSelectionHeight: number;
   }>({ colSelectionWidth: 0, rowSelectionHeight: 0 });
 
-  element = signal<ElementRef | undefined>(undefined);
+  element = viewChild<ElementRef>('main');
 
   trackMouse = false;
   positionValues = signal<{
@@ -144,13 +145,13 @@ export class GridComponent {
     col_i: 0,
   });
 
-  @ViewChild('main')
-  set mainElement(v: ElementRef | undefined) {
-    setTimeout(() => {
-      this.element.set(v);
-      this.removeObserver();
-      this.addObserver();
-    }, 0);
+  constructor() {
+    effect(() => {
+      if (this.element()) {
+        this.removeObserver();
+        this.addObserver();
+      }
+    });
   }
 
   select(id: string, selectedType: Selectable) {
