@@ -135,4 +135,15 @@ export class NavbarComponent {
   save() {
     this.gridsFacade.saveFile();
   }
+
+  onFileSelected(event: Event) {
+    const target = event?.target as HTMLInputElement;
+    const files = target?.files as FileList;
+    if (files?.length === 1) {
+      const file: File = files[0];
+      if (file && file.type === 'application/json') {
+        this.gridsFacade.loadFile(file);
+      }
+    }
+  }
 }

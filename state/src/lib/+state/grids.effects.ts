@@ -6,7 +6,14 @@ import {
 } from '@grid-builder/utils';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, createAction } from '@ngrx/store';
-import { catchError, of, switchMap, withLatestFrom } from 'rxjs';
+import {
+  catchError,
+  from,
+  of,
+  switchMap,
+  throwError,
+  withLatestFrom,
+} from 'rxjs';
 import {
   selectAllItems,
   selectAreaEntities,
@@ -15,6 +22,7 @@ import {
 import * as GridsActions from './grids.actions';
 import {
   selectAllGrids,
+  selectGlobals,
   selectGridsEntities,
   selectGridsState,
 } from './grids.selectors';
@@ -163,7 +171,7 @@ export class GridsEffects {
         this.store.select(selectGridsState),
         this.store.select(selectItemState)
       ),
-      switchMap(([_, gridState, areaState]) => {
+      switchMap(([_, gridState]) => {
         const { warnings, errors } = checkNoViewportOverlap(
           Object.values(gridState.entities) as Grid[]
         );
@@ -183,14 +191,16 @@ export class GridsEffects {
       ofType(GridsActions.saveFile),
       withLatestFrom(
         this.store.select(selectAllGrids),
-        this.store.select(selectAllItems)
+        this.store.select(selectAllItems),
+        this.store.select(selectGlobals)
       ),
-      switchMap(([_, grids, areas]) => {
+      switchMap(([_, grids, areas, globals]) => {
         if (grids?.length && areas?.length) {
           try {
             const toDownload = {
               grids,
               areas,
+              globals,
             };
             const blob = new Blob([JSON.stringify(toDownload, null, 2)], {
               type: 'application/json',
@@ -201,11 +211,36 @@ export class GridsEffects {
             a.download = 'grid.json';
             a.click();
             URL.revokeObjectURL(url);
+            return of(GridsActions.saveFileSuccess());
           } catch (error) {
-            return of(GridsActions.saveFileFailure());
+            console.error('Failed to save file');
           }
         }
-        return of(GridsActions.saveFileSuccess());
+        return of(GridsActions.saveFileFailure());
+      })
+    )
+  );
+
+  loadFile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GridsActions.loadFile),
+      switchMap((payload) => {
+        const file = payload.file;
+        if (file) {
+          return from(file.text());
+        }
+        return throwError(() => new Error('failed to load file'));
+      }),
+      switchMap((text) => {
+        if (text) {
+          const { grids, areas, globals } = JSON.parse(text);
+          return of(GridsActions.loadFileSuccess({ grids, areas, globals }));
+        }
+        return of(GridsActions.loadFileFailure());
+      }),
+      catchError((error) => {
+        console.error('Failed to load file', error);
+        return of(GridsActions.loadFileFailure());
       })
     )
   );

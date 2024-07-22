@@ -53,6 +53,7 @@ export class GridsFacade {
   );
   selectWarnings$ = this.store.selectSignal(ItemsSelectors.selectWarnings);
   selectErrors$ = this.store.selectSignal(ItemsSelectors.selectErrors);
+  selectGlobals$ = this.store.selectSignal(GridsSelectors.selectGlobals);
 
   /**
    * Use the initialization action to perform one
@@ -173,6 +174,10 @@ export class GridsFacade {
 
   saveFile() {
     this.store.dispatch(GridsActions.saveFile());
+  }
+
+  loadFile(file: File) {
+    this.store.dispatch(GridsActions.loadFile({ file }));
   }
 }
 

@@ -175,5 +175,15 @@ export const loadFile = createAction(
 
 export const loadFileSuccess = createAction(
   '[Grids/API] Load File Success',
-  props<{ grids: Grid[]; items: Area[] }>()
+  props<{
+    grids: Grid[];
+    areas: Area[];
+    globals: {
+      useTailwind: boolean;
+      useClassName: boolean;
+      referenceContainer: 'viewport' | 'container';
+    };
+  }>()
 );
+
+export const loadFileFailure = createAction('[Grids/API] Load File Failed');

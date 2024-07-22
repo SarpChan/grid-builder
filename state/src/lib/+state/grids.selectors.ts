@@ -97,3 +97,9 @@ export const selectGeneratedCode = createSelector(
   selectGridsState,
   (state) => state.generated
 );
+
+export const selectGlobals = createSelector(selectGridsState, (state) => ({
+  useTailwind: state.useTailwind,
+  useClassName: state.useClassName,
+  referenceContainer: state.referenceContainer,
+}));

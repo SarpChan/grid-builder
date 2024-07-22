@@ -1,6 +1,7 @@
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   effect,
   inject,
@@ -25,7 +26,6 @@ import {
 } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { GridsFacade } from '@grid-builder/state';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'grid-builder-globals-form',
@@ -48,6 +48,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class GlobalsFormComponent {
   fb = inject(FormBuilder);
   facade = inject(GridsFacade);
+  cdr = inject(ChangeDetectorRef);
 
   options = units;
   defaultUnit: Unit = 'px';
@@ -61,6 +62,21 @@ export class GlobalsFormComponent {
     useTailwind: [false, [Validators.required]],
     useClassname: [false, [Validators.required]],
   });
+  constructor() {
+    effect(() => {
+      const globals = this.facade.selectGlobals$();
+      this.referenceContainerValue = globals.referenceContainer;
+      this.twValue = globals.useTailwind ? 'true' : 'false';
+      this.classNameValue = globals.useClassName ? 'true' : 'false';
+
+      this.form.setValue({
+        referenceContainer: this.referenceContainerValue,
+        useTailwind: globals.useTailwind,
+        useClassname: globals.useClassName,
+      });
+      this.cdr.markForCheck();
+    });
+  }
 
   selectRf(rf: string) {
     if (isReferenceContainer(rf)) {
