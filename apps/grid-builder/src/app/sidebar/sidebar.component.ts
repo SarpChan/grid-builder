@@ -4,10 +4,10 @@ import {
   Component,
   ElementRef,
   Signal,
-  ViewChild,
   effect,
   inject,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -99,8 +99,7 @@ export class SidebarComponent extends Ready {
     return this.form.get('name');
   }
 
-  @ViewChild('selection')
-  selectionElement!: ElementRef;
+  selectionElement = viewChild<ElementRef>('selection');
 
   constructor() {
     super();
@@ -117,16 +116,15 @@ export class SidebarComponent extends Ready {
 
     effect(
       () => {
-        const isOpen =
-          this.selectionElement?.nativeElement?.getAttribute('data-state');
-
-        if (this.selectedElement()?.id) {
-          if (isOpen && isOpen !== 'open') {
+        const selectionElement = this.selectionElement()?.nativeElement;
+        const isOpen = selectionElement?.getAttribute('data-state');
+        if (selectionElement?.id) {
+          if (this.selectedElement() && isOpen && isOpen !== 'open') {
             // Queue Task so that disabled state is cleared
-            setTimeout(() => this.selectionElement.nativeElement.click(), 0);
+            setTimeout(() => selectionElement.click(), 0);
           }
         } else if (isOpen === 'open') {
-          this.selectionElement.nativeElement.click();
+          selectionElement.click();
         }
       },
       { allowSignalWrites: true }

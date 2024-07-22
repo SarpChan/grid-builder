@@ -8,12 +8,12 @@
       <button
         class="text-amber-300 hover:text-amber-500 disabled:text-gray-300 group"
         brnPopoverTrigger
-        [disabled]="gridsFacade.selectWarnings$()?.length === 0"
+        [disabled]="gridsFacade.selectWarnings$().length === 0"
       >
         <ng-icon
           class="trainsition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
           name="radixExclamationTriangle"
-          [disabled]="gridsFacade.selectWarnings$()?.length === 0"
+          [disabled]="gridsFacade.selectWarnings$().length === 0"
           size="1.25rem"
         ></ng-icon>
       </button>
@@ -37,7 +37,7 @@
       <button
         class="text-red-300 hover:text-red-600 disabled:text-gray-300 group"
         brnPopoverTrigger
-        [disabled]="gridsFacade.selectErrors$()?.length === 0"
+        [disabled]="gridsFacade.selectErrors$().length === 0"
       >
         <ng-icon
           class="transition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
@@ -70,7 +70,7 @@
         class="w-full"
         (click)="generate()"
         [disabled]="
-          gridsFacade.selectErrors$()?.length &&
+          gridsFacade.selectErrors$().length &&
           gridsFacade.selectErrors$().length > 0
         "
       >
