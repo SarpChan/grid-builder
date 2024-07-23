@@ -75,9 +75,22 @@ export class GridsEffects {
           !payload.areaInstanceId ||
           !payload.gridId
         ) {
+          let errorMessage = 'Could not connect area to grid';
+
+          if (!grids) {
+            errorMessage = 'Grids do not exist';
+          } else if (!areas) {
+            errorMessage = 'Areas do not exist';
+          } else if (
+            !payload?.gridId ||
+            !payload?.areaId ||
+            !payload?.areaInstanceId
+          ) {
+            errorMessage = 'Missing data for connecting area to grid';
+          }
           return of(
             GridsActions.connectAreaToInstanceFailure({
-              error: 'Could not connect Area to Grid',
+              error: errorMessage,
             })
           );
         }
@@ -216,7 +229,9 @@ export class GridsEffects {
             console.error('Failed to save file');
           }
         }
-        return of(GridsActions.saveFileFailure());
+        return of(
+          GridsActions.saveFileFailure({ error: 'Failed to save file' })
+        );
       })
     )
   );
@@ -229,18 +244,22 @@ export class GridsEffects {
         if (file) {
           return from(file.text());
         }
-        return throwError(() => new Error('failed to load file'));
+        return throwError(() => new Error('No file provided'));
       }),
       switchMap((text) => {
         if (text) {
           const { grids, areas, globals } = JSON.parse(text);
           return of(GridsActions.loadFileSuccess({ grids, areas, globals }));
         }
-        return of(GridsActions.loadFileFailure());
+        return of(
+          GridsActions.loadFileFailure({ error: 'Failed to read file content' })
+        );
       }),
       catchError((error) => {
         console.error('Failed to load file', error);
-        return of(GridsActions.loadFileFailure());
+        return of(
+          GridsActions.loadFileFailure({ error: 'Could not load file' })
+        );
       })
     )
   );

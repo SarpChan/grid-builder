@@ -8,7 +8,7 @@ import {
 import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 
 @Component({
-  selector: 'grid-builder-toaster',
+  selector: 'grid-builder-sonner',
   standalone: true,
   imports: [NgxSonnerToaster],
   template: `
@@ -32,7 +32,7 @@ import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmToasterComponent {
+export class SonnerComponent {
   invert = input<ToasterProps['invert'], boolean | string>(false, {
     transform: booleanAttribute,
   });
@@ -57,8 +57,9 @@ export class HlmToasterComponent {
   toastOptions = input<ToasterProps['toastOptions']>({
     classes: {
       toast:
-        'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
-      description: 'group-[.toast]:text-muted-foreground',
+        'group toast dark:group-[.toaster]:bg-slate-800 group-[.toaster]:bg-background dark:group-[.toaster]:text-white group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
+      description:
+        'dark:group-[.toast]:text-slate-200 group-[.toast]:text-muted-foreground',
       actionButton:
         'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
       cancelButton:
