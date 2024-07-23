@@ -153,7 +153,10 @@ export const validationResults = createAction(
   '[Grids/API] Validate Grids',
   props<{ errors: IValidationModel[]; warnings: IValidationModel[] }>()
 );
-export const generateFailure = createAction('[Grids/API] Generate Code Failed');
+export const generateFailure = createAction(
+  '[Grids/API] Generate Code Failed',
+  props<{ error: string }>()
+);
 
 export const clearGenerated = createAction('[Grids/API] Clear Generated Code');
 
@@ -166,7 +169,10 @@ export const saveFile = createAction('[Grids/API] Save File');
 
 export const saveFileSuccess = createAction('[Grids/API] Save File Success');
 
-export const saveFileFailure = createAction('[Grids/API] Save File Failed');
+export const saveFileFailure = createAction(
+  '[Grids/API] Save File Failed',
+  props<{ error: string }>()
+);
 
 export const loadFile = createAction(
   '[Grids/API] Load File',
@@ -186,4 +192,7 @@ export const loadFileSuccess = createAction(
   }>()
 );
 
-export const loadFileFailure = createAction('[Grids/API] Load File Failed');
+export const loadFileFailure = createAction(
+  '[Grids/API] Load File Failed',
+  props<{ error: string }>()
+);

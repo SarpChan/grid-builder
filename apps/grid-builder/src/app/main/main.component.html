@@ -1,7 +1,7 @@
 <div
   class="h-full w-full flex flex-col gap-2 dark:bg-slate-700 bg-white"
   [ngClass]="{
-  'pr-4 pb-4 pt-2': !appSettingsFacade.isPreview$(),
+  'pr-2 pb-2 pt-2': !appSettingsFacade.isPreview$(),
   }"
   brnTabs="{{ activeId() }}"
 >
@@ -51,3 +51,6 @@
   </div>
   }
 </div>
+<grid-builder-sonner
+  [theme]="appSettingsFacade.isDarkMode$() ? 'dark' : 'light'"
+></grid-builder-sonner>

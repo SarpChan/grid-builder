@@ -9,3 +9,4 @@ export * from './lib/globals-form/globals-form.component';
 export * from './lib/tooltip-title/tooltip-title.component';
 export * from './lib/selectable-form/selectable-form.component';
 export * from './lib/alignment-form/alignment-form.component';
+export * from './lib/sonner/sonner.component';

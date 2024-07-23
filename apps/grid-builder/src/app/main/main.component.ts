@@ -6,7 +6,7 @@ import {
   Signal,
   inject,
 } from '@angular/core';
-import { GridComponent } from '@grid-builder/components';
+import { GridComponent, SonnerComponent } from '@grid-builder/components';
 import { Grid } from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { Store } from '@ngrx/store';
@@ -37,6 +37,7 @@ import {
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
     CommonModule,
+    SonnerComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
