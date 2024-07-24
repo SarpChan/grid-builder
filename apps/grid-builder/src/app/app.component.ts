@@ -1,11 +1,6 @@
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AppSettingsFacade,
@@ -32,7 +27,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [GridsFacade, ItemsFacade, AppSettingsFacade],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit {
   appSettingsFacade = inject(AppSettingsFacade);

@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  InputSignal,
-  OnInit,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, InputSignal, OnInit, inject, input } from '@angular/core';
 import {
   ControlContainer,
   FormBuilder,
@@ -36,7 +29,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
   ],
   templateUrl: './toggle-value-unit.component.html',
   styleUrl: './toggle-value-unit.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ToggleValueUnitComponent implements OnInit {
   checkboxLabel = input('Enable');

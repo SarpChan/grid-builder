@@ -6,16 +6,15 @@
   <div class="flex gap-2 items-center">
     <brn-popover>
       <button
-        class="text-amber-300 hover:text-amber-500 disabled:text-gray-300 group"
+        class="grid place-items-center text-amber-300 hover:text-amber-500 disabled:text-gray-300 group"
         brnPopoverTrigger
         [disabled]="gridsFacade.selectWarnings$().length === 0"
       >
-        <ng-icon
-          class="trainsition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
+        <hlm-icon
           name="radixExclamationTriangle"
-          [disabled]="gridsFacade.selectWarnings$().length === 0"
+          class="trainsition-all cursor-pointer -mb-1 group-disabled:cursor-auto"
           size="1.25rem"
-        ></ng-icon>
+        ></hlm-icon>
       </button>
 
       <div
@@ -35,15 +34,15 @@
 
     <brn-popover>
       <button
-        class="text-red-300 hover:text-red-600 disabled:text-gray-300 group"
+        class="grid place-items-center text-red-300 hover:text-red-600 disabled:text-gray-300 group"
         brnPopoverTrigger
         [disabled]="gridsFacade.selectErrors$().length === 0"
       >
-        <ng-icon
-          class="transition-all cursor-pointer -mb-1.5 group-disabled:cursor-auto"
+        <hlm-icon
           name="radixCrossCircled"
+          class="trainsition-all cursor-pointer -mb-1 group-disabled:cursor-auto"
           size="1.25rem"
-        ></ng-icon>
+        ></hlm-icon>
       </button>
 
       <div

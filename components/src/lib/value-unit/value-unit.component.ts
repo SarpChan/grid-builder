@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Input,
   OnInit,
@@ -10,6 +9,7 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlContainer,
   FormBuilder,
@@ -19,9 +19,8 @@ import {
 } from '@angular/forms';
 import { Unit, isUnit, units } from '@grid-builder/models';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { ComboboxComponent } from '../combobox/combobox.component';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ComboboxComponent } from '../combobox/combobox.component';
 
 export type Option = { label: string; value: Unit | undefined };
 
@@ -37,7 +36,6 @@ export type Option = { label: string; value: Unit | undefined };
   ],
   templateUrl: './value-unit.component.html',
   styleUrl: './value-unit.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ValueUnitComponent implements OnInit {
   valueLabel = input('Value');

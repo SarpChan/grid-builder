@@ -34,17 +34,19 @@
         <div class="font-normal max-w-72 overflow-hidden text-ellipsis">
           {{ grid.name }}
         </div>
-        <fluent-button
-          appearance="accent"
+        <button
+          hlmBtn
+          variant="default"
           (click)="removeConnection(grid.gridId)"
-          >x</fluent-button
         >
+          x
+        </button>
       </div>
       }
     </div>
   </label>
   }
-  <fluent-button appearance="accent" class="group w-1/2" (click)="delete()"
-    ><span class="group-hover:text-white">Delete</span>
-  </fluent-button>
+  <button variant="outline" class="group w-1/2" (click)="delete()">
+    <span class="group-hover:text-white">Delete</span>
+  </button>
 </form>

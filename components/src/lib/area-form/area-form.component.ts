@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Signal,
@@ -5,10 +6,8 @@ import {
   inject,
   input,
   untracked,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ItemsFacade } from '@grid-builder/state';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormsModule,
@@ -16,13 +15,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Area } from '@grid-builder/models';
+import { ItemsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'grid-builder-area-form',
@@ -34,10 +34,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     HlmInputDirective,
     HlmInputErrorDirective,
     HlmLabelDirective,
+    HlmButtonDirective,
   ],
   templateUrl: './area-form.component.html',
   styleUrl: './area-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AreaFormComponent extends Ready {
   facade = inject(ItemsFacade);

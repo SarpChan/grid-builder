@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
-import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { Component, inject } from '@angular/core';
 import {
   ControlContainer,
   FormBuilder,
@@ -9,6 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Unit } from '@grid-builder/models';
+import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-gap-form',
@@ -19,7 +19,6 @@ import { Unit } from '@grid-builder/models';
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class GapFormComponent {
   fb = inject(FormBuilder);

@@ -1,6 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   Signal,
@@ -22,6 +21,7 @@ import {
   HlmTabsListComponent,
   HlmTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-helm';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'grid-builder-main',
@@ -38,10 +38,10 @@ import {
     HlmTabsTriggerDirective,
     CommonModule,
     SonnerComponent,
+    HlmButtonDirective,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {

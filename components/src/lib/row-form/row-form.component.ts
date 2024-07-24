@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Signal,
   effect,
@@ -7,21 +7,26 @@ import {
   input,
   untracked,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GridsFacade } from '@grid-builder/state';
-import { Row, Unit, units } from '@grid-builder/models';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Row, Unit, units } from '@grid-builder/models';
+import { GridsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-row-form',
   standalone: true,
-  imports: [CommonModule, ValueUnitComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ValueUnitComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    HlmButtonDirective,
+  ],
   templateUrl: './row-form.component.html',
   styleUrl: './row-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RowFormComponent extends Ready {
   fb = inject(FormBuilder);

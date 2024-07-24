@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Signal,
   computed,
@@ -19,6 +18,7 @@ import {
 import { AreaInstance, Unit } from '@grid-builder/models';
 import { GridsFacade, ItemsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
@@ -40,10 +40,10 @@ type Option = { label: string; value: string | undefined; available?: boolean };
     HlmLabelDirective,
     HlmInputErrorDirective,
     ComboboxComponent,
+    HlmButtonDirective,
   ],
   templateUrl: './area-instance-form.component.html',
   styleUrl: './area-instance-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AreaInstanceFormComponent extends Ready {
   fb = inject(FormBuilder);

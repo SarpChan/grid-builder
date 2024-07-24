@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemsFacade } from '@grid-builder/state';
 import {
@@ -7,6 +7,7 @@ import {
   CdkDropListGroup,
   CdkDragPlaceholder,
 } from '@angular/cdk/drag-drop';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'grid-builder-itemsbar',
@@ -17,10 +18,10 @@ import {
     CdkDropList,
     CdkDrag,
     CdkDragPlaceholder,
+    HlmButtonDirective,
   ],
   templateUrl: './itemsbar.component.html',
   styleUrl: './itemsbar.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ItemsbarComponent {
   facade = inject(ItemsFacade);

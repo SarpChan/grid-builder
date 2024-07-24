@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   OnInit,
@@ -38,7 +37,6 @@ type Option = { label: string; value: string | undefined; available?: boolean };
   ],
   templateUrl: './grid-form.component.html',
   styleUrl: './grid-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridFormComponent extends Ready implements OnInit {

@@ -1,7 +1,6 @@
 import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
   Signal,
@@ -35,7 +34,6 @@ import { AreaInstanceComponent } from '../area-instance/area-instance.component'
   ],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class GridComponent {
   grid = input.required<Grid>();
