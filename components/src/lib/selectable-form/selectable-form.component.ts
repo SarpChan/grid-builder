@@ -1,19 +1,18 @@
+import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   Signal,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ValueUnitComponent } from '../value-unit/value-unit.component';
 import { Selectable, SelectionElement, units } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
+import { AreaFormComponent } from '../area-form/area-form.component';
+import { AreaInstanceFormComponent } from '../area-instance-form/area-instance-form.component';
 import { ColumnFormComponent } from '../column-form/column-form.component';
 import { RowFormComponent } from '../row-form/row-form.component';
-import { AreaInstanceFormComponent } from '../area-instance-form/area-instance-form.component';
-import { AreaFormComponent } from '../area-form/area-form.component';
+import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-selectable-form',
@@ -29,7 +28,6 @@ import { AreaFormComponent } from '../area-form/area-form.component';
   ],
   templateUrl: './selectable-form.component.html',
   styleUrl: './selectable-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableFormComponent {

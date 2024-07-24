@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,7 +7,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   ReferenceContainer,
@@ -15,6 +14,8 @@ import {
   isReferenceContainer,
   units,
 } from '@grid-builder/models';
+import { GridsFacade } from '@grid-builder/state';
+import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import {
   BrnRadioComponent,
   BrnRadioGroupComponent,
@@ -24,8 +25,6 @@ import {
   HlmRadioGroupDirective,
   HlmRadioIndicatorComponent,
 } from '@spartan-ng/ui-radiogroup-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { GridsFacade } from '@grid-builder/state';
 
 @Component({
   selector: 'grid-builder-globals-form',
@@ -42,7 +41,6 @@ import { GridsFacade } from '@grid-builder/state';
   ],
   templateUrl: './globals-form.component.html',
   styleUrl: './globals-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GlobalsFormComponent {

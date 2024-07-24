@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
   Signal,
@@ -44,13 +43,12 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 import { Grid } from '@grid-builder/models';
 import { Ready } from '@grid-builder/utils';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
-
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'grid-builder-sidebar',
@@ -79,12 +77,10 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
     BrnTooltipContentDirective,
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
-
     HlmButtonDirective,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SidebarComponent extends Ready {
   facade = inject(GridsFacade);

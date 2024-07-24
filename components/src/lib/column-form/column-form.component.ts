@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Signal,
   effect,
@@ -12,16 +11,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Column, Unit, units } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
-import { ValueUnitComponent } from '../value-unit/value-unit.component';
 import { Ready } from '@grid-builder/utils';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-column-form',
   standalone: true,
-  imports: [CommonModule, ValueUnitComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ValueUnitComponent,
+    HlmButtonDirective,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './column-form.component.html',
   styleUrl: './column-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ColumnFormComponent extends Ready {
   fb = inject(FormBuilder);

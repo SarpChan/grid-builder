@@ -1,12 +1,12 @@
+import { CommonModule } from '@angular/common';
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   effect,
   inject,
   untracked,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Limiter,
@@ -16,7 +16,8 @@ import {
   isMediaType,
   units,
 } from '@grid-builder/models';
-import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { GridsFacade } from '@grid-builder/state';
+import { Ready } from '@grid-builder/utils';
 import {
   BrnRadioComponent,
   BrnRadioGroupComponent,
@@ -26,9 +27,9 @@ import {
   HlmRadioGroupDirective,
   HlmRadioIndicatorComponent,
 } from '@spartan-ng/ui-radiogroup-helm';
-import { GridsFacade } from '@grid-builder/state';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Ready } from '@grid-builder/utils';
+import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
+import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { ValueUnitComponent } from '../value-unit/value-unit.component';
 
 @Component({
   selector: 'grid-builder-viewport-form',
@@ -42,10 +43,11 @@ import { Ready } from '@grid-builder/utils';
     HlmRadioDirective,
     HlmRadioIndicatorComponent,
     HlmRadioGroupDirective,
+    HlmSeparatorDirective,
+    BrnSeparatorComponent,
   ],
   templateUrl: './viewport-form.component.html',
   styleUrl: './viewport-form.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewportFormComponent extends Ready {
