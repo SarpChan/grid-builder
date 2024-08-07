@@ -25,10 +25,10 @@ import {
   HlmInputErrorDirective,
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { debounceTime } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ComboboxComponent } from '../combobox/combobox.component';
 import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
-
+import { isEqual } from 'lodash-es';
 type Option = { label: string; value: string | undefined; available?: boolean };
 
 @Component({
@@ -55,11 +55,16 @@ export class AreaInstanceFormComponent extends Ready {
   itemsFacade = inject(ItemsFacade);
 
   defaultUnit: Unit = '%';
-  oldId: string | undefined;
+  old: {
+    id: string | undefined;
+    colLength: number | undefined;
+    rowLength: number | undefined;
+  } = { id: undefined, colLength: undefined, rowLength: undefined };
 
   id = input<string | undefined>();
   selected: Signal<AreaInstance | undefined> = this.facade.selectedItem$;
   gridId = this.facade.selectedId$;
+  grid = this.facade.selectedGrid$;
 
   areaOptions = this.itemsFacade.selectAreaOptions$;
   options = computed<Option[]>(() => {
@@ -127,7 +132,11 @@ export class AreaInstanceFormComponent extends Ready {
     effect(() => this.resetForm(this.id()), { allowSignalWrites: true });
 
     this.form.valueChanges
-      .pipe(debounceTime(100), takeUntilDestroyed())
+      .pipe(
+        debounceTime(100),
+        distinctUntilChanged(isEqual),
+        takeUntilDestroyed()
+      )
       .subscribe((value) => {
         if (this.ready()) {
           this.facade.updateItem(
@@ -140,14 +149,22 @@ export class AreaInstanceFormComponent extends Ready {
   }
 
   resetForm(id: string | undefined) {
-    if (id && this.oldId !== id) {
+    if (
+      (id && this.old.id !== id) ||
+      this.grid()?.columns?.length !== this.old.colLength ||
+      this.grid()?.rows?.length !== this.old.rowLength
+    ) {
       this.form.reset(
         untracked(() => ({ ...this.selected() })),
         { emitEvent: this.form.pristine }
       );
     }
 
-    this.oldId = id;
+    this.old = {
+      id: id,
+      colLength: this.grid()?.columns?.length,
+      rowLength: this.grid()?.rows?.length,
+    };
   }
 
   delete() {
