@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import {
   AppSettingsEffects,
   GridsEffects,
+  ItemsEffects,
   appSettingsReducer,
   gridsReducer,
 } from '@grid-builder/state';
@@ -18,6 +19,7 @@ export const appRoutes: Route[] = [
       provideEffects(GridsEffects),
       provideState('appSettings', appSettingsReducer),
       provideEffects(AppSettingsEffects),
+      provideEffects(ItemsEffects),
     ],
   },
   {
