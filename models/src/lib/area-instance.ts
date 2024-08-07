@@ -2,7 +2,7 @@ export interface AreaInstance {
   id: string;
   areaId: string | undefined;
 
-  name: string;
+  name: string | undefined;
 
   colStart: number;
   colEnd: number;
@@ -11,4 +11,4 @@ export interface AreaInstance {
   rowEnd: number;
 }
 
-export interface AddAreaInstance extends Omit<AreaInstance, 'id'> {}
+export type AddAreaInstance = Omit<AreaInstance, 'id'>;

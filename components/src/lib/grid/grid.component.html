@@ -31,7 +31,9 @@
           <button
             (click)="select(col.id, selectable.COLUMN)"
             class="absolute w-[calc(100%+1rem)] h-full -left-2 group-hover:bg-accent rounded-sm transition-all flex"
-            [ngClass]="{ 'bg-blue-200': selected()?.id === col.id }"
+            [ngClass]="{
+              'bg-blue-200 dark:bg-blue-400': selected()?.id === col.id
+            }"
             hlmTooltipTrigger
             aria-describedby="title"
             position="above"
@@ -39,12 +41,17 @@
             <div
               class="duration-[50] w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
             >
-              <span class="truncate"> Col {{ index + 1 }} </span>
+              <span class="truncate">
+                {{ 'selectors.col' | translate }} {{ index + 1 }}
+              </span>
             </div>
           </button>
           <span *brnTooltipContent class="pointer-events-none">
             <div>
-              <span>Select Column {{ index + 1 }}</span>
+              <span
+                >{{ 'selectors.tooltip.column' | translate }}
+                {{ index + 1 }}</span
+              >
             </div>
           </span>
         </hlm-tooltip>
@@ -76,7 +83,9 @@
         <hlm-tooltip>
           <button
             class="absolute hoverheight -top-2 w-full hover:bg-accent transition-all rounded-sm flex items-start group-hover:z-50"
-            [ngClass]="{ 'bg-blue-200': selected()?.id === row.id }"
+            [ngClass]="{
+              'bg-blue-200 dark:bg-blue-400': selected()?.id === row.id
+            }"
             (click)="select(row.id, selectable.ROW)"
             hlmTooltipTrigger
             aria-describedby="title"
@@ -85,12 +94,16 @@
             <div
               class="duration-[50] h-full absolute truncate text-nowrap flex items-center justify-center select-none pr-2 rotated transition-colors group-hover:text-white"
             >
-              <span class="truncate"> Row {{ index + 1 }} </span>
+              <span class="truncate">
+                {{ 'selectors.row' | translate }} {{ index + 1 }}
+              </span>
             </div>
           </button>
           <span *brnTooltipContent>
             <div>
-              <span>Select Row {{ index + 1 }}</span>
+              <span
+                >{{ 'selectors.tooltip.row' | translate }} {{ index + 1 }}</span
+              >
             </div>
           </span>
         </hlm-tooltip>
@@ -118,19 +131,33 @@
   >
     @for (row of grid().rows; track row; let row_index = $index) { @for (col of
     grid().columns; track col; let col_index = $index) {
-    <grid-builder-area-instance
-      (mouseenter)="mouseEnter($event)"
-      #element
-      class="w-full h-full block z-[60] border border-gray-500/20 bg-white dark:bg-gray-700"
-      [ngClass]="{
-        'hover:bg-accent hover:text-white': !trackMouse
-      }"
-      [attr.data-x]="row_index"
-      [attr.data-y]="col_index"
-      [col]="col_index"
-      [row]="row_index"
-      (click)="handleItemCreation($event)"
-    ></grid-builder-area-instance>
+    <hlm-tooltip class="dark:bg-slate-900">
+      <grid-builder-area-instance
+        hlmTooltipTrigger
+        position="below"
+        aria-describedby="title"
+        (mouseenter)="mouseEnter($event)"
+        #element
+        class="w-full h-full block z-[60] border border-gray-500/20 bg-white dark:bg-gray-700"
+        [ngClass]="{
+          'hover:bg-accent hover:text-white': !trackMouse
+        }"
+        [attr.data-x]="row_index"
+        [attr.data-y]="col_index"
+        [col]="col_index"
+        [row]="row_index"
+        (click)="handleItemCreation($event)"
+      ></grid-builder-area-instance>
+      <span *brnTooltipContent
+        ><p class="max-w-80">
+          @if (trackMouse) {
+          {{ 'actions.descriptions.end_create_item' | translate }}
+          } @else {
+          {{ 'actions.descriptions.start_create_item' | translate }}
+          }
+        </p></span
+      >
+    </hlm-tooltip>
     } }
 
     <div
@@ -160,38 +187,51 @@
       ></div>
       } @for (areaInstance of areaInstances(); track areaInstance.id) {
 
-      <div
-        cdkDropList
-        [cdkDropListConnectedTo]="['areaList']"
-        cdkDropListSortingDisabled="true"
-        (cdkDropListDropped)="drop($event, areaInstance.id)"
-        [cdkDropListData]="'areaInstance'"
-        class="w-full h-full cursor-pointer opacity-80 border-4 transition-all pointer-events-auto rounded-[.125rem]"
-        (click)="select(areaInstance.id, selectable.AREA_INSTANCE)"
-        [ngStyle]="{
-          'grid-column-start': areaInstance.colStart,
-          'grid-column-end': areaInstance.colEnd,
-          'grid-row-start': areaInstance.rowStart,
-          'grid-row-end': areaInstance.rowEnd,
-          'border-color': areaInstance.color.startsWith('#')
-            ? areaInstance.color
-            : '#' + areaInstance.color
-        }"
-      >
-        <div class="relative w-full h-full">
-          <div
-            class="opacity-40 absolute w-full h-full"
-            [ngStyle]="{
-              'background-color': areaInstance.color.startsWith('#')
-                ? areaInstance.color
-                : '#' + areaInstance.color
-            }"
-          ></div>
-          <div class="top-4 left-4 absolute">
-            {{ areaInstance.name }}
+      <hlm-tooltip class="dark:bg-slate-900">
+        <div
+          hlmTooltipTrigger
+          position="below"
+          aria-describedby="title"
+          cdkDropList
+          [cdkDropListConnectedTo]="['areaList']"
+          cdkDropListSortingDisabled="true"
+          (cdkDropListDropped)="drop($event, areaInstance.id)"
+          [cdkDropListData]="'areaInstance'"
+          class="w-full h-full cursor-pointer opacity-80 border-4 transition-all pointer-events-auto rounded-[.125rem]"
+          (click)="select(areaInstance.id, selectable.AREA_INSTANCE)"
+          [ngStyle]="{
+            'grid-column-start': areaInstance.colStart,
+            'grid-column-end': areaInstance.colEnd,
+            'grid-row-start': areaInstance.rowStart,
+            'grid-row-end': areaInstance.rowEnd,
+            'border-color': areaInstance.color.startsWith('#')
+              ? areaInstance.color
+              : '#' + areaInstance.color
+          }"
+        >
+          <div class="relative w-full h-full">
+            <div
+              class="opacity-40 absolute w-full h-full"
+              [ngStyle]="{
+                'background-color': areaInstance.color.startsWith('#')
+                  ? areaInstance.color
+                  : '#' + areaInstance.color
+              }"
+            ></div>
+            <div class="top-4 left-4 absolute">
+              {{
+                areaInstance.name ??
+                  ('grid.area_instance_unassigned' | translate)
+              }}
+            </div>
           </div>
         </div>
-      </div>
+        <span *brnTooltipContent
+          ><p class="max-w-80">
+            {{ 'selectors.tooltip.item' | translate }}
+          </p></span
+        >
+      </hlm-tooltip>
       }
     </div>
   </div>

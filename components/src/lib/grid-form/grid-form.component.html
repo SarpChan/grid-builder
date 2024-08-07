@@ -4,24 +4,24 @@
     (selectOption)="selectAutoFlow($event)"
     [options]="afOptions"
     [placeholder]="'Row'"
-    [label]="'Auto Flow'"
+    [label]="'forms.auto_flow' | translate"
     class="w-full"
   ></grid-builder-combobox>
 
   <grid-builder-toggle-value-unit
     [disabled]="true"
-    valueLabel="Width"
+    [valueLabel]="'width' | translate"
     [defaultUnit]="defaultUnit"
-    [checkboxLabel]="'Use Width'"
+    [checkboxLabel]="'forms.use_width' | translate"
     [toggleName]="'shouldUseWidth'"
     [controlName]="'width'"
   ></grid-builder-toggle-value-unit>
 
   <grid-builder-toggle-value-unit
     [disabled]="true"
-    valueLabel="Height"
+    [valueLabel]="'forms.height' | translate"
     [defaultUnit]="defaultUnit"
-    [checkboxLabel]="'Use Height'"
+    [checkboxLabel]="'forms.use_height' | translate"
     [toggleName]="'shouldUseHeight'"
     [controlName]="'height'"
   ></grid-builder-toggle-value-unit>

@@ -27,10 +27,12 @@ import {
   selectGridsState,
 } from './grids.selectors';
 import { Grid } from '@grid-builder/models';
+import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class GridsEffects {
   private actions$ = inject(Actions);
   private readonly store = inject(Store);
+  private translateService = inject(TranslateService);
 
   init$ = createEffect(() =>
     this.actions$.pipe(
@@ -75,22 +77,22 @@ export class GridsEffects {
           !payload.areaInstanceId ||
           !payload.gridId
         ) {
-          let errorMessage = 'Could not connect area to grid';
+          let errorMessage = 'sonner.connect_area_to_grid.default';
 
           if (!grids) {
-            errorMessage = 'Grids do not exist';
+            errorMessage = 'sonner.connect_area_to_grid.no_grids';
           } else if (!areas) {
-            errorMessage = 'Areas do not exist';
+            errorMessage = 'sonner.connect_area_to_grid.no_areas';
           } else if (
             !payload?.gridId ||
             !payload?.areaId ||
             !payload?.areaInstanceId
           ) {
-            errorMessage = 'Missing data for connecting area to grid';
+            errorMessage = 'sonner.connect_area_to_grid.missing_data';
           }
           return of(
             GridsActions.connectAreaToInstanceFailure({
-              error: errorMessage,
+              error: this.translateService.instant(errorMessage),
             })
           );
         }
@@ -101,7 +103,9 @@ export class GridsEffects {
         if (!area) {
           return of(
             GridsActions.connectAreaToInstanceFailure({
-              error: 'This Area does not exist',
+              error: this.translateService.instant(
+                'sonner.connect_area_to_grid.area_does_not_exist'
+              ),
             })
           );
         }
@@ -109,7 +113,9 @@ export class GridsEffects {
         if (!grid) {
           return of(
             GridsActions.connectAreaToInstanceFailure({
-              error: 'This Grid does not exist',
+              error: this.translateService.instant(
+                'sonner.connect_area_to_grid.grid_does_not_exist'
+              ),
             })
           );
         }
@@ -124,9 +130,13 @@ export class GridsEffects {
         ) {
           return of(
             GridsActions.connectAreaToInstanceFailure({
-              error: `Area ${
-                area.name ? area.name : area.color
-              } is already connected to ${grid.name}`,
+              error: this.translateService.instant(
+                'sonner.connect_area_to_grid.already_connected',
+                {
+                  areaName: area.name ?? area.color,
+                  gridName: grid.name,
+                }
+              ),
             })
           );
         }
@@ -208,7 +218,7 @@ export class GridsEffects {
         this.store.select(selectGlobals)
       ),
       switchMap(([_, grids, areas, globals]) => {
-        if (grids?.length && areas?.length) {
+        if (grids?.length && areas) {
           try {
             const toDownload = {
               grids,
@@ -230,7 +240,9 @@ export class GridsEffects {
           }
         }
         return of(
-          GridsActions.saveFileFailure({ error: 'Failed to save file' })
+          GridsActions.saveFileFailure({
+            error: this.translateService.instant('sonner.file.save_file'),
+          })
         );
       })
     )
@@ -252,13 +264,17 @@ export class GridsEffects {
           return of(GridsActions.loadFileSuccess({ grids, areas, globals }));
         }
         return of(
-          GridsActions.loadFileFailure({ error: 'Failed to read file content' })
+          GridsActions.loadFileFailure({
+            error: this.translateService.instant('sonner.file.read_file'),
+          })
         );
       }),
       catchError((error) => {
         console.error('Failed to load file', error);
         return of(
-          GridsActions.loadFileFailure({ error: 'Could not load file' })
+          GridsActions.loadFileFailure({
+            error: this.translateService.instant('sonner.file.load_file'),
+          })
         );
       })
     )

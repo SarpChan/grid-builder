@@ -99,7 +99,7 @@ export const selectAreaInstancesOfSelectedGrid = createSelector(
 
         return {
           ...item,
-          name: area ? area.name : 'Not assigned to Area yet',
+          name: area ? area.name : undefined,
           color: area ? area.color : '#016bc4',
         };
       }) ?? []
@@ -117,7 +117,7 @@ export const selectAreaInstanceOfSelectedGrid = createSelector(
 
     return {
       ...areaInstance,
-      name: area ? area.name : 'Not assigned to Area yet',
+      name: area ? area.name : undefined,
       color: area ? area.color : '#FF0000',
     };
   }

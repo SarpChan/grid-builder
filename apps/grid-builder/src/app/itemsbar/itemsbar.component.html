@@ -4,7 +4,7 @@
   <h3
     class="bg-muted w-full h-10 grid place-items-center rounded-md font-medium text-gray-800 dark:bg-slate-900 dark:text-white cursor-default pointer-events-none"
   >
-    Areas
+    {{ 'header.area' | translate }}
   </h3>
 
   <div
@@ -13,36 +13,52 @@
     class="flex-grow w-full flex flex-col gap-2"
   >
     @for (item of items(); track item.id) {
-    <div
-      cdkDrag
-      [cdkDragData]="item.id"
-      class="h-14 w-full rounded-sm border-4 relative cursor-grab"
-      (click)="select(item.id)"
-      [ngStyle]="{
-        'border-color': item.color.startsWith('#')
-          ? item.color
-          : '#' + item.color
-      }"
-    >
+
+    <hlm-tooltip class="dark:bg-slate-900">
       <div
-        class="w-full h-full opacity-40 grid place-items-center"
+        hlmTooltipTrigger
+        position="right"
+        aria-describedby="title"
+        cdkDrag
+        [cdkDragData]="item.id"
+        class="h-14 w-full rounded-sm border-4 relative cursor-grab"
+        (click)="select(item.id)"
         [ngStyle]="{
+          'border-color': item.color.startsWith('#')
+            ? item.color
+            : '#' + item.color
+        }"
+      >
+        <div
+          class="w-full h-full opacity-40 grid place-items-center"
+          [ngStyle]="{
        'background-color': item.color.startsWith('#')
         ? item.color
         : '#' + item.color,
       }"
-      ></div>
-      <div class="absolute top-0 w-full h-full grid place-items-center">
-        <span class="px-2 text-xs break-words backdrop-blur-md opacity-100">{{
-          item.name
-        }}</span>
+        ></div>
+        <div class="absolute top-0 w-full h-full grid place-items-center">
+          <span class="px-2 text-xs break-words backdrop-blur-md opacity-100">{{
+            item.name
+          }}</span>
+        </div>
+        <div class="line" *cdkDragPlaceholder></div>
       </div>
-      <div class="line" *cdkDragPlaceholder></div>
-    </div>
-
+      <span *brnTooltipContent
+        ><p class="max-w-80">
+          {{ 'selectors.tooltip.area' | translate }}
+        </p></span
+      >
+    </hlm-tooltip>
     }
-    <button hlmBtn class="w-full" variant="default" (click)="addItem()">
-      +
-    </button>
+    <grid-builder-tooltip-button
+      [classOverride]="'w-full'"
+      variant="default"
+      position="right"
+      [description]="'actions.descriptions.add_area' | translate"
+      (click)="addItem()"
+    >
+      <hlm-icon name="radixPlus" size="1.25rem"></hlm-icon>
+    </grid-builder-tooltip-button>
   </div>
 </div>

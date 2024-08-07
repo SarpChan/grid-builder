@@ -1,0 +1,18 @@
+<hlm-tooltip class="dark:bg-slate-900">
+  <button
+    hlmBtn
+    hlmTooltipTrigger
+    [variant]="variant()"
+    [position]="position()"
+    class="dark:text-white transition-colors"
+    [class]="classOverride()"
+    aria-describedby="title"
+  >
+    <ng-content></ng-content>
+  </button>
+  <span *brnTooltipContent
+    ><p class="max-w-80">
+      {{ description() }}
+    </p></span
+  >
+</hlm-tooltip>

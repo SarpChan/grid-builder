@@ -30,6 +30,7 @@ import {
 import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'grid-builder-viewport-form',
@@ -45,6 +46,7 @@ import { ValueUnitComponent } from '../value-unit/value-unit.component';
     HlmRadioGroupDirective,
     HlmSeparatorDirective,
     BrnSeparatorComponent,
+    TranslateModule,
   ],
   templateUrl: './viewport-form.component.html',
   styleUrl: './viewport-form.component.scss',

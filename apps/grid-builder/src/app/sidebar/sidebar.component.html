@@ -4,15 +4,15 @@
       target="_blank"
       class="hover:text-white hover:bg-accent dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
       href="https://www.google.com"
-      >Buy me a coffee ☕</a
+      >{{ 'header.support_me' | translate }}</a
     >
 
     <div>
-      <label hlmLabel>Name</label>
+      <label hlmLabel>{{ 'forms.name' | translate }}</label>
       <input class="w-full" formControlName="name" type="text" hlmInput />
 
       @if (name?.errors?.['required']) {
-      <span hlmInputError>A name is required</span>
+      <span hlmInputError>{{ 'forms.errors.name_required' | translate }}</span>
       }
     </div>
 
@@ -29,26 +29,23 @@
               position="right"
               #selection
             >
-              Selection
+              {{ 'sidebar.selection' | translate }}
               <hlm-icon hlmAccIcon />
             </div>
             <span *brnTooltipContent>
               @if (!selectedElement()) {
               <div class="max-w-80">
                 <p class="text-destructive">
-                  You did not select an interactable element
+                  {{ 'sidebar.tooltip.selection.nothing_selected' | translate }}
                 </p>
                 <p>
-                  Try selecting a row, column, area or item by clicking on the
-                  respective element!
+                  {{ 'sidebar.tooltip.selection.hint' | translate }}
                 </p>
               </div>
               } @else {
               <div class="max-w-80">
-                <p>Select a column, row or cell to edit this form</p>
                 <p>
-                  Try selecting a row, column, area or item by clicking on the
-                  respective element!
+                  {{ 'sidebar.tooltip.selection.hint' | translate }}
                 </p>
               </div>
               }
@@ -62,9 +59,11 @@
             } @else {
             <div class="flex flex-col gap-2">
               <p class="text-destructive">
-                You did not select an interactable element
+                {{ 'sidebar.tooltip.selection.nothing_selected' | translate }}
               </p>
-              <p>Try selecting a row, column or item!</p>
+              <p>
+                {{ 'sidebar.tooltip.selection.hint' | translate }}
+              </p>
             </div>
             }
           </brn-accordion-content>
@@ -80,29 +79,47 @@
               aria-describedby="title"
               position="right"
             >
-              Viewport
+              {{ 'sidebar.viewport' | translate }}
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
-                <p>Change the responsiveness of your grid</p>
-                <p class="">
-                  It's recommended to not mix 'From' and 'To'. You should also
-                  stick to one unit type. Otherwise weird visuals may occur.
+                <p>{{ 'sidebar.tooltip.viewport.one_liner' | translate }}</p>
+                <p>
+                  {{ 'sidebar.tooltip.viewport.recommendation' | translate }}
                 </p>
                 <p>
-                  Viewports with 'From' and 'From/ To' will be sorted in
-                  ascending order. Viewports with 'To' will be sorted in
-                  descending order.
+                  {{ 'sidebar.tooltip.viewport.ordering' | translate }}
                 </p>
 
                 <div>
-                  <p>When mixing viewport specifier, the order will be:</p>
+                  <p>
+                    {{
+                      'sidebar.tooltip.viewport.mixed_ordering.description'
+                        | translate
+                    }}
+                  </p>
                   <ul class="px-8 list-decimal">
-                    <li>None</li>
-                    <li>To</li>
-                    <li>From</li>
-                    <li>From/ To</li>
+                    <li>
+                      {{
+                        'sidebar.tooltip.viewport.mixed_ordering.1' | translate
+                      }}
+                    </li>
+                    <li>
+                      {{
+                        'sidebar.tooltip.viewport.mixed_ordering.2' | translate
+                      }}
+                    </li>
+                    <li>
+                      {{
+                        'sidebar.tooltip.viewport.mixed_ordering.3' | translate
+                      }}
+                    </li>
+                    <li>
+                      {{
+                        'sidebar.tooltip.viewport.mixed_ordering.4' | translate
+                      }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -123,19 +140,17 @@
               aria-describedby="title"
               position="right"
             >
-              Grid
+              {{ 'sidebar.grid' | translate }}
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
-                <p>Change the Width and Height of your grid</p>
+                <p>{{ 'sidebar.tooltip.grid.one_liner' | translate }}</p>
                 <p class="text-destructive">
-                  Changing these values to low static values may make
-                  interaction hard and may cause weird visuals
+                  {{ 'sidebar.tooltip.grid.hint' | translate }}
                 </p>
                 <p class="text-destructive">
-                  You may want to select a row or column instead to change their
-                  dimensions
+                  {{ 'sidebar.tooltip.grid.hint2' | translate }}
                 </p>
               </div>
             </span>
@@ -155,26 +170,16 @@
               aria-describedby="title"
               position="right"
             >
-              Alignment
+              {{ 'sidebar.alignment' | translate }}
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
-                <p>Change the Alignment of the grids content and its items</p>
-                <p>
-                  [Justify/ Align] Items refers to the items inside the grid.
-                  Changing this will affect the individual position of the items
-                  inside the grid and their ordering
-                </p>
-                <p>
-                  [Justify/ Align] Content refers to the grid itself or its
-                  content as a whole. Changing this will affect the position of
-                  the items mainly if they are not taking up the full width or
-                  height of the grid
-                </p>
+                <p>{{ 'sidebar.tooltip.alignment.one_liner' | translate }}</p>
+                <p>{{ 'sidebar.tooltip.alignment.items' | translate }}</p>
+                <p>{{ 'sidebar.tooltip.alignment.content' | translate }}</p>
                 <p class="text-destructive">
-                  Changes will probably not be visible unless you change the
-                  height and width of the grid itself
+                  {{ 'sidebar.tooltip.alignment.hint' | translate }}
                 </p>
               </div>
             </span>
@@ -194,12 +199,12 @@
               aria-describedby="title"
               position="right"
             >
-              Gaps
+              {{ 'sidebar.gaps' | translate }}
               <hlm-icon hlmAccIcon />
             </button>
             <span *brnTooltipContent
               ><p class="max-w-80">
-                Change the space between cells in row and column directions
+                {{ 'sidebar.tooltip.gaps' | translate }}
               </p></span
             >
           </hlm-tooltip>
@@ -217,10 +222,12 @@
               aria-describedby="title"
               position="right"
             >
-              Globals
+              {{ 'sidebar.globals' | translate }}
               <hlm-icon hlmAccIcon />
             </button>
-            <span *brnTooltipContent>Tooltip describing the globals form</span>
+            <span *brnTooltipContent>{{
+              'sidebar.tooltip.globals' | translate
+            }}</span>
           </hlm-tooltip>
           <brn-accordion-content hlm>
             <grid-builder-globals-form></grid-builder-globals-form>
@@ -228,45 +235,105 @@
         </div>
       </div>
       <div class="flex flex-col gap-2">
-        <div class="w-full flex justify-between items-center gap-4">
-          <button
-            hlmBtn
-            variant="outline"
-            class="group hover:border-red-500 dark:hover:border-red-500"
-            (click)="removeRow()"
-          >
-            <span class="group-hover:text-red-500 dark:text-white">-</span>
-          </button>
-          <span>Rows</span>
+        <!-- row / column controls -->
 
-          <button hlmBtn variant="default" (click)="addRow()">+</button>
+        <div class="w-full flex justify-between items-center gap-4">
+          <hlm-tooltip class="dark:bg-slate-900">
+            <button
+              hlmBtn
+              hlmTooltipTrigger
+              position="above"
+              aria-describedby="title"
+              variant="outline"
+              class="group hover:border-red-500 dark:hover:border-red-500 p-2"
+              (click)="removeRow()"
+            >
+              <hlm-icon
+                class="group-hover:text-red-500 dark:text-white"
+                name="radixMinus"
+                size="0.75rem"
+              ></hlm-icon>
+            </button>
+            <span *brnTooltipContent
+              ><p class="max-w-80">
+                {{ 'actions.descriptions.remove_row' | translate }}
+              </p></span
+            >
+          </hlm-tooltip>
+          <span>{{ 'sidebar.rows' | translate }}</span>
+
+          <grid-builder-tooltip-button
+            position="above"
+            variant="default"
+            [description]="'actions.descriptions.add_row' | translate"
+            [classOverride]="'p-2 border border-transparent'"
+            (click)="addRow()"
+          >
+            <hlm-icon name="radixPlus" size="0.75rem"></hlm-icon>
+          </grid-builder-tooltip-button>
         </div>
 
         <div class="w-full flex justify-between items-center gap-4">
-          <button
-            hlmBtn
-            variant="outline"
-            class="group hover:border-red-500 dark:hover:border-red-500"
-            (click)="removeCol()"
+          <hlm-tooltip class="dark:bg-slate-900">
+            <button
+              hlmBtn
+              hlmTooltipTrigger
+              position="above"
+              aria-describedby="title"
+              variant="outline"
+              class="group hover:border-red-500 dark:hover:border-red-500 p-2"
+              (click)="removeCol()"
+            >
+              <hlm-icon
+                class="group-hover:text-red-500 dark:text-white"
+                name="radixMinus"
+                size="0.75rem"
+              ></hlm-icon>
+            </button>
+            <span *brnTooltipContent
+              ><p class="max-w-80">
+                {{ 'actions.descriptions.remove_column' | translate }}
+              </p></span
+            >
+          </hlm-tooltip>
+          <span>{{ 'sidebar.columns' | translate }}</span>
+          <grid-builder-tooltip-button
+            position="above"
+            variant="default"
+            [description]="'actions.descriptions.add_column' | translate"
+            [classOverride]="'p-2 border border-transparent'"
+            (click)="addCol()"
           >
-            <span class="group-hover:text-red-500 dark:text-white">-</span>
-          </button>
-          <span>Columns</span>
-          <button hlmBtn variant="default" (click)="addCol()">+</button>
+            <hlm-icon name="radixPlus" size="0.75rem"></hlm-icon>
+          </grid-builder-tooltip-button>
         </div>
+
+        <!-- reset controls -->
 
         <div class="w-full flex justify-between items-center gap-2">
-          <button hlmBtn variant="ghost" class="w-1/2 group" (click)="reset()">
-            <span class="group-hover:text-red-500">Reset</span>
-          </button>
-          <button
-            hlmBtn
+          <grid-builder-tooltip-button
+            position="above"
+            variant="ghost"
+            [description]="'actions.descriptions.reset' | translate"
+            class="w-1/2 group"
+            (click)="reset()"
+          >
+            <span class="group-hover:text-red-500">{{
+              'actions.reset' | translate
+            }}</span>
+          </grid-builder-tooltip-button>
+
+          <grid-builder-tooltip-button
+            position="above"
             variant="outline"
+            [description]="'actions.descriptions.delete_grid' | translate"
             class="w-1/2 group text-nowrap hover:border-red-500 dark:hover:border-red-500"
             (click)="removeGrid()"
           >
-            <span class="group-hover:text-red-500">Delete Grid</span>
-          </button>
+            <span class="group-hover:text-red-500">{{
+              'actions.delete_grid' | translate
+            }}</span>
+          </grid-builder-tooltip-button>
         </div>
       </div>
     </div>

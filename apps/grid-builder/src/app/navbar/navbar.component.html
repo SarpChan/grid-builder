@@ -1,5 +1,5 @@
 <div
-  class="w-full py-4 flex justify-between items-center bg-gray-200 dark:bg-slate-900 dark:text-white h-full pl-16 pr-8"
+  class="w-full py-4 flex justify-between items-center bg-gray-200 dark:bg-slate-900 dark:text-white h-full pl-16 pr-6"
 >
   <div>Logo</div>
 
@@ -52,29 +52,39 @@
       >
         @if(gridsFacade.selectErrors$(); as errors) {
         <div class="">
-          @for (err of errors; track err) {
-          <p class="text-sm">{{ err }}</p>
-          }
+          @for (err of errors; track err) { @if (err) {
+          <p class="text-sm">{{ err | translate }}</p>
+          } }
         </div>
         }
       </div>
     </brn-popover>
 
     <hlm-sheet>
-      <button
-        side="left"
-        variant="default"
-        brnSheetTrigger
-        hlmBtn
-        class="w-full"
-        (click)="generate()"
-        [disabled]="
-          gridsFacade.selectErrors$().length &&
-          gridsFacade.selectErrors$().length > 0
-        "
-      >
-        Generate
-      </button>
+      <hlm-tooltip class="dark:bg-slate-900">
+        <button
+          side="left"
+          variant="default"
+          brnSheetTrigger
+          hlmBtn
+          hlmTooltipTrigger
+          position="below"
+          aria-describedby="title"
+          class="w-full"
+          (click)="generate()"
+          [disabled]="
+            gridsFacade.selectErrors$().length &&
+            gridsFacade.selectErrors$().length > 0
+          "
+        >
+          {{ 'actions.generate' | translate }}
+        </button>
+        <span *brnTooltipContent
+          ><p class="max-w-80">
+            {{ 'actions.descriptions.generate' | translate }}
+          </p></span
+        >
+      </hlm-tooltip>
 
       <hlm-sheet-content
         class="dark:bg-slate-900"
@@ -82,7 +92,7 @@
         (closeClicked)="clickedClose()"
       >
         <hlm-sheet-header>
-          <h3 hlmSheetTitle>Your Code</h3>
+          <h3 hlmSheetTitle>{{ 'generated.your_code' | translate }}</h3>
         </hlm-sheet-header>
         <div
           hlmSheetDescription
@@ -90,7 +100,7 @@
         >
           @if(gridsFacade.selectGenerated$()?.css; as css) {
           <div class="flex flex-col gap-2">
-            <h3 hlmSheetTitle>CSS</h3>
+            <h3 hlmSheetTitle>{{ 'generated.css' | translate }}</h3>
             <div class="relative w-full group">
               <button
                 hlmBtn
@@ -105,7 +115,7 @@
           </div>
           } @if(gridsFacade.selectGenerated$()?.html; as html) {
           <div class="flex flex-col gap-2">
-            <h3 hlmSheetTitle>HTML</h3>
+            <h3 hlmSheetTitle>{{ 'generated.html' | translate }}</h3>
             <div class="relative w-full group">
               <button
                 hlmBtn
@@ -125,41 +135,51 @@
         </div>
       </hlm-sheet-content>
     </hlm-sheet>
-    <button
-      hlmBtn
+
+    <grid-builder-tooltip-button
       variant="outline"
-      class="dark:text-white transition-colors"
+      position="below"
+      [description]="'actions.descriptions.preview' | translate"
       (click)="appSettingsFacade.togglePreview()"
     >
-      Preview
-    </button>
+      {{ 'actions.preview' | translate }}
+    </grid-builder-tooltip-button>
 
-    <button
-      #preset
-      class="dark:text-white dark:border-slate-600 dark:hover:border-slate-400"
-      [brnMenuTriggerFor]="menu"
-      variant="outline"
-      hlmBtn
-    >
-      Preset
-    </button>
-    <ng-template #menu>
-      <div
-        class="p-2 border dark:bg-slate-900 dark:border-white bg-white border-slate-800/10 rounded-sm mt-4"
+    <hlm-tooltip class="dark:bg-slate-900">
+      <button
+        #preset
+        class="dark:text-white dark:border-slate-600 dark:hover:border-slate-400"
+        [brnMenuTriggerFor]="menu"
+        variant="outline"
+        hlmBtn
+        hlmTooltipTrigger
+        position="below"
+        aria-describedby="title"
       >
-        <hlm-menu-group>
+        {{ 'actions.presets' | translate }}
+      </button>
+      <ng-template #menu>
+        <div
+          class="p-2 border dark:bg-slate-900 dark:border-white bg-white border-slate-800/10 rounded-sm mt-4"
+        >
           <hlm-menu-group>
-            @for (p of presets; track p.id) {
-            <button hlmMenuItem (click)="preset.click(); select(p.id)">
-              {{ p.name }}
-            </button>
+            <hlm-menu-group>
+              @for (p of presets; track p.id) {
+              <button hlmMenuItem (click)="preset.click(); select(p.id)">
+                {{ p.name }}
+              </button>
 
-            }
+              }
+            </hlm-menu-group>
           </hlm-menu-group>
-        </hlm-menu-group>
-      </div>
-    </ng-template>
-
+        </div>
+      </ng-template>
+      <span *brnTooltipContent
+        ><p class="max-w-80">
+          {{ 'actions.descriptions.preset' | translate }}
+        </p></span
+      >
+    </hlm-tooltip>
     <brn-separator
       hlmSeparator
       class="dark:bg-slate-400 bg-gray-400 min-h-4"
@@ -167,14 +187,18 @@
     ></brn-separator>
 
     <div class="flex">
-      <button
-        hlmBtn
+      <grid-builder-tooltip-button
         variant="outline"
-        class="dark:text-white rounded-r-none border-r-[0.5px] border-collapse transition-colors"
+        position="below"
+        [description]="'actions.descriptions.download' | translate"
         (click)="save()"
+        [classOverride]="
+          'dark:text-white rounded-r-none border-r-[0.5px] border-collapse transition-colors'
+        "
       >
         <hlm-icon name="radixDownload" size="1.25rem"></hlm-icon>
-      </button>
+      </grid-builder-tooltip-button>
+
       <input
         type="file"
         class="hidden"
@@ -182,14 +206,17 @@
         (change)="onFileSelected($event)"
         #fileUpload
       />
-      <button
-        hlmBtn
+      <grid-builder-tooltip-button
         variant="outline"
-        class="dark:text-white rounded-l-none border-l-[0.5px] border-collapse transition-colors"
+        position="below"
+        [description]="'actions.descriptions.upload' | translate"
         (click)="fileUpload.click()"
+        [classOverride]="
+          'dark:text-white rounded-l-none border-l-[0.5px] border-collapse transition-colors'
+        "
       >
         <hlm-icon name="radixUpload" size="1.25rem"></hlm-icon>
-      </button>
+      </grid-builder-tooltip-button>
     </div>
 
     <brn-separator
@@ -198,10 +225,10 @@
       orientation="vertical"
     ></brn-separator>
 
-    <button
-      hlmBtn
+    <grid-builder-tooltip-button
       variant="outline"
-      class="dark:text-white transition-colors"
+      position="below"
+      [description]="'actions.descriptions.switch_dark_mode' | translate"
       (click)="
         appSettingsFacade.setDarkMode(
           appSettingsFacade.isDarkMode$() ? false : true
@@ -212,6 +239,10 @@
         [name]="appSettingsFacade.isDarkMode$() ? 'radixMoon' : 'radixSun'"
         size="1.25rem"
       ></hlm-icon>
-    </button>
+    </grid-builder-tooltip-button>
+
+    <grid-builder-language-selector
+      class="h-full grid place-items-center"
+    ></grid-builder-language-selector>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="flex flex-col gap-4 items-center">
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span>Name</span>
+    <span>{{ 'forms.name' | translate }}</span>
 
     <input
       #nameInput
@@ -13,7 +13,7 @@
   </label>
 
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span>Color</span>
+    <span>{{ 'forms.color' | translate }}</span>
 
     <input
       class="p-0 invalid:p-0 border-0 w-full"
@@ -24,7 +24,7 @@
 
   @if (grids().length) {
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span>Connections</span>
+    <span>{{ 'forms.connections' | translate }}</span>
 
     <div class="w-full flex flex-col">
       @for (grid of grids(); track grid.gridId) {
@@ -34,19 +34,33 @@
         <div class="font-normal max-w-72 overflow-hidden text-ellipsis">
           {{ grid.name }}
         </div>
-        <button
-          hlmBtn
-          variant="default"
+        <grid-builder-tooltip-button
+          position="right"
+          variant="destructive"
           (click)="removeConnection(grid.gridId)"
+          [description]="
+            'actions.descriptions.disconnect_area'
+              | translate : { gridName: grid.name }
+          "
+          [classOverride]="'w-full'"
         >
-          x
-        </button>
+          <hlm-icon name="radixCross2" size="1rem"></hlm-icon>
+        </grid-builder-tooltip-button>
       </div>
       }
     </div>
   </label>
   }
-  <button variant="outline" class="group w-1/2" (click)="delete()">
-    <span class="group-hover:text-white">Delete</span>
-  </button>
+  <grid-builder-tooltip-button
+    position="right"
+    variant="destructive"
+    class="group w-1/2"
+    (click)="delete()"
+    [description]="'actions.descriptions.delete_area' | translate"
+    [classOverride]="'w-full'"
+  >
+    <span class="group-hover:text-white">{{
+      'actions.delete' | translate
+    }}</span>
+  </grid-builder-tooltip-button>
 </form>

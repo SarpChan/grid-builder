@@ -14,6 +14,7 @@ import {
 import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { clamp } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
 import {
   HlmTooltipComponent,
@@ -31,6 +32,7 @@ import { AreaInstanceComponent } from '../area-instance/area-instance.component'
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
     CdkDropList,
+    TranslateModule,
   ],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss',

@@ -17,3 +17,8 @@ export const selectIsDarkMode = createSelector(
   selectAppSettingsState,
   (state: AppSettingsState) => state.isDarkMode
 );
+
+export const selectCurrentLang = createSelector(
+  selectAppSettingsState,
+  (state: AppSettingsState) => state.currentLang
+);

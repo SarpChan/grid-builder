@@ -5,11 +5,13 @@ export const APP_SETTINGS_FEATURE_KEY = 'appSettings';
 export interface AppSettingsState {
   isPreview: boolean;
   isDarkMode: boolean;
+  currentLang: string;
 }
 
 const initialState: AppSettingsState = {
   isPreview: false,
   isDarkMode: false,
+  currentLang: '',
 };
 
 const reducer = createReducer(
@@ -21,6 +23,10 @@ const reducer = createReducer(
   on(AppSettingsActions.setDarkMode, (state, { enable: isDarkMode }) => ({
     ...state,
     isDarkMode,
+  })),
+  on(AppSettingsActions.setCurrentLanguage, (state, { lang }) => ({
+    ...state,
+    currentLang: lang,
   }))
 );
 

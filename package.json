@@ -25,6 +25,8 @@
     "@ngrx/entity": "18.0.1",
     "@ngrx/router-store": "18.0.1",
     "@ngrx/store": "18.0.1",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@nx/angular": "19.5.1",
     "@spartan-ng/ui-accordion-brain": "0.0.1-alpha.321",
     "@spartan-ng/ui-checkbox-brain": "0.0.1-alpha.321",

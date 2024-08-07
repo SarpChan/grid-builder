@@ -7,10 +7,12 @@ import {
   GridsFacade,
   ItemsFacade,
 } from '@grid-builder/state';
+import { TranslateService } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { ItemsbarComponent } from './itemsbar/itemsbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   standalone: true,
@@ -26,11 +28,28 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   selector: 'grid-builder-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [GridsFacade, ItemsFacade, AppSettingsFacade],
+  providers: [GridsFacade, ItemsFacade, AppSettingsFacade, TranslateService],
 })
 export class AppComponent implements OnInit {
   appSettingsFacade = inject(AppSettingsFacade);
+  translateService = inject(TranslateService);
 
+  constructor() {
+    this.translateService.addLangs(['en', 'de']);
+
+    this.translateService.setDefaultLang('en');
+    this.translateService.onDefaultLangChange
+      .pipe(takeUntilDestroyed())
+      .subscribe((a) => this.appSettingsFacade.setCurrentLanguage(a.lang));
+
+    this.translateService.onTranslationChange
+      .pipe(takeUntilDestroyed())
+      .subscribe((t) => this.appSettingsFacade.setCurrentLanguage(t.lang));
+
+    this.translateService.onLangChange
+      .pipe(takeUntilDestroyed())
+      .subscribe((t) => this.appSettingsFacade.setCurrentLanguage(t.lang));
+  }
   ngOnInit(): void {
     if (
       localStorage['theme'] === 'dark' ||

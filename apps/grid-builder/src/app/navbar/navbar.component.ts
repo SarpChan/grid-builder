@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
@@ -39,6 +39,7 @@ import {
   HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 import {
   BrnPopoverCloseDirective,
@@ -52,6 +53,13 @@ import {
 } from '@spartan-ng/ui-popover-helm';
 import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
+import {
+  HlmTooltipComponent,
+  HlmTooltipTriggerDirective,
+} from '@spartan-ng/ui-tooltip-helm';
+import { TooltipButtonComponent } from '@grid-builder/components';
 
 @Component({
   selector: 'grid-builder-navbar',
@@ -85,6 +93,12 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
     HlmPopoverCloseDirective,
     HlmSeparatorDirective,
     BrnSeparatorComponent,
+    LanguageSelectorComponent,
+    TranslateModule,
+    BrnTooltipContentDirective,
+    HlmTooltipComponent,
+    HlmTooltipTriggerDirective,
+    TooltipButtonComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -103,8 +117,9 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 export class NavbarComponent {
   gridsFacade = inject(GridsFacade);
   appSettingsFacade = inject(AppSettingsFacade);
+  translateService = inject(TranslateService);
   presets = presetOptions;
-
+  cdr = inject(ChangeDetectorRef);
   generate() {
     this.gridsFacade.generate();
   }
@@ -144,5 +159,9 @@ export class NavbarComponent {
         this.gridsFacade.loadFile(file);
       }
     }
+  }
+
+  onSelectChange(lang: string) {
+    this.translateService.use(lang);
   }
 }
