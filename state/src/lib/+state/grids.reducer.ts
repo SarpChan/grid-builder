@@ -1,4 +1,9 @@
-import { Grid, IValidationModel, SelectionElement } from '@grid-builder/models';
+import {
+  Grid,
+  IValidationModel,
+  Selectable,
+  SelectionElement,
+} from '@grid-builder/models';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as ItemsActions from '../+item-state/items.actions';
@@ -222,6 +227,11 @@ const reducer = createReducer(
     generated: undefined,
   })),
   on(GridsActions.addColumn, (state, { id }) => {
+    const columnId = crypto.randomUUID();
+    const selection = {
+      id: columnId,
+      selectedType: Selectable.COLUMN,
+    };
     const newState = gridsAdapter.map(
       (item) =>
         item.id === id
@@ -238,10 +248,15 @@ const reducer = createReducer(
           : item,
       state
     );
-    return newState;
+    return { ...newState, selection };
   }),
   on(GridsActions.addRow, (state, { id }) => {
-    return gridsAdapter.map(
+    const rowId = crypto.randomUUID();
+    const selection = {
+      id: rowId,
+      selectedType: Selectable.ROW,
+    };
+    const newState = gridsAdapter.map(
       (item) =>
         item.id === id
           ? {
@@ -257,6 +272,8 @@ const reducer = createReducer(
           : item,
       state
     );
+
+    return { ...newState, selection };
   }),
   on(GridsActions.updateRow, (state, { id, rowId, changes }) => {
     return gridsAdapter.map((grid) => {
@@ -349,6 +366,11 @@ const reducer = createReducer(
     return { ...state, useClassName: selection };
   }),
   on(GridsActions.addAreaInstanceSuccess, (state, { id, item }) => {
+    const itemId = crypto.randomUUID();
+    const selection = {
+      id: itemId,
+      selectedType: Selectable.AREA_INSTANCE,
+    };
     const newState = gridsAdapter.map(
       (entity) =>
         entity.id === id
@@ -358,14 +380,15 @@ const reducer = createReducer(
                 ...entity.items,
                 {
                   ...item,
-                  id: crypto.randomUUID(),
+                  id: itemId,
                 },
               ],
             }
           : entity,
       state
     );
-    return newState;
+
+    return { ...newState, selection };
   }),
   on(GridsActions.removeColumn, (state, { gridId, columnId }) => {
     const isSelected = columnId === state.selection?.id;
@@ -489,6 +512,12 @@ const reducer = createReducer(
     ...state,
     selection: state.selection?.id === id ? undefined : state.selection,
   })),
+  on(ItemsActions.addAreaSuccess, (state, { item }) => {
+    return {
+      ...state,
+      selection: { id: item.id, selectedType: Selectable.AREA },
+    };
+  }),
   on(GridsActions.removeGrid, (state, { id }) => ({
     ...gridsAdapter.removeOne(id, state),
     selectedId:
@@ -518,6 +547,7 @@ const reducer = createReducer(
     };
   }),
   on(GridsActions.reset, () => initialGridsState),
+
   on(GridsActions.loadFileSuccess, (state, { grids, globals }) => {
     const entities = Object.assign(
       {},

@@ -98,23 +98,23 @@ const reducer = createReducer(
       state
     )
   ),
-  on(
-    GridsActions.connectNewAreaToInstance,
-    ItemsActions.addArea,
-    (state, { item }) => {
-      const id = crypto.randomUUID();
-      const newState = itemsAdapter.addOne(
-        {
-          ...item,
-          id,
-          name: `Area-${Math.floor(Math.random() * 10000)}`,
-        },
-        state
-      );
-      newState.lastAddedId = id;
-      return newState;
-    }
+  on(GridsActions.connectNewAreaToInstance, (state, { item }) => {
+    const id = crypto.randomUUID();
+    const newState = itemsAdapter.addOne(
+      {
+        ...item,
+        id,
+        name: `Area-${Math.floor(Math.random() * 10000)}`,
+      },
+      state
+    );
+    newState.lastAddedId = id;
+    return newState;
+  }),
+  on(ItemsActions.addAreaSuccess, (state, { item: area }) =>
+    itemsAdapter.addOne(area, state)
   ),
+
   on(GridsActions.setPreset, (state, { preset }) => {
     const entities = Object.assign(
       {},
