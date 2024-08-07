@@ -18,6 +18,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Unit, isUnit, units } from '@grid-builder/models';
+import { TranslateModule } from '@ngx-translate/core';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { ComboboxComponent } from '../combobox/combobox.component';
@@ -33,13 +34,14 @@ export type Option = { label: string; value: Unit | undefined };
     HlmInputDirective,
     ComboboxComponent,
     HlmLabelDirective,
+    TranslateModule,
   ],
   templateUrl: './value-unit.component.html',
   styleUrl: './value-unit.component.scss',
 })
 export class ValueUnitComponent implements OnInit {
-  valueLabel = input('Value');
-  unitLabel = input('Unit');
+  valueLabel = input('forms.value');
+  unitLabel = input('forms.unit');
 
   options = input<Unit[] | undefined>([...units]);
 

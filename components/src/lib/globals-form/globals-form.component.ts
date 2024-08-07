@@ -15,6 +15,7 @@ import {
   units,
 } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
+import { TranslateModule } from '@ngx-translate/core';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import {
   BrnRadioComponent,
@@ -38,6 +39,7 @@ import {
     HlmRadioIndicatorComponent,
     HlmRadioGroupDirective,
     HlmLabelDirective,
+    TranslateModule,
   ],
   templateUrl: './globals-form.component.html',
   styleUrl: './globals-form.component.scss',

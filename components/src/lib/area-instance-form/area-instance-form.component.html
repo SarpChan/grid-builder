@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="flex flex-col gap-4 items-center">
   <label hlmLabel class="flex gap-1 flex-col w-full">
-    <span> Name </span>
+    <span> {{ 'forms.assigned_to' | translate }} </span>
 
     <input
       hlmInput
@@ -12,7 +12,7 @@
 
   <div class="flex gap-2">
     <label hlmLabel class="flex gap-1 flex-col">
-      <span> Column Start </span>
+      <span> {{ 'forms.column_start' | translate }} </span>
 
       <input
         hlmInput
@@ -25,7 +25,7 @@
     </label>
 
     <label hlmLabel class="flex gap-1 flex-col">
-      <span> Column End </span>
+      <span> {{ 'forms.column_end' | translate }} </span>
 
       <input
         hlmInput
@@ -38,7 +38,7 @@
   </div>
   <div class="flex gap-2">
     <label hlmLabel class="flex gap-1 flex-col">
-      <span> Row Start </span>
+      <span> {{ 'forms.row_start' | translate }} </span>
 
       <input
         hlmInput
@@ -50,7 +50,7 @@
     </label>
 
     <label hlmLabel class="flex gap-1 flex-col">
-      <span> Row End </span>
+      <span> {{ 'forms.row_end' | translate }} </span>
 
       <input
         hlmInput
@@ -66,12 +66,21 @@
     [currentOption]="currentOption()"
     (selectOption)="select($event)"
     [options]="options()"
-    [placeholder]="'Area'"
-    [label]="'Area'"
+    [placeholder]="'forms.area' | translate"
+    [label]="'forms.area' | translate"
     class="w-full"
   ></grid-builder-combobox>
 
-  <button hlmBtn variant="destructive" class="group w-1/2" (click)="delete()">
-    Delete
-  </button>
+  <grid-builder-tooltip-button
+    position="right"
+    variant="destructive"
+    class="group w-1/2"
+    (click)="delete()"
+    [description]="'actions.descriptions.delete_item' | translate"
+    [classOverride]="'w-full'"
+  >
+    <span class="group-hover:text-white">{{
+      'actions.delete' | translate
+    }}</span>
+  </grid-builder-tooltip-button>
 </form>

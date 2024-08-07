@@ -5,14 +5,14 @@
     [value]="referenceContainerValue"
     class="gap-2 grid grid-cols-2"
   >
-    <h2 class="col-span-2">Reference Conainter</h2>
+    <h2 class="col-span-2">{{ 'forms.reference_container' | translate }}</h2>
 
     <brn-radio hlm value="viewport" (click)="selectRf('viewport')">
       <hlm-radio-indicator
         (click)="selectRf('viewport')"
         indicator
       ></hlm-radio-indicator>
-      Viewport
+      {{ 'forms.viewport' | translate }}
     </brn-radio>
 
     <brn-radio hlm value="container" (click)="selectRf('container')">
@@ -20,20 +20,20 @@
         (click)="selectRf('container')"
         indicator
       ></hlm-radio-indicator>
-      Container
+      {{ 'forms.container' | translate }}
     </brn-radio>
   </brn-radio-group>
 
   <!-- Use Tailwind -->
   <brn-radio-group hlm [value]="twValue" class="gap-2 grid grid-cols-2">
-    <h2 class="col-span-2">Generate Tailwind</h2>
+    <h2 class="col-span-2">{{ 'forms.generate_tailwind' | translate }}</h2>
 
     <brn-radio hlm value="true" (click)="selectTW(true)">
       <hlm-radio-indicator
         (click)="selectTW(true)"
         indicator
       ></hlm-radio-indicator>
-      Yes
+      {{ 'forms.yes' | translate }}
     </brn-radio>
 
     <brn-radio hlm value="false" (click)="selectTW(false)">
@@ -41,20 +41,20 @@
         (click)="selectTW(false)"
         indicator
       ></hlm-radio-indicator>
-      No - CSS
+      {{ 'forms.no_use_css' | translate }}
     </brn-radio>
   </brn-radio-group>
 
   <!-- Use ClassName -->
   <brn-radio-group hlm [value]="classNameValue" class="gap-2 grid grid-cols-2">
-    <h2 class="col-span-2">CSS Class Atribute</h2>
+    <h2 class="col-span-2">{{ 'forms.css_class_attribute' | translate }}</h2>
 
     <brn-radio hlm value="true" (click)="selectClass(true)">
       <hlm-radio-indicator
         (click)="selectClass(true)"
         indicator
       ></hlm-radio-indicator>
-      ClassName
+      {{ 'forms.classname' | translate }}
     </brn-radio>
 
     <brn-radio hlm value="false" (click)="selectClass(false)">
@@ -62,7 +62,7 @@
         (click)="selectClass(false)"
         indicator
       ></hlm-radio-indicator>
-      Class
+      {{ 'forms.class' | translate }}
     </brn-radio>
   </brn-radio-group>
 </form>

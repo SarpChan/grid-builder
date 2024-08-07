@@ -17,12 +17,17 @@ import {
 import { Area } from '@grid-builder/models';
 import { ItemsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { radixCross2 } from '@ng-icons/radix-icons';
+import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 
 @Component({
   selector: 'grid-builder-area-form',
@@ -35,9 +40,18 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
     HlmInputErrorDirective,
     HlmLabelDirective,
     HlmButtonDirective,
+    TranslateModule,
+    TooltipButtonComponent,
+    NgIconComponent,
+    HlmIconComponent,
   ],
   templateUrl: './area-form.component.html',
   styleUrl: './area-form.component.scss',
+  providers: [
+    provideIcons({
+      radixCross2,
+    }),
+  ],
 })
 export class AreaFormComponent extends Ready {
   facade = inject(ItemsFacade);

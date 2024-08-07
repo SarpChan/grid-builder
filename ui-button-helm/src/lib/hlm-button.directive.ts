@@ -9,9 +9,9 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-accent dark:text-white dark:disabled:text-gray-600 text-primary-foreground hover:bg-accent/95',
+          'bg-accent dark:text-white dark:disabled:text-gray-600 text-primary-foreground hover:bg-accent/80',
         destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+          'bg-destructive text-destructive-foreground hover:bg-destructive/80',
         outline:
           'border border-gray-800/10 dark:border-slate-600 dark:hover:border-slate-400 text-primary hover:border-gray-800/30 hover:text-accent-foreground',
         secondary:
@@ -33,7 +33,7 @@ export const buttonVariants = cva(
     },
   }
 );
-type ButtonVariants = VariantProps<typeof buttonVariants>;
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 @Directive({
   selector: '[hlmBtn]',

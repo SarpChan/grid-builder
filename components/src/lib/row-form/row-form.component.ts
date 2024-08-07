@@ -12,8 +12,10 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Row, Unit, units } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
+import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
 
 @Component({
   selector: 'grid-builder-row-form',
@@ -24,6 +26,8 @@ import { ValueUnitComponent } from '../value-unit/value-unit.component';
     FormsModule,
     ReactiveFormsModule,
     HlmButtonDirective,
+    TranslateModule,
+    TooltipButtonComponent,
   ],
   templateUrl: './row-form.component.html',
   styleUrl: './row-form.component.scss',

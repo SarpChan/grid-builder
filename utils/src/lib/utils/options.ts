@@ -6,7 +6,7 @@ export type Option = {
 
 export const toOption = <T extends string>(option: T) =>
   ({
-    label: option.charAt(0).toUpperCase() + option.slice(1),
+    label: option?.charAt(0).toUpperCase() + option.slice(1),
     value: option,
     available: true,
   } as Option);
@@ -14,7 +14,7 @@ export const toOption = <T extends string>(option: T) =>
 export const toRepr = (option: string) => {
   return {
     value: option,
-    label: option.charAt(0).toUpperCase() + option.slice(1),
+    label: option?.charAt(0).toUpperCase() + option.slice(1),
     available: true,
   };
 };

@@ -22,6 +22,7 @@ import {
   GlobalsFormComponent,
   GridFormComponent,
   SelectableFormComponent,
+  TooltipButtonComponent,
   TooltipTitleComponent,
   ViewportFormComponent,
 } from '@grid-builder/components';
@@ -34,7 +35,7 @@ import {
   HlmAccordionItemDirective,
   HlmAccordionTriggerDirective,
 } from '@spartan-ng/ui-accordion-helm';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import {
   HlmInputDirective,
   HlmInputErrorDirective,
@@ -49,6 +50,9 @@ import {
   HlmTooltipComponent,
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIconComponent } from '@ng-icons/core';
+import { radixMinus, radixPlus } from '@ng-icons/radix-icons';
 
 @Component({
   selector: 'grid-builder-sidebar',
@@ -78,9 +82,19 @@ import {
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
     HlmButtonDirective,
+    TranslateModule,
+    TooltipButtonComponent,
+    NgIconComponent,
+    HlmIconComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
+  providers: [
+    provideIcons({
+      radixPlus,
+      radixMinus,
+    }),
+  ],
 })
 export class SidebarComponent extends Ready {
   facade = inject(GridsFacade);

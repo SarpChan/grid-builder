@@ -1,8 +1,8 @@
 export const gridsDoNotFulfillEveryViewport =
-  'Grids do not fulfill every viewport';
-export const lowerBoundaryZero =
-  'A grid defines 0 as its lower boundary. Consider not using a MediaQuery at all';
-export const overLappingMediaQueries = 'Overlapping media queries';
+  'warnings.grid.not_all_media_queries_covered';
+export const lowerBoundaryZero = 'warnings.grid.lower_boundary_zero';
+export const overLappingMediaQueries =
+  'warnings.grid.overlapping_media_queries';
 
 export enum WarningCode {
   NOT_EVERY_VIEWPORT_FULFILLED = 'W-001',

@@ -1,0 +1,11 @@
+@if( options().length) {
+<grid-builder-combobox
+  [currentOption]="currentLang()"
+  (selectOption)="selectLang($event)"
+  [options]="options()"
+  [placeholder]="currentLang()?.label ?? 'Select Language'"
+  [hideLabel]="true"
+  [hideBackground]="true"
+>
+</grid-builder-combobox
+>}

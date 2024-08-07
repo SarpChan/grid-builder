@@ -18,6 +18,7 @@ import {
 import { AreaInstance, Unit } from '@grid-builder/models';
 import { GridsFacade, ItemsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
   HlmInputDirective,
@@ -26,6 +27,7 @@ import {
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { debounceTime } from 'rxjs';
 import { ComboboxComponent } from '../combobox/combobox.component';
+import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
 
 type Option = { label: string; value: string | undefined; available?: boolean };
 
@@ -41,6 +43,8 @@ type Option = { label: string; value: string | undefined; available?: boolean };
     HlmInputErrorDirective,
     ComboboxComponent,
     HlmButtonDirective,
+    TranslateModule,
+    TooltipButtonComponent,
   ],
   templateUrl: './area-instance-form.component.html',
   styleUrl: './area-instance-form.component.scss',

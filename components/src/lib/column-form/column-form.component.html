@@ -1,11 +1,20 @@
 <form [formGroup]="form" class="flex flex-col gap-4 items-center">
   <grid-builder-value-unit
     [id]="id()"
-    valueLabel="Column width"
+    [valueLabel]="'forms.column_width' | translate"
     formName="width"
     [defaultUnit]="defaultUnit"
   ></grid-builder-value-unit>
-  <button hlmBtn variant="destructive" class="group w-1/2" (click)="delete()">
-    <span class="group-hover:text-white">Delete</span>
-  </button>
+  <grid-builder-tooltip-button
+    position="right"
+    variant="destructive"
+    class="group w-1/2"
+    (click)="delete()"
+    [description]="'actions.descriptions.delete_column' | translate"
+    [classOverride]="'w-full'"
+  >
+    <span class="group-hover:text-white">{{
+      'actions.delete' | translate
+    }}</span>
+  </grid-builder-tooltip-button>
 </form>

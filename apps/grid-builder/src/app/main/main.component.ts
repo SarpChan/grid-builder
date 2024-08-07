@@ -5,14 +5,32 @@ import {
   Signal,
   inject,
 } from '@angular/core';
-import { GridComponent, SonnerComponent } from '@grid-builder/components';
+import {
+  GridComponent,
+  SonnerComponent,
+  TooltipButtonComponent,
+} from '@grid-builder/components';
 import { Grid } from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import {
+  radixExclamationTriangle,
+  radixCrossCircled,
+  radixSun,
+  radixMoon,
+  radixClipboardCopy,
+  radixDownload,
+  radixUpload,
+  radixPlus,
+} from '@ng-icons/radix-icons';
 import { Store } from '@ngrx/store';
 
+import { TranslateModule } from '@ngx-translate/core';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 import {
-  BrnTabsDirective,
   BrnTabsContentDirective,
+  BrnTabsDirective,
   BrnTabsListDirective,
   BrnTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-brain';
@@ -21,7 +39,11 @@ import {
   HlmTabsListComponent,
   HlmTabsTriggerDirective,
 } from '@spartan-ng/ui-tabs-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { BrnTooltipContentDirective } from '@spartan-ng/ui-tooltip-brain';
+import {
+  HlmTooltipComponent,
+  HlmTooltipTriggerDirective,
+} from '@spartan-ng/ui-tooltip-helm';
 
 @Component({
   selector: 'grid-builder-main',
@@ -39,9 +61,21 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
     CommonModule,
     SonnerComponent,
     HlmButtonDirective,
+    TranslateModule,
+    BrnTooltipContentDirective,
+    HlmTooltipComponent,
+    HlmTooltipTriggerDirective,
+    TooltipButtonComponent,
+    NgIconComponent,
+    HlmIconComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
+  providers: [
+    provideIcons({
+      radixPlus,
+    }),
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {

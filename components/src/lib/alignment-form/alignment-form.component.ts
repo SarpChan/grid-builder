@@ -14,12 +14,19 @@ import {
 } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
 import { Option, Ready, toOption, toRepr } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { ComboboxComponent } from '../combobox/combobox.component';
 
 @Component({
   selector: 'grid-builder-alignment-form',
   standalone: true,
-  imports: [CommonModule, ComboboxComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ComboboxComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
   templateUrl: './alignment-form.component.html',
   styleUrl: './alignment-form.component.scss',
 })

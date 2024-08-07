@@ -18,6 +18,7 @@ import {
 import { Unit, autoFlowOptions } from '@grid-builder/models';
 import { GridsFacade } from '@grid-builder/state';
 import { Ready } from '@grid-builder/utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { ComboboxComponent } from '../combobox/combobox.component';
 import { ToggleValueUnitComponent } from '../toggle-value-unit/toggle-value-unit.component';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
@@ -34,6 +35,7 @@ type Option = { label: string; value: string | undefined; available?: boolean };
     FormsModule,
     ReactiveFormsModule,
     ComboboxComponent,
+    TranslateModule,
   ],
   templateUrl: './grid-form.component.html',
   styleUrl: './grid-form.component.scss',

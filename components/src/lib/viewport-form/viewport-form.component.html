@@ -2,14 +2,14 @@
   <!-- Media Type -->
 
   <brn-radio-group hlm [value]="mediaTypeValue" class="gap-2 grid grid-cols-2">
-    <h2 class="col-span-2">Choose a Mediatype</h2>
+    <h2 class="col-span-2">{{ 'forms.choose_a_mediatype' | translate }}</h2>
 
     <brn-radio hlm value="screen" (click)="selectMediaType('screen')">
       <hlm-radio-indicator
         (click)="selectMediaType('screen')"
         indicator
       ></hlm-radio-indicator>
-      Screen
+      {{ 'forms.mediatypes.screen' | translate }}
     </brn-radio>
 
     <brn-radio hlm value="print" (click)="selectMediaType('print')">
@@ -17,7 +17,7 @@
         (click)="selectMediaType('print')"
         indicator
       ></hlm-radio-indicator>
-      Print
+      {{ 'forms.mediatypes.print' | translate }}
     </brn-radio>
 
     <brn-radio hlm value="both" (click)="selectMediaType('both')">
@@ -25,7 +25,7 @@
         (click)="selectMediaType('both')"
         indicator
       ></hlm-radio-indicator>
-      Both
+      {{ 'forms.mediatypes.both' | translate }}
     </brn-radio>
   </brn-radio-group>
 
@@ -42,14 +42,14 @@
     formControlName="limiter"
     class="gap-2 grid grid-cols-2"
   >
-    <h2 class="col-span-2">Choose a Limiter</h2>
+    <h2 class="col-span-2">{{ 'forms.choose_a_limiter' | translate }}</h2>
 
     <brn-radio hlm [value]="'none'" (click)="select('none')">
       <hlm-radio-indicator
         (click)="select('none')"
         indicator
       ></hlm-radio-indicator>
-      None
+      {{ 'forms.limiters.none' | translate }}
     </brn-radio>
 
     <brn-radio hlm [value]="'from'" (click)="select('from')">
@@ -57,7 +57,7 @@
         (click)="select('from')"
         indicator
       ></hlm-radio-indicator>
-      From
+      {{ 'forms.limiters.from' | translate }}
     </brn-radio>
 
     <brn-radio hlm [value]="'to'" (click)="select('to')">
@@ -65,7 +65,7 @@
         (click)="select('to')"
         indicator
       ></hlm-radio-indicator>
-      To
+      {{ 'forms.limiters.to' | translate }}
     </brn-radio>
 
     <brn-radio hlm [value]="'from_to'" (click)="select('from_to')">
@@ -73,7 +73,7 @@
         (click)="select('from_to')"
         indicator
       ></hlm-radio-indicator>
-      From/ To
+      {{ 'forms.limiters.from_to' | translate }}
     </brn-radio>
   </brn-radio-group>
 
@@ -83,7 +83,7 @@
         hidden: selectedLimiter === 'to' || selectedLimiter === 'none'
       }"
       [id]="selectedLimiter + gridId()"
-      valueLabel="From"
+      [valueLabel]="'forms.from' | translate"
       formName="from"
       [defaultUnit]="defaultUnit"
     ></grid-builder-value-unit>
@@ -92,7 +92,7 @@
         hidden: selectedLimiter === 'from' || selectedLimiter === 'none'
       }"
       [id]="selectedLimiter + gridId()"
-      valueLabel="To"
+      [valueLabel]="'forms.to' | translate"
       formName="to"
       [defaultUnit]="defaultUnit"
     ></grid-builder-value-unit>
