@@ -35,7 +35,7 @@
       "delete_item": "Delete the selected item",
       "disconnect_area": "Disconnect the selected area from {{gridName}}",
       "start_create_item": "Click to start creating a new area item",
-      "end_create_item": "Click to finish creating a new area item"
+      "end_create_item": "Click to finish creating a new area item. Right click / ESC to cancel"
     }
   },
   "sidebar": {

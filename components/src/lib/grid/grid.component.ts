@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
+  HostListener,
   Signal,
   computed,
   effect,
@@ -144,6 +145,28 @@ export class GridComponent {
     row_i: 0,
     col_i: 0,
   });
+
+  @HostListener('document:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape' && this.trackMouse) {
+      event.stopPropagation();
+      event.preventDefault();
+      // Your row selection code
+      this.trackMouse = false;
+    }
+  }
+
+  @HostListener('document:contextmenu', ['$event'])
+  preventContextMenu(event: MouseEvent) {
+    if (this.trackMouse) {
+      event.stopPropagation();
+      event.preventDefault();
+      // Your row selection code
+      this.trackMouse = false;
+      return false;
+    }
+    return true;
+  }
 
   constructor() {
     effect(() => {

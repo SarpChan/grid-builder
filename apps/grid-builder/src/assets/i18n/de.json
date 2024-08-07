@@ -35,7 +35,7 @@
       "delete_item": "Lösche das ausgewählte Element",
       "disconnect_area": "Trenne die Verknüpfung zwischen dem Bereich und dem Grid {{gridName}}",
       "start_create_item": "Klicke um ein neues Element zu erstellen",
-      "end_create_item": "Klicke um das Erstellen eines Elements zu beenden"
+      "end_create_item": "Klicke um das Erstellen eines Elements zu beenden. Rechts klicken / ESC um abzubrechen"
     }
   },
   "sidebar": {
