@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
 
     provideRouter(appRoutes),
-    provideStoreDevtools({ maxAge: 25, logOnly: false }),
+    provideStoreDevtools({ maxAge: 25, logOnly: false, trace: true }),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

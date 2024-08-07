@@ -1,3 +1,4 @@
+@if (grid()) {
 <form [formGroup]="form" class="flex flex-col gap-4 items-center">
   <label hlmLabel class="flex gap-1 flex-col w-full">
     <span> {{ 'forms.assigned_to' | translate }} </span>
@@ -10,21 +11,23 @@
     />
   </label>
 
-  <div class="flex gap-2">
-    <label hlmLabel class="flex gap-1 flex-col">
+  <div class="flex gap-2 w-full">
+    <label hlmLabel class="flex gap-1 flex-col w-full">
       <span> {{ 'forms.column_start' | translate }} </span>
 
       <input
+        #colstart
         hlmInput
         class="w-full"
         type="number"
         formControlName="colStart"
-        min="0"
+        min="1"
         appearance="filled"
+        [max]="grid()?.columns?.length ?? 1"
       />
     </label>
 
-    <label hlmLabel class="flex gap-1 flex-col">
+    <label hlmLabel class="flex gap-1 flex-col w-full">
       <span> {{ 'forms.column_end' | translate }} </span>
 
       <input
@@ -32,24 +35,27 @@
         class="w-full"
         type="number"
         formControlName="colEnd"
-        min="0"
+        [min]="+colstart.value < 2 ? 2 : +colstart.value + 1"
+        [max]="(grid()?.columns?.length ?? 0) + 1"
       />
     </label>
   </div>
-  <div class="flex gap-2">
-    <label hlmLabel class="flex gap-1 flex-col">
+  <div class="flex gap-2 w-full">
+    <label hlmLabel class="flex gap-1 flex-col w-full">
       <span> {{ 'forms.row_start' | translate }} </span>
 
       <input
+        #rowstart
         hlmInput
         class="w-full"
         type="number"
         formControlName="rowStart"
-        min="0"
+        min="1"
+        [max]="grid()?.rows?.length ?? 1"
       />
     </label>
 
-    <label hlmLabel class="flex gap-1 flex-col">
+    <label hlmLabel class="flex gap-1 flex-col w-full">
       <span> {{ 'forms.row_end' | translate }} </span>
 
       <input
@@ -57,7 +63,8 @@
         class="w-full"
         type="number"
         formControlName="rowEnd"
-        min="0"
+        [min]="+rowstart.value < 2 ? 2 : +rowstart.value + 1"
+        [max]="(grid()?.rows?.length ?? 0) + 1"
       />
     </label>
   </div>
@@ -84,3 +91,4 @@
     }}</span>
   </grid-builder-tooltip-button>
 </form>
+}

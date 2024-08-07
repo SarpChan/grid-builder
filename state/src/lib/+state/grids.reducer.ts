@@ -407,7 +407,7 @@ const reducer = createReducer(
             } else if (
               (colIndex > tempItem.colEnd ||
                 tempItem.colEnd > grid.columns.length) &&
-              tempItem.rowEnd - tempItem.rowStart > 1
+              tempItem.colEnd - tempItem.colStart > 1
             ) {
               tempItem.colEnd = tempItem.colEnd - 1;
             }
