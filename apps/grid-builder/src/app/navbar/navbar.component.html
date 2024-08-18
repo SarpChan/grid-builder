@@ -1,23 +1,72 @@
 <div
-  class="w-full py-4 flex justify-between items-center bg-gray-200 dark:bg-slate-900 dark:text-white h-full px-4"
+  class="w-full py-4 flex justify-between items-center bg-gray-200 dark:bg-zinc-900 dark:text-white h-full px-4"
 >
-  <a
-    href="http://sarp-can.com"
-    class="relative w-36 min-w-24 grid place-items-center grid-flow-col cursor-pointer group text-[0.5rem] sm:text-xs md:text-sm"
-  >
-    <div
-      class="absolute w-full h-full px-8 py-6 bg-slate-100/10 transition-all rounded-md group-hover:bg-slate-100/40"
-    ></div>
-    <img
-      class="w-8"
-      class="z-10"
-      src="assets/logo/grid-builder-logo.svg"
-      alt="logo"
-      width="35px"
-    />
-    <div>Grid Builder</div>
-  </a>
+  <div class="flex gap-4 items-center">
+    <a
+      href="http://sarp-can.com"
+      class="relative w-48 min-w-24 grid place-items-center grid-flow-col cursor-pointer group text-[0.5rem] sm:text-xs md:text-sm"
+    >
+      <div
+        class="absolute w-full h-full px-8 py-6 bg-zinc-100/10 transition-all rounded-md group-hover:bg-slate-100/40"
+      ></div>
+      <img
+        class="w-8"
+        class="z-10"
+        src="assets/logo/grid-builder-logo.svg"
+        alt="logo"
+        width="35px"
+      />
+      <div>Grid Builder</div>
+    </a>
 
+    <div>
+      <hlm-dialog>
+        <button
+          hlmBtn
+          variant="ghost"
+          id="edit-profile"
+          brnDialogTrigger
+          hlmBtn
+        >
+          About
+        </button>
+        <hlm-dialog-content
+          class="dark:text-slate-200 sm:max-w-[425px] md:max-w-[800px] lg:max-w-[1024px] dark:bg-neutral-900"
+          *brnDialogContent="let ctx"
+        >
+          <hlm-dialog-header>
+            <h3 hlmDialogTitle>About</h3>
+            <div hlmDialogDescription></div>
+          </hlm-dialog-header>
+          <grid-builder-about></grid-builder-about>
+        </hlm-dialog-content>
+      </hlm-dialog>
+    </div>
+
+    <div>
+      <hlm-dialog>
+        <button
+          hlmBtn
+          variant="ghost"
+          id="edit-profile"
+          brnDialogTrigger
+          hlmBtn
+        >
+          How to
+        </button>
+        <hlm-dialog-content
+          class="dark:text-slate-200 sm:max-w-[425px] md:max-w-[800px] lg:max-w-[1024px] dark:bg-neutral-900"
+          *brnDialogContent="let ctx"
+        >
+          <hlm-dialog-header>
+            <h3 hlmDialogTitle>How to</h3>
+            <div hlmDialogDescription></div>
+          </hlm-dialog-header>
+          <grid-builder-how-to></grid-builder-how-to>
+        </hlm-dialog-content>
+      </hlm-dialog>
+    </div>
+  </div>
   <div class="flex gap-2 items-center">
     <brn-popover>
       <button
@@ -33,7 +82,7 @@
       </button>
 
       <div
-        class="mt-[1rem] border-0 ring ring-amber-200"
+        class="mt-[1rem] border-0 ring-1 ring-amber-200"
         hlmPopoverContent
         *brnPopoverContent="let ctx"
       >
@@ -61,7 +110,7 @@
       </button>
 
       <div
-        class="mt-[1rem] ring border-0 ring-red-200"
+        class="mt-[1rem] border-0 ring-1 ring-red-200"
         hlmPopoverContent
         *brnPopoverContent="let ctx"
       >
@@ -76,7 +125,7 @@
     </brn-popover>
 
     <hlm-sheet>
-      <hlm-tooltip class="dark:bg-slate-900">
+      <hlm-tooltip class="dark:bg-neutral-900">
         <button
           side="left"
           variant="default"
@@ -102,7 +151,7 @@
       </hlm-tooltip>
 
       <hlm-sheet-content
-        class="dark:bg-slate-900"
+        class="dark:bg-neutral-900"
         *brnSheetContent="let ctx"
         (closeClicked)="clickedClose()"
       >
@@ -160,10 +209,10 @@
       {{ 'actions.preview' | translate }}
     </grid-builder-tooltip-button>
 
-    <hlm-tooltip class="dark:bg-slate-900">
+    <hlm-tooltip class="dark:bg-neutral-900">
       <button
         #preset
-        class="dark:text-white dark:border-slate-600 dark:hover:border-slate-400"
+        class="dark:text-white dark:border-neutral-600 dark:hover:border-neutral-400"
         [brnMenuTriggerFor]="menu"
         variant="outline"
         hlmBtn
@@ -175,7 +224,7 @@
       </button>
       <ng-template #menu>
         <div
-          class="p-2 border dark:bg-slate-900 dark:border-white bg-white border-slate-800/10 rounded-sm mt-4"
+          class="p-2 border dark:bg-neutral-900 dark:border-white bg-white border-neutral-800/10 rounded-sm mt-4"
         >
           <hlm-menu-group>
             <hlm-menu-group>
@@ -197,7 +246,7 @@
     </hlm-tooltip>
     <brn-separator
       hlmSeparator
-      class="dark:bg-slate-400 bg-gray-400 min-h-4"
+      class="dark:bg-neutral-400 bg-gray-400 min-h-4"
       orientation="vertical"
     ></brn-separator>
 
@@ -236,7 +285,7 @@
 
     <brn-separator
       hlmSeparator
-      class="dark:bg-slate-400 bg-gray-400 min-h-4"
+      class="dark:bg-neutral-400 bg-neutral-400 min-h-4"
       orientation="vertical"
     ></brn-separator>
 

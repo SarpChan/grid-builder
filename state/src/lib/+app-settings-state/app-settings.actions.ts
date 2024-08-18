@@ -9,3 +9,7 @@ export const setCurrentLanguage = createAction(
   '[AppSettings] Set Current Language',
   props<{ lang: string }>()
 );
+export const setSidebarOpened = createAction(
+  '[AppSettings] Set Sidebar Opened',
+  props<{ open: boolean }>()
+);

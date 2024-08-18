@@ -1,7 +1,8 @@
 {
   "header": {
     "area": "Bereiche",
-    "support_me": "Unterstütz mich ☕"
+    "support_me": "Spenden ☕",
+    "support_me_mini": "☕"
   },
   "actions": {
     "generate": "Generieren",

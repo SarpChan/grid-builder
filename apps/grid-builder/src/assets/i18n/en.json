@@ -1,7 +1,21 @@
 {
+  "pages": {
+    "about": {
+      "title": "About",
+      "content": {
+        "short": "Grid builder is a tool to help you create CSS Grid layouts with ease. It provides a visual interface to create grids and generates the necessary CSS and HTML code for you.",
+        "long": "Originally, I built this tool to provide a visual way to learn and understand CSS Grids. Coming from a consulting background, I encountered many junior and backend developers moving into frontend development. They often struggled with CSS Grids and how to use them effectively. This tool is meant to help them understand how grids work and how to use them in their projects. It's also a great way to quickly prototype and generate code for your projects.",
+        "open-source": "The tool is free to use, open source and licensed under the MIT License. You can find the source code and licensing on GitHub.",
+        "feedback": "If you have any feedback or suggestions, feel free to open an issue on GitHub or contact me on Twitter.",
+        "support": "In case you like the tool and want to support me, you can buy me a coffee through {{kofi}}. Also consider visiting my personal website @ {{website}}.",
+        "privacy": "This tool does not collect personal data. In fact it doesn't phone home at all. It's a client-side only application. The data you enter is stored in memory of your device only or as a JSON on your drive if you chose to download it."
+      }
+    }
+  },
   "header": {
     "area": "Area",
-    "support_me": "Support me ☕"
+    "support_me": "Support me ☕",
+    "support_me_mini": "☕"
   },
   "actions": {
     "generate": "Generate",

@@ -4,6 +4,7 @@ import {
   selectCurrentLang,
   selectIsDarkMode,
   selectIsPreview,
+  selectIsSidebarOpened,
 } from './app-settings.selectors';
 import * as AppSettingsActions from './app-settings.actions';
 
@@ -14,7 +15,7 @@ export class AppSettingsFacade {
   isPreview$ = this.store.selectSignal(selectIsPreview);
   isDarkMode$ = this.store.selectSignal(selectIsDarkMode);
   currentLang$ = this.store.selectSignal(selectCurrentLang);
-
+  isSidebarOpen$ = this.store.selectSignal(selectIsSidebarOpened);
   togglePreview() {
     this.store.dispatch(AppSettingsActions.togglePreview());
   }
@@ -25,5 +26,9 @@ export class AppSettingsFacade {
 
   setCurrentLanguage(lang: string) {
     this.store.dispatch(AppSettingsActions.setCurrentLanguage({ lang }));
+  }
+
+  setSidebarOpened(open: boolean) {
+    this.store.dispatch(AppSettingsActions.setSidebarOpened({ open }));
   }
 }

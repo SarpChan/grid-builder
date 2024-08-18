@@ -131,14 +131,14 @@
   >
     @for (row of grid().rows; track row; let row_index = $index) { @for (col of
     grid().columns; track col; let col_index = $index) {
-    <hlm-tooltip class="dark:bg-slate-900">
+    <hlm-tooltip class="dark:bg-neutral-900">
       <grid-builder-area-instance
         hlmTooltipTrigger
         position="below"
         aria-describedby="title"
         (mouseenter)="mouseEnter($event)"
         #element
-        class="w-full h-full block z-[60] border border-gray-500/20 bg-white dark:bg-gray-700"
+        class="w-full h-full block z-[60] border border-neutral-500/20 bg-white dark:bg-neutral-700"
         [ngClass]="{
           'hover:bg-accent hover:text-white': !trackMouse
         }"
@@ -187,7 +187,7 @@
       ></div>
       } @for (areaInstance of areaInstances(); track areaInstance.id) {
 
-      <hlm-tooltip class="dark:bg-slate-900">
+      <hlm-tooltip class="dark:bg-neutral-900">
         <div
           hlmTooltipTrigger
           position="below"

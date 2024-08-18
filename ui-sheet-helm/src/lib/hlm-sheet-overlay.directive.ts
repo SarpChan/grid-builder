@@ -29,7 +29,7 @@ export class HlmSheetOverlayDirective {
   protected _computedClass = computed(() => this._generateClass());
   private _generateClass() {
     return hlm(
-      'bg-background/80 dark:bg-slate-600/10 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'bg-background/80 dark:bg-neutral-600/10 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       this._userCls()
     );
   }

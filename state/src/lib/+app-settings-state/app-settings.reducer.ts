@@ -6,12 +6,14 @@ export interface AppSettingsState {
   isPreview: boolean;
   isDarkMode: boolean;
   currentLang: string;
+  isSidebarOpen?: boolean;
 }
 
 const initialState: AppSettingsState = {
   isPreview: false,
   isDarkMode: false,
   currentLang: '',
+  isSidebarOpen: true,
 };
 
 const reducer = createReducer(
@@ -27,6 +29,10 @@ const reducer = createReducer(
   on(AppSettingsActions.setCurrentLanguage, (state, { lang }) => ({
     ...state,
     currentLang: lang,
+  })),
+  on(AppSettingsActions.setSidebarOpened, (state, { open }) => ({
+    ...state,
+    isSidebarOpen: open,
   }))
 );
 

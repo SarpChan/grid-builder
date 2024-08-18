@@ -32,7 +32,7 @@ export class HlmTooltipTriggerDirective {
       this._brnTooltipTrigger.hideDelay = 150;
       this._brnTooltipTrigger.showDelay = 150;
       this._brnTooltipTrigger.tooltipContentClasses =
-        'dark:bg-slate-900 dark:text-white overflow-hidden rounded-md border border-border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md fade-in-0 zoom-in-95 ' +
+        'dark:bg-neutral-900 dark:text-white overflow-hidden rounded-md border border-border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md fade-in-0 zoom-in-95 ' +
         'data-[state=open]:animate-in ' +
         'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ' +
         'data-[side=below]:slide-in-from-top-2 data-[side=above]:slide-in-from-bottom-2 ' +

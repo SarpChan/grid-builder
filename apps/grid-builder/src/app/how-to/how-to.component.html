@@ -1,0 +1,333 @@
+<div class="flex flex-col gap-4 max-h-[60vh] overflow-auto">
+  <div value="Elements" brnTabs="{{ activeId() }}">
+    <hlm-tabs-list class="justify-start">
+      <button hlmTabsTrigger="TLDR" (click)="activeId.set(topics.TLDR)">
+        TLDR
+      </button>
+      <span
+        style="
+          display: inline-block;
+          width: 1px;
+          height: 100%;
+          background: #fff;
+          margin: 0 0.5rem;
+        "
+      ></span>
+      <button
+        hlmTabsTrigger="Interface"
+        (click)="activeId.set(topics.INTERFACE)"
+      >
+        Interface
+      </button>
+      <button
+        hlmTabsTrigger="Interactables"
+        (click)="activeId.set(topics.INTERACTABLES)"
+      >
+        Interactables
+      </button>
+      <span
+        style="
+          display: inline-block;
+          width: 1px;
+          height: 100%;
+          background: #fff;
+          margin: 0 0.5rem;
+        "
+      ></span>
+      <button
+        hlmTabsTrigger="Mediaqueries"
+        (click)="activeId.set(topics.MEDIA_QUERIES)"
+      >
+        Media Queries
+      </button>
+
+      <button hlmTabsTrigger="Grid" (click)="activeId.set(topics.GRID)">
+        Grid
+      </button>
+      <button
+        hlmTabsTrigger="Alignment"
+        (click)="activeId.set(topics.ALIGNMENT)"
+      >
+        Alignment
+      </button>
+      <button hlmTabsTrigger="Gaps" (click)="activeId.set(topics.GAPS)">
+        Gaps
+      </button>
+      <button hlmTabsTrigger="Globals" (click)="activeId.set(topics.GLOBALS)">
+        Globals
+      </button>
+      <button
+        hlmTabsTrigger="Selection"
+        (click)="activeId.set(topics.SELECTION)"
+      >
+        Selection
+      </button>
+    </hlm-tabs-list>
+    <div hlmTabsContent="TLDR">
+      <p class="mb-4">Click around and have fun.</p>
+      <p>
+        Hovering over most elements will give you a short hint on what that
+        element does.
+      </p>
+      <p>
+        Keep an eye on the 'generate' button. If it's disabled, you got an error
+        that will be displayed when clicking on the 'x' icon next to it.
+      </p>
+      <p>
+        Check out the
+        <span
+          class="text-blue-300 hover:underline hover:cursor-pointer"
+          (click)="activeId.set(topics.GLOBALS)"
+          >globals</span
+        >
+        section in the sidebar to change significant parts of the generated
+        code.
+      </p>
+      <div class="flex gap-4 mt-4 items-center">
+        <span>Learn about the rest:</span>
+        <button hlmBtn (click)="activeId.set(topics.INTERFACE)">
+          Next - Interface
+        </button>
+      </div>
+    </div>
+
+    <div hlmTabsContent="Interface">
+      <p class="mb-4">
+        Grid Builder is a tool that helps you design and generate CSS grid
+        layouts. It shines when you need to create responsive grids with a lot
+        of moving pieces.
+      </p>
+      <p class="mb-4">
+        In the navbar you can find a number of valuable buttons. Let's go over
+        them:
+      </p>
+
+      <h3 class="font-semibold">Generate</h3>
+      <p class="ml-4">
+        Press the 'generate' button to generate the code for your grid. If
+        generation is not available, check out the two icons next to the button.
+        They detail warnings and errors that you should. Errors need to be
+        fixed, otherwise no generation is possible.
+      </p>
+
+      <h3 class="font-semibold">Preview</h3>
+      <p class="ml-4">
+        Preview your grid in its original size, no distractions. It's very easy
+        to break the view with your grid. To improve usability, some values are
+        clamped if they would cause the site to break visually. Preview removes
+        these safeguards.
+      </p>
+
+      <h3 class="font-semibold">Preset</h3>
+      <p class="ml-4">
+        With 'preset' you can get started on a working grid quicker. Be careful,
+        though. Selecting a preset will override your current grid.
+      </p>
+
+      <h3 class="font-semibold">Download/ Upload</h3>
+      <p class="ml-4">
+        You can download/ upload your grid as a JSON. This should allow you to
+        save your work before delving into new experiments or if you simply want
+        to pick up where you left off later.
+      </p>
+
+      <h3 class="font-semibold">Themecolor</h3>
+      <p class="ml-4">Switch between light and dark mode.</p>
+
+      <h3 class="font-semibold">Language</h3>
+      <p class="ml-4">
+        Select your language. Currently Grid Builder supports english and
+        german. Want to contribute with a new language? Check out the github
+      </p>
+
+      <p>
+        You can reset the entire application by clicking the 'reset' button on
+        the bottom left of the sidebar
+      </p>
+
+      <div class="flex gap-4 mt-4 items-center">
+        <span>Check out how to interact with your grid:</span>
+        <button hlmBtn (click)="activeId.set(topics.INTERACTABLES)">
+          Next - Interactables
+        </button>
+      </div>
+    </div>
+
+    <div hlmTabsContent="Interactables">
+      <h3 class="font-semibold">Grids</h3>
+
+      <div class="ml-4 mb-4">
+        <p>
+          You can find a list of your current grids below the navbar. Click one
+          to select, drag and drop to change the order. Press the '+' button on
+          the right to add a new grid.
+        </p>
+        <p>
+          In the sidebar, clicking the sections
+          <span
+            class="text-blue-300 hover:underline hover:cursor-pointer"
+            (click)="activeId.set(topics.MEDIA_QUERIES)"
+            >viewport</span
+          >,
+          <span
+            class="text-blue-300 hover:underline hover:cursor-pointer"
+            (click)="activeId.set(topics.GRID)"
+            >grid</span
+          >,
+          <span
+            class="text-blue-300 hover:underline hover:cursor-pointer"
+            (click)="activeId.set(topics.ALIGNMENT)"
+            >alignment</span
+          >,
+          <span
+            class="text-blue-300 hover:underline hover:cursor-pointer"
+            (click)="activeId.set(topics.GAPS)"
+            >gaps</span
+          >
+          open a menu to edit specific properties of your grid. Visit their
+          respective pages to learn more.
+        </p>
+      </div>
+
+      <h3 class="font-semibold">Rows and Columns</h3>
+      <div class="ml-4">
+        <p>
+          You can add or remove rows and columns by clicking '+' or '-' on the
+          respective property at the bottom of the sidebar. The last row/ column
+          will be removed. A new row/ column will be appended at the end.
+        </p>
+        <p>
+          You can also remove a specific row or column by selecting it and
+          clicking the 'delete' button.
+        </p>
+        <p>
+          Hover over a row or column to see it light up. Clicking on it will
+          select it. This will open the selection menu in your sidebar. Here you
+          will find further options to edit your selection. For rows and columns
+          you can change the height and width respectively.
+        </p>
+      </div>
+      <h3 class="font-semibold">Elements</h3>
+      <div class="ml-4">
+        <p>
+          See elements as slots that will receive semantic meaning when we add
+          Areas into the mix. Elements themselves define the region for an area
+          inside a single grid.
+        </p>
+        <p>
+          By clicking on a cell of a grid, you start creating an element. Click
+          on another cell to finish the creation. Right click or press esc to
+          cancel. Afterwards, the sidebar will once again open to give you
+          further edit options, namely the col/row start and end and which area
+          it is assigned to.
+        </p>
+      </div>
+      <h3 class="font-semibold">Areas</h3>
+      <div class="ml-4">
+        <p>
+          Areas are a representation of a semantic part of your application.
+          Think of a navbar, footer or a main working area. Areas are
+          cross-grid.
+        </p>
+        <p>
+          Next to the sidebar, a small column reads 'Areas'. Click the '+'
+          button to create a new area. You can adjust the name and the color for
+          your area in the selection menu. The name your area will be used as a
+          CSS class. Chose wisely.
+        </p>
+        <p>
+          Assign an area to an element by dragging and dropping the area on the
+          element or by selecting your element and chosing the desired area in
+          the selection menu.
+        </p>
+        <p>
+          Once an area is assigned to an element, the areas selection menu will
+          display a list of grids to which the area is linked. You can
+          conveniently remove that area from any grid using this list.
+        </p>
+      </div>
+      <div class="flex gap-4 mt-4 items-center">
+        <span>Check out how to work with multiple grids:</span>
+        <button hlmBtn (click)="activeId.set(topics.MEDIA_QUERIES)">
+          Next - Media Queries
+        </button>
+      </div>
+    </div>
+
+    <div hlmTabsContent="Mediaqueries">
+      <p>
+        When a specific grid should be active is determined by media queries.
+      </p>
+      <p>
+        Press the 'viewport' section of the sidebar to open the viewport menu.
+        The options here are fairly minimal, but enough for most usecases.
+      </p>
+      <p class="mb-4">
+        In the viewport menu you can change for which media type your grid
+        should be used and more importantly at which width to show your current
+        grid.
+      </p>
+      <p>A few helpful tips:</p>
+      <ul class="list-disc list-inside mb-4">
+        <li>Stick to a single limiter type. Prefer 'to' as a limiter</li>
+        <li>Prefer 'to' as a limiter.</li>
+        <li>
+          Don't use multiple 'None' limiters. View 'None' like a fallback.
+        </li>
+      </ul>
+      <p>Order of Limiters</p>
+      <ul class="list-disc list-inside">
+        <li>None</li>
+        <li>To</li>
+        <li>From</li>
+        <li>From/ To</li>
+      </ul>
+
+      <div class="flex gap-4 mt-4 items-center">
+        <span>Check out how to use the grid section of the sidebar:</span>
+        <button hlmBtn (click)="activeId.set(topics.GRID)">Next - Grid</button>
+      </div>
+    </div>
+
+    <div hlmTabsContent="Grid">
+      <p>
+        The grid section of the sidebar gives you options to change the auto
+        flow of your grid as well as the height and width of your grid.
+      </p>
+      <p>
+        Most of the time grids are only used as containers and are supposed to
+        be as large as their children need them to be. If you have a different
+        usecase, you can change that here.
+      </p>
+    </div>
+    <div hlmTabsContent="Alignment">
+      <p>
+        The alignment section of the sidebar allows you to adjust the alignment
+        of your items and the content as a whole.
+      </p>
+      <p>What's the difference between items and content?</p>
+      <p>
+        Items refer to the alignment inside a cell whie content aligns all items
+        respective to each other
+      </p>
+    </div>
+    <div hlmTabsContent="Gaps">
+      <p>Change the gap values between rows and columns.</p>
+    </div>
+    <div hlmTabsContent="Globals">
+      <p>
+        Grid Builder is a tool that helps you design and generate CSS grid
+        layouts. It shines when you need to create responsive grids with a lot
+        of moving pieces.
+      </p>
+    </div>
+
+    <div hlmTabsContent="Selection">
+      <p>
+        Grid Builder is a tool that helps you design and generate CSS grid
+        layouts. It shines when you need to create responsive grids with a lot
+        of moving pieces.
+      </p>
+    </div>
+  </div>
+</div>

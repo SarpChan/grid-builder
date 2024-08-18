@@ -1,22 +1,13 @@
-import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule, NgFor } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Signal,
-  inject,
-} from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   GridComponent,
   SonnerComponent,
   TooltipButtonComponent,
 } from '@grid-builder/components';
-import { Grid } from '@grid-builder/models';
-import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { radixPlus } from '@ng-icons/radix-icons';
-import { Store } from '@ngrx/store';
-
 import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
@@ -37,8 +28,23 @@ import {
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
 
+export enum HowToTopics {
+  TLDR = 'TLDR',
+  INTERFACE = 'Interface',
+  INTERACTABLES = 'Interactables',
+
+  SELECTION = 'Selection',
+  MEDIA_QUERIES = 'Mediaqueries',
+  GRID = 'Grid',
+  ALIGNMENT = 'Alignment',
+  GAPS = 'Gaps',
+  GLOBALS = 'Globals',
+  ELEMENTS = 'Elements',
+  AREAS = 'Areas',
+}
+
 @Component({
-  selector: 'grid-builder-main',
+  selector: 'grid-builder-how-to',
   standalone: true,
   imports: [
     GridComponent,
@@ -63,49 +69,15 @@ import {
     NgIconComponent,
     HlmIconComponent,
   ],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss',
+  templateUrl: './how-to.component.html',
+  styleUrl: './how-to.component.scss',
   providers: [
     provideIcons({
       radixPlus,
     }),
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainComponent {
-  facade = inject(GridsFacade);
-  store = inject(Store);
-  appSettingsFacade = inject(AppSettingsFacade);
-
-  activeId = this.facade.selectedId$;
-  grids: Signal<Grid[]> = this.facade.selectOrderedGrids$;
-  order: Signal<string[]> = this.facade.selectOrder$;
-  select(id: string) {
-    this.facade.select(id);
-  }
-
-  addNewGrid() {
-    this.facade.add();
-  }
-
-  drop(event: CdkDragDrop<string, string>) {
-    this.moveElement(event.previousIndex, event.currentIndex);
-  }
-
-  moveElement(fromIndex: number, toIndex: number): void {
-    const arr = [...(this.order() ?? [])];
-    if (
-      fromIndex < 0 ||
-      fromIndex >= arr.length ||
-      toIndex < 0 ||
-      toIndex >= arr.length
-    ) {
-      return;
-    }
-
-    const [element] = arr.splice(fromIndex, 1);
-
-    arr.splice(toIndex, 0, element);
-    this.facade.updateOrder(arr);
-  }
+export class HowToComponent {
+  activeId = signal(HowToTopics.INTERFACE);
+  topics = HowToTopics;
 }
