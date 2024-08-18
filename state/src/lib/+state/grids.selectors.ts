@@ -1,6 +1,7 @@
 import { unitToPreviewMapping } from '@grid-builder/utils';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GRIDS_FEATURE_KEY, GridsState, gridsAdapter } from './grids.reducer';
+import { Grid } from '@grid-builder/models';
 
 export const selectGridsState =
   createFeatureSelector<GridsState>(GRIDS_FEATURE_KEY);
@@ -32,6 +33,11 @@ export const selectSelectedId = createSelector(
   (state: GridsState) => {
     return state?.selectedId;
   }
+);
+
+export const selectOrder = createSelector(
+  selectGridsState,
+  (state: GridsState) => state.order
 );
 
 export const selectSelectedElement = createSelector(
@@ -103,3 +109,10 @@ export const selectGlobals = createSelector(selectGridsState, (state) => ({
   useClassName: state.useClassName,
   referenceContainer: state.referenceContainer,
 }));
+
+export const selectOrderedGrids = createSelector(
+  selectOrder,
+  selectGridsEntities,
+  (order, grids) =>
+    order.map((id) => grids?.[id] ?? undefined).filter(Boolean) as Grid[]
+);

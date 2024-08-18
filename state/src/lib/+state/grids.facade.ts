@@ -54,6 +54,10 @@ export class GridsFacade {
   selectWarnings$ = this.store.selectSignal(ItemsSelectors.selectWarnings);
   selectErrors$ = this.store.selectSignal(ItemsSelectors.selectErrors);
   selectGlobals$ = this.store.selectSignal(GridsSelectors.selectGlobals);
+  selectOrder$ = this.store.selectSignal(GridsSelectors.selectOrder);
+  selectOrderedGrids$ = this.store.selectSignal(
+    GridsSelectors.selectOrderedGrids
+  );
 
   /**
    * Use the initialization action to perform one
@@ -178,6 +182,10 @@ export class GridsFacade {
 
   loadFile(file: File) {
     this.store.dispatch(GridsActions.loadFile({ file }));
+  }
+
+  updateOrder(order: string[]) {
+    this.store.dispatch(GridsActions.updateOrder({ order }));
   }
 }
 

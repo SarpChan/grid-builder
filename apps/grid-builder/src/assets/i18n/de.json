@@ -16,7 +16,7 @@
       "download": "Lade deine Grids als JSON Datei herunter",
       "upload": "Lade eine JSON Datei hoch um deine Grids wiederherzustellen",
       "switch_dark_mode": "Wechsle zwischen Dark und Light Mode",
-      "generate": "Generiere Code für dein Grid",
+      "generate": "Generiere Code für deine Grids",
       "preview": "Sieh dir eine Vorschau zu deinen Grids an",
       "preset": "Wähle eine Vorlage aus",
       "end_preview": "Vorschau beenden",
@@ -44,7 +44,7 @@
     "grid": "Grid",
     "alignment": "Ausrichtung",
     "gaps": "Gaps",
-    "globals": "Globale Einstellungen",
+    "globals": "Allgemeines",
     "columns": "Spalten",
     "rows": "Reihen",
     "tooltip": {
@@ -145,7 +145,9 @@
     "col": "Spalte",
     "tooltip": {
       "row": "Wähle Reihe",
-      "column": "Wähle Spalte"
+      "column": "Wähle Spalte",
+      "item": "Wähle Grid Element",
+      "area": "Wähle Bereich. Drag und Drop auf ein Grid Element um es zu verbinden"
     }
   },
   "grid": {
