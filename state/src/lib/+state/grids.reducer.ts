@@ -16,6 +16,7 @@ export interface GridsState extends EntityState<Grid> {
   loaded: boolean; // has the Grids list been loaded
   error?: string | null; // last known error (if any)
   generated?: { css: string | undefined; html: string } | undefined;
+  order: string[];
   selection?: SelectionElement | undefined;
   referenceContainer: 'viewport' | 'container';
   useTailwind: boolean;
@@ -151,7 +152,7 @@ const initialEntities = () => {
   };
 
   const entities = { [id]: initialGrid, [id2]: initialGrid2 };
-  return { ids: [id, id2], entities, selectedId: id };
+  return { ids: [id, id2], entities, selectedId: id, order: [id, id2] };
 };
 
 export const initialGridsState: GridsState = gridsAdapter.getInitialState({
@@ -182,7 +183,9 @@ const reducer = createReducer(
   })),
   on(GridsActions.addGrid, (state, { grid }) => {
     const newGrid = { ...grid, id: crypto.randomUUID() };
-    return gridsAdapter.addOne(newGrid, state);
+    const newState = gridsAdapter.addOne(newGrid, state);
+    newState.order = [...newState.order, newGrid.id];
+    return newState;
   }),
   on(GridsActions.selectGrid, (state, { id }) => ({
     ...state,
@@ -200,6 +203,7 @@ const reducer = createReducer(
       };
     }, state);
   }),
+  on(GridsActions.updateOrder, (state, { order }) => ({ ...state, order })),
   on(GridsActions.updateViewport, (state, { id, changes }) => {
     return gridsAdapter.map((grid) => {
       if (grid.id !== id) return grid;
@@ -520,6 +524,7 @@ const reducer = createReducer(
   }),
   on(GridsActions.removeGrid, (state, { id }) => ({
     ...gridsAdapter.removeOne(id, state),
+    order: state.order.filter((gridId) => gridId !== id),
     selectedId:
       state.ids.length > 1
         ? `${state.ids.find((gridId) => gridId !== id)}`

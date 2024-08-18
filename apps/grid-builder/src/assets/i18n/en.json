@@ -34,8 +34,8 @@
       "delete_area": "Delete the selected area",
       "delete_item": "Delete the selected item",
       "disconnect_area": "Disconnect the selected area from {{gridName}}",
-      "start_create_item": "Click to start creating a new area item",
-      "end_create_item": "Click to finish creating a new area item. Right click / ESC to cancel"
+      "start_create_item": "Click to start creating a new grid element",
+      "end_create_item": "Click to finish creating a new grid element. Right click / ESC to cancel"
     }
   },
   "sidebar": {
@@ -146,8 +146,8 @@
     "tooltip": {
       "row": "Select Row",
       "column": "Select Column",
-      "item": "Select Item",
-      "area": "Select Area"
+      "item": "Select grid element",
+      "area": "Select Area. Drag on top of grid element for quick assignment"
     }
   },
   "grid": {

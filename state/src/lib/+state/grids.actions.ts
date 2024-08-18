@@ -196,3 +196,8 @@ export const loadFileFailure = createAction(
   '[Grids/API] Load File Failed',
   props<{ error: string }>()
 );
+
+export const updateOrder = createAction(
+  '[Grids/API] Update Order',
+  props<{ order: string[] }>()
+);

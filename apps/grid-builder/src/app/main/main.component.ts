@@ -1,3 +1,4 @@
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule, NgFor } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -58,6 +59,8 @@ import {
     HlmTabsContentDirective,
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
+    CdkDropList,
+    CdkDrag,
     CommonModule,
     SonnerComponent,
     HlmButtonDirective,
@@ -84,13 +87,34 @@ export class MainComponent {
   appSettingsFacade = inject(AppSettingsFacade);
 
   activeId = this.facade.selectedId$;
-  grids: Signal<Grid[]> = this.facade.allGrids$;
-
+  grids: Signal<Grid[]> = this.facade.selectOrderedGrids$;
+  order: Signal<string[]> = this.facade.selectOrder$;
   select(id: string) {
     this.facade.select(id);
   }
 
   addNewGrid() {
     this.facade.add();
+  }
+
+  drop(event: CdkDragDrop<string, string>) {
+    this.moveElement(event.previousIndex, event.currentIndex);
+  }
+
+  moveElement(fromIndex: number, toIndex: number): void {
+    const arr = [...(this.order() ?? [])];
+    if (
+      fromIndex < 0 ||
+      fromIndex >= arr.length ||
+      toIndex < 0 ||
+      toIndex >= arr.length
+    ) {
+      return;
+    }
+
+    const [element] = arr.splice(fromIndex, 1);
+
+    arr.splice(toIndex, 0, element);
+    this.facade.updateOrder(arr);
   }
 }
