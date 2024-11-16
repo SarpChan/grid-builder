@@ -2,7 +2,9 @@
   "name": "@grid-builder/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "analyze": "webpack-bundle-analyzer dist/apps/grid-builder/stats.json"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "18.1.1",
@@ -107,6 +109,7 @@
     "tailwindcss-animate": "^1.0.6",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
-    "typescript": "5.5.3"
+    "typescript": "5.5.3",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }

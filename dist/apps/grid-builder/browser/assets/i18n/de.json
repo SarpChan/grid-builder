@@ -1,0 +1,198 @@
+{
+  "header": {
+    "area": "Bereiche",
+    "support_me": "Spenden ☕",
+    "support_me_mini": "☕"
+  },
+  "actions": {
+    "generate": "Generieren",
+    "preview": "Vorschau",
+    "presets": "Vorlagen",
+    "delete": "Löschen",
+    "end_preview": "Vorschau beenden",
+    "delete_grid": "Grid löschen",
+    "reset": "Reset",
+
+    "descriptions": {
+      "download": "Lade deine Grids als JSON Datei herunter",
+      "upload": "Lade eine JSON Datei hoch um deine Grids wiederherzustellen",
+      "switch_dark_mode": "Wechsle zwischen Dark und Light Mode",
+      "generate": "Generiere Code für deine Grids",
+      "preview": "Sieh dir eine Vorschau zu deinen Grids an",
+      "preset": "Wähle eine Vorlage aus",
+      "end_preview": "Vorschau beenden",
+      "add_grid": "Füge ein neues Grid hinzu",
+      "select_grid": "Wähle Grid: {{name}}",
+      "add_area": "Füge einen neuen Bereich hinzu",
+      "remove_row": "Entferne die letzte Reihe",
+      "remove_column": "Entferne die letzte Spalte",
+      "add_row": "Füge eine neue Reihe hinzu",
+      "add_column": "Füge eine neue Spalte hinzu",
+      "reset": "Setze alle Daten zurück",
+      "delete_grid": "Lösche das ausgewählte Grid",
+      "delete_row": "Lösche die ausgewählte Reihe",
+      "delete_column": "Lösche die ausgewählte Spalte",
+      "delete_area": "Lösche den ausgewählten Bereich",
+      "delete_item": "Lösche das ausgewählte Element",
+      "disconnect_area": "Trenne die Verknüpfung zwischen dem Bereich und dem Grid {{gridName}}",
+      "start_create_item": "Klicke um ein neues Element zu erstellen",
+      "end_create_item": "Klicke um das Erstellen eines Elements zu beenden. Rechts klicken / ESC um abzubrechen"
+    }
+  },
+  "sidebar": {
+    "selection": "Auswahl",
+    "viewport": "Viewport",
+    "grid": "Grid",
+    "alignment": "Ausrichtung",
+    "gaps": "Gaps",
+    "globals": "Allgemeines",
+    "columns": "Spalten",
+    "rows": "Reihen",
+    "tooltip": {
+      "selection": {
+        "nothing_selected": "Du hast kein Element ausgewählt",
+        "hint": "Wähle eine Reihe, eine Spalte, einen Bereich oder ein Element aus, um dessen Eigenschaften zu bearbeiten"
+      },
+      "viewport": {
+        "one_liner": "Pass die Responsiveness deines Grids an",
+        "recommendation": "Es ist empfohlen 'From' und 'To' nicht zu mischen. Bleib für die besten Ergebnisse bei einer Einheit",
+        "ordering": "Viewports mit 'From' und 'From/ To' werden in aufsteigender Reihenfolge sortiert. Viewports mit 'To' werden in absteigender Reihenfolge sortiert.",
+        "mixed_ordering": {
+          "description": "Wenn Viewports gemischt genutzt werden, werden sie wie folgt sortiert:",
+          "1": "Keine",
+          "2": "To",
+          "3": "From",
+          "4": "From/ To"
+        }
+      },
+      "grid": {
+        "one_liner": "Ändere die Maße und den Flow des Grids.",
+        "hint": "Niedrige, statische Werte machen die Interaktion schwierig.",
+        "hint2": "Eventuell möchtest du lieber eine Reihe oder Spalte auswählen und dessen Maße anpassen."
+      },
+      "alignment": {
+        "one_liner": "Ändere die Ausrichtung der Elemente und des Inhalts im Grid",
+        "items": "[Justify/ Align] Items bezieht sich auf die einzelnen Elemente im Grid. Änderungen beeinflussen die Position der Elemente im Bezug auf die Zellen, die sie einnehmen",
+        "content": "[Justify/ Align] Content bezieht sich auf den gesamten Inhalt des Grids. Änderungen beeinflussen die Position des gesamten Inhalts im Grid",
+        "hint": "Änderungen sind womÖglich erst sichtbar, wenn die Reihen/ Spalten weniger Platz einnehmen, als das Grid selbst"
+      },
+      "gaps": "Ändere die Abstände zwischen den Reihen und Spalten im Grid",
+      "globals": "Ändere Einstellungen aller Grids und der Generierung"
+    }
+  },
+  "forms": {
+    "unit": "Einheit",
+    "value": "Wert",
+    "horizontal": "Horizontal",
+    "vertical": "Vertikal",
+    "width": "Breite",
+    "height": "Höhe",
+    "use_width": "Manuelle Breite",
+    "use_height": "Manuelle Höhe",
+    "choose_a_mediatype": "Wähle einen Mediatypen",
+    "mediatypes": {
+      "screen": "Screen",
+      "print": "Print",
+      "both": "both"
+    },
+    "choose_a_limiter": "Wähle eine Beschränkung",
+    "limiters": {
+      "none": "None",
+      "from": "From",
+      "to": "To",
+      "from_to": "From/ To"
+    },
+    "name": "Name",
+    "color": "Farbe",
+    "connections": "Verbindungen",
+    "area": "Bereich",
+    "column_start": "Spaltenstart",
+    "column_end": "Spaltenende",
+    "row_start": "Reihenstart",
+    "row_end": "Reihenende",
+    "column_width": "Spaltenbreite",
+    "row_height": "Reihenhöhe",
+    "assigned_to": "Zugeordnet zu",
+    "errors": {
+      "name_required": "Dein Grid benötigt einen Namen"
+    },
+    "from": "Von",
+    "to": "Zu",
+    "auto_flow": "Auto flow",
+    "auto_flow_placeholder": "Auto flow auswählen",
+    "align_items": "Align items",
+    "align_content": "Align content",
+    "justify_items": "Justify items",
+    "justify_content": "Justify content",
+    "reference_container": "Referenz Container",
+    "viewport": "Viewport",
+    "container": "Container",
+    "generate_tailwind": "Generiere Tailwind",
+    "yes": "Ja",
+    "no_use_css": "CSS",
+    "css_class_attribute": "CSS Class Atribute",
+    "classname": "ClassName",
+    "class": "Class",
+    "search": "Suchen",
+    "no_results_found": "Keine Ergebnisse gefunden"
+  },
+  "generated": {
+    "your_code": "Dein Code",
+    "css": "CSS",
+    "html": "HTML"
+  },
+  "selectors": {
+    "row": "Reihe",
+    "col": "Spalte",
+    "tooltip": {
+      "row": "Wähle Reihe",
+      "column": "Wähle Spalte",
+      "item": "Wähle Grid Element",
+      "area": "Wähle Bereich. Drag und Drop auf ein Grid Element um es zu verbinden"
+    }
+  },
+  "grid": {
+    "new": "Neues Grid",
+    "area_instance_unassigned": "Keinem Bereich zugeordnet"
+  },
+  "errors": {
+    "grid": {
+      "empty_name": "Einem Grid fehlt ein Name",
+      "multiple_without_media_query": "Mehrere Grids ohne Media Query sind nicht erlaubt",
+      "multiple_with_same_media_query": "Mehrere Grids mit der gleichen Media Query sind nicht erlaubt",
+      "empty": "Definiere mindestens ein Grid",
+      "no_columns": "Definiere mindestens eine Spalte",
+      "no_rows": "Definiere mindestens eine Reihe",
+      "upper_boundary_undefined": "Ein Grid definiert dessen Obergrenze als 0. Es wird wahrscheinlich nie gerendert",
+      "boundaries_are_equal": "Ein Grid definiert dessen Obergrenze als dessen Untergrenze. Es wird wahrscheinlich nie gerendert",
+      "invalid_media_query_range": "Ein Grid definiert einen ungültigen Media Query Bereich"
+    },
+    "area": {
+      "empty_name": "Einem Bereich fehlt ein Name"
+    }
+  },
+  "warnings": {
+    "grid": {
+      "not_all_media_queries_covered": "Nicht alle Media Queries werden abgedeckt",
+      "lower_boundary_zero": "Ein Grid definiert 0 als dessen Untergrenze. Stattdessen kann auf eine Untergrenze verzichtet werden",
+      "overlapping_media_queries": "Media Queries überlappen sich. Das kann zu unerwartetem Verhalten führen"
+    }
+  },
+  "sonner": {
+    "file": {
+      "load_file": "Datei konnte nicht geladen werden",
+      "read_file": "Dateiinhalt konnte nicht gelesen werden",
+      "save_file": "Datei konnte nicht gespeichert werden"
+    },
+    "connect_area_to_grid": {
+      "already_connected": "Bereich {{areaName}} ist bereits mit Grid {{gridName}} verbunden",
+      "grid_does_not_exist": "Spezifiziertes Grid existiert nicht",
+      "area_does_not_exist": "Spezifizierter Bereich existiert nicht",
+      "missing_data": "Es fehlen Daten zum Verbinden von Bereich und Grid",
+      "no_grids": "Keine Grids definiert",
+      "no_areas": "Keine Bereiche definiert",
+      "default": "Konnte Bereich nicht mit Grid verbinden"
+    },
+    "error_title": "Etwas ist schief gelaufen"
+  }
+}
