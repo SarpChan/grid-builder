@@ -6,38 +6,16 @@
   "tags": [],
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": [
-        "{workspaceRoot}/dist/{projectRoot}"
-      ],
-      "options": {
-        "project": "ui-radiogroup-helm/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "ui-radiogroup-helm/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "ui-radiogroup-helm/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "ui-radiogroup-helm/jest.config.ts"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     }
   }
 }
