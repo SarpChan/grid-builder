@@ -14,16 +14,7 @@ import {
 import { Grid } from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import {
-  radixExclamationTriangle,
-  radixCrossCircled,
-  radixSun,
-  radixMoon,
-  radixClipboardCopy,
-  radixDownload,
-  radixUpload,
-  radixPlus,
-} from '@ng-icons/radix-icons';
+import { radixPlus } from '@ng-icons/radix-icons';
 import { Store } from '@ngrx/store';
 
 import { TranslateModule } from '@ngx-translate/core';

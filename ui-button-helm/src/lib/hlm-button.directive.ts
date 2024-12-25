@@ -17,7 +17,7 @@ export const buttonVariants = cva(
         secondary:
           'bg-zinc-200 text-secondary-foreground hover:bg-secondary/80',
         ghost:
-          'transition-colors dark:bg-slate-900 dark:hover:bg-slate-900 bg-gray-100 hover:bg-gray-100',
+          'transition-colors dark:bg-neutral-900 dark:hover:bg-neutral-900 bg-gray-100 hover:bg-gray-100',
         link: 'underline-offset-4 hover:underline text-primary',
       },
       size: {

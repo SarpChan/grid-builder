@@ -38,7 +38,7 @@
           @for (option of options(); track option.value) { @if (option.available
           === false) {
           <button
-            class="h-6"
+            class="h-6 aria-selected:text-white hover:text-white dark:text-white"
             brnCmdItem
             [value]="option.value ?? ''"
             disabled

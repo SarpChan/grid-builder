@@ -57,7 +57,7 @@ export class SonnerComponent {
   toastOptions = input<ToasterProps['toastOptions']>({
     classes: {
       toast:
-        'group toast dark:group-[.toaster]:bg-slate-800 group-[.toaster]:bg-background dark:group-[.toaster]:text-white group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
+        'group toast dark:group-[.toaster]:bg-neutral-800 group-[.toaster]:bg-background dark:group-[.toaster]:text-white group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
       description:
         'dark:group-[.toast]:text-slate-200 group-[.toast]:text-muted-foreground',
       actionButton:

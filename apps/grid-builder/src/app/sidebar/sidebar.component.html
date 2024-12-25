@@ -1,12 +1,52 @@
 <div class="grid grid-flow-row h-full relative">
   <form [formGroup]="form" class="flex flex-col relative">
-    <a
-      target="_blank"
-      class="hover:text-white hover:bg-accent dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white transition-all text-accent text-center w-full border-accent border h-10 grid place-items-center rounded-sm mb-2"
-      href="https://www.google.com"
-      >{{ 'header.support_me' | translate }}</a
+    <div
+      class="flex gap-2 items-center justify-between"
+      [ngClass]="{
+      'flex-col-reverse mb-0': !appSettingsFacade.isSidebarOpen$(),
+      'mb-2': appSettingsFacade.isSidebarOpen$(),
+      }"
     >
+      <a
+        target="_blank"
+        class="mb-0 hover:text-white hover:bg-accent dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white transition-all text-accent text-center border-accent border h-10 grid place-items-center rounded-sm"
+        href="https://www.google.com"
+        [ngClass]="{
+      'px-2': !appSettingsFacade.isSidebarOpen$(),
+              'px-4': appSettingsFacade.isSidebarOpen$(),
 
+      }"
+      >
+        @if (appSettingsFacade.isSidebarOpen$()) {
+        {{ 'header.support_me' | translate }}
+        } @else {
+        {{ 'header.support_me_mini' | translate }}
+        }</a
+      >
+      <button
+        hlmButton
+        variant="ghost"
+        class="grid place-items-center dark:hover:bg-neutral-600 rounded-md h-8 w-8"
+        (click)="
+          appSettingsFacade.setSidebarOpened(
+            !appSettingsFacade.isSidebarOpen$()
+          )
+        "
+      >
+        @if (appSettingsFacade.isSidebarOpen$()) {
+        <hlm-icon
+          class="flex-grow flex-shrink-0"
+          name="radixDoubleArrowLeft"
+        ></hlm-icon>
+        } @else {
+        <hlm-icon
+          class="flex-grow flex-shrink-0"
+          name="radixDoubleArrowRight"
+        ></hlm-icon>
+        }
+      </button>
+    </div>
+    @if (appSettingsFacade.isSidebarOpen$()) {
     <div>
       <label hlmLabel>{{ 'forms.name' | translate }}</label>
       <input class="w-full" formControlName="name" type="text" hlmInput />
@@ -15,23 +55,39 @@
       <span hlmInputError>{{ 'forms.errors.name_required' | translate }}</span>
       }
     </div>
-
-    <div class="flex flex-col justify-between flex-grow">
-      <div hlmAccordion>
+    }
+    <div
+      class="flex flex-col justify-between flex-grow"
+      [ngClass]="{
+      'w-8': !appSettingsFacade.isSidebarOpen$(),
+      }"
+    >
+      <div hlmAccordion [canBeOpened]="!!appSettingsFacade.isSidebarOpen$()">
         <!-- Selection -->
-        <div hlmAccordionItem>
+        <div hlmAccordionItem [class]="'justify-center'">
           <hlm-tooltip>
-            <div
-              class="h-6 py-2"
+            <button
+              class="h-6 py-2 hover:cursor-pointer group"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
               #selection
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.selection' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixLightningBolt" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.selection' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
-            </div>
+              }
+            </button>
             <span *brnTooltipContent>
               @if (!selectedElement()) {
               <div class="max-w-80">
@@ -78,9 +134,20 @@
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.viewport' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixLaptop" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.viewport' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
+              }
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
@@ -139,9 +206,20 @@
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.grid' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixTable" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.grid' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
+              }
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
@@ -169,9 +247,20 @@
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.alignment' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixRulerSquare" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.alignment' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
+              }
             </button>
             <span *brnTooltipContent>
               <div class="flex flex-col gap-2 max-w-80">
@@ -198,9 +287,20 @@
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.gaps' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixDashboard" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.gaps' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
+              }
             </button>
             <span *brnTooltipContent
               ><p class="max-w-80">
@@ -214,16 +314,27 @@
         </div>
         <!-- Globals -->
         <div hlmAccordionItem>
-          <hlm-tooltip class="dark:bg-slate-900">
+          <hlm-tooltip class="dark:bg-neutral-900">
             <button
               class="h-6 py-2"
               hlmAccordionTrigger
               hlmTooltipTrigger
               aria-describedby="title"
               position="right"
+              (click)="appSettingsFacade.setSidebarOpened(true)"
             >
-              {{ 'sidebar.globals' | translate }}
+              <div
+                class="flex justify-center gap-2"
+                [ngClass]="{ 'w-full': !appSettingsFacade.isSidebarOpen$() }"
+              >
+                <hlm-icon name="radixGlobe" size="1.25rem"></hlm-icon>
+                @if (appSettingsFacade.isSidebarOpen$()) {
+                {{ 'sidebar.globals' | translate }}
+                }
+              </div>
+              @if (appSettingsFacade.isSidebarOpen$()) {
               <hlm-icon hlmAccIcon />
+              }
             </button>
             <span *brnTooltipContent>{{
               'sidebar.tooltip.globals' | translate
@@ -234,11 +345,13 @@
           </brn-accordion-content>
         </div>
       </div>
+      @if (appSettingsFacade.isSidebarOpen$()) {
+
       <div class="flex flex-col gap-2">
         <!-- row / column controls -->
 
         <div class="w-full flex justify-between items-center gap-4">
-          <hlm-tooltip class="dark:bg-slate-900">
+          <hlm-tooltip class="dark:bg-neutral-900">
             <button
               hlmBtn
               hlmTooltipTrigger
@@ -274,7 +387,7 @@
         </div>
 
         <div class="w-full flex justify-between items-center gap-4">
-          <hlm-tooltip class="dark:bg-slate-900">
+          <hlm-tooltip class="dark:bg-neutral-900">
             <button
               hlmBtn
               hlmTooltipTrigger
@@ -315,7 +428,7 @@
             position="above"
             variant="ghost"
             [description]="'actions.descriptions.reset' | translate"
-            class="w-1/2 group"
+            class="w-full group"
             (click)="reset()"
           >
             <span class="group-hover:text-red-500">{{
@@ -327,7 +440,7 @@
             position="above"
             variant="outline"
             [description]="'actions.descriptions.delete_grid' | translate"
-            class="w-1/2 group text-nowrap hover:border-red-500 dark:hover:border-red-500"
+            class="w-full group text-nowrap hover:border-red-500 dark:hover:border-red-500"
             (click)="removeGrid()"
           >
             <span class="group-hover:text-red-500">{{
@@ -336,6 +449,7 @@
           </grid-builder-tooltip-button>
         </div>
       </div>
+      }
     </div>
   </form>
 </div>

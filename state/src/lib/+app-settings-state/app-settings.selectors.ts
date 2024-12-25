@@ -22,3 +22,8 @@ export const selectCurrentLang = createSelector(
   selectAppSettingsState,
   (state: AppSettingsState) => state.currentLang
 );
+
+export const selectIsSidebarOpened = createSelector(
+  selectAppSettingsState,
+  (state: AppSettingsState) => state.isSidebarOpen
+);

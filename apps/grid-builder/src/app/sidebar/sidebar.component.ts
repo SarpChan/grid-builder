@@ -26,7 +26,7 @@ import {
   TooltipTitleComponent,
   ViewportFormComponent,
 } from '@grid-builder/components';
-import { GridsFacade } from '@grid-builder/state';
+import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { BrnAccordionContentComponent } from '@spartan-ng/ui-accordion-brain';
 import {
   HlmAccordionContentDirective,
@@ -52,7 +52,18 @@ import {
 } from '@spartan-ng/ui-tooltip-helm';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIconComponent } from '@ng-icons/core';
-import { radixMinus, radixPlus } from '@ng-icons/radix-icons';
+import {
+  radixDashboard,
+  radixDoubleArrowLeft,
+  radixDoubleArrowRight,
+  radixGlobe,
+  radixLaptop,
+  radixLightningBolt,
+  radixMinus,
+  radixPlus,
+  radixRulerSquare,
+  radixTable,
+} from '@ng-icons/radix-icons';
 
 @Component({
   selector: 'grid-builder-sidebar',
@@ -93,11 +104,20 @@ import { radixMinus, radixPlus } from '@ng-icons/radix-icons';
     provideIcons({
       radixPlus,
       radixMinus,
+      radixGlobe,
+      radixDashboard,
+      radixRulerSquare,
+      radixTable,
+      radixLaptop,
+      radixLightningBolt,
+      radixDoubleArrowLeft,
+      radixDoubleArrowRight,
     }),
   ],
 })
 export class SidebarComponent extends Ready {
   facade = inject(GridsFacade);
+  appSettingsFacade = inject(AppSettingsFacade);
   fb = inject(FormBuilder);
   grid: Signal<Grid | undefined> = this.facade.selectedGrid$;
   selected = this.facade.selectedId$;

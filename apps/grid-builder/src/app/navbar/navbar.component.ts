@@ -60,6 +60,20 @@ import {
   HlmTooltipTriggerDirective,
 } from '@spartan-ng/ui-tooltip-helm';
 import { TooltipButtonComponent } from '@grid-builder/components';
+import {
+  BrnDialogContentDirective,
+  BrnDialogTriggerDirective,
+} from '@spartan-ng/ui-dialog-brain';
+import {
+  HlmDialogComponent,
+  HlmDialogContentComponent,
+  HlmDialogDescriptionDirective,
+  HlmDialogFooterComponent,
+  HlmDialogHeaderComponent,
+  HlmDialogTitleDirective,
+} from '@spartan-ng/ui-dialog-helm';
+import { AboutComponent } from '../about/about.component';
+import { HowToComponent } from '../how-to/how-to.component';
 
 @Component({
   selector: 'grid-builder-navbar',
@@ -99,6 +113,17 @@ import { TooltipButtonComponent } from '@grid-builder/components';
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
     TooltipButtonComponent,
+    BrnDialogTriggerDirective,
+    BrnDialogContentDirective,
+
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogFooterComponent,
+    HlmDialogTitleDirective,
+    HlmDialogDescriptionDirective,
+    AboutComponent,
+    HowToComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
