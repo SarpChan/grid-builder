@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
 import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
+import { ToggleValueUnitComponent } from '../toggle-value-unit/toggle-value-unit.component';
 
 @Component({
   selector: 'grid-builder-column-form',
@@ -28,6 +29,7 @@ import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.compone
     ReactiveFormsModule,
     TranslateModule,
     TooltipButtonComponent,
+    ToggleValueUnitComponent,
   ],
   templateUrl: './column-form.component.html',
   styleUrl: './column-form.component.scss',
@@ -36,7 +38,7 @@ export class ColumnFormComponent extends Ready {
   fb = inject(FormBuilder);
   facade = inject(GridsFacade);
   options = units;
-  defaultUnit: Unit = 'px';
+  defaultUnit: Unit = 'fr';
   oldId: string | undefined;
 
   id = input<string | undefined>();

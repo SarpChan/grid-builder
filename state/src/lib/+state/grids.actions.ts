@@ -4,6 +4,7 @@ import {
   Area,
   AreaInstance,
   Column,
+  GenerationMode,
   Grid,
   IValidationModel,
   Preset,
@@ -120,6 +121,11 @@ export const updateUseClassName = createAction(
 export const updateUseTailwind = createAction(
   '[Grids/API] Update use Tailwind',
   props<{ selection: boolean }>()
+);
+
+export const updateGenerationMode = createAction(
+  '[Grids/API] Update generation mode',
+  props<{ generationMode: GenerationMode }>()
 );
 
 export const connectAreaToInstance = createAction(

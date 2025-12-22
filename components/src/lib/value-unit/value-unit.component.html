@@ -1,10 +1,15 @@
-<form [formGroup]="form" class="grid grid-cols-2 gap-2 relative">
+<form
+  [formGroup]="form"
+  class="grid w-full gap-2 relative"
+  [ngClass]="shouldHideValue() ? 'grid-cols-1' : 'grid-cols-2'"
+>
+  @if (!shouldHideValue()) {
   <label hlmLabel class="flex gap-1 flex-col">
     <span> {{ valueLabel() | translate }} </span>
 
     <input
       hlmInput
-      class="w-full"
+      class="w-full pr-0"
       type="number"
       formControlName="value"
       value="currentValue()"
@@ -12,7 +17,7 @@
       appearance="filled"
     />
   </label>
-
+  }
   <grid-builder-combobox
     [currentOption]="currentOption()"
     (selectOption)="select($event)"

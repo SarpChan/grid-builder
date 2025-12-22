@@ -1,4 +1,5 @@
 import {
+  GenerationMode,
   Grid,
   IValidationModel,
   Selectable,
@@ -20,6 +21,7 @@ export interface GridsState extends EntityState<Grid> {
   selection?: SelectionElement | undefined;
   referenceContainer: 'viewport' | 'container';
   useTailwind: boolean;
+  generationMode: GenerationMode;
   useClassName: boolean;
   warnings: IValidationModel[];
   errors: IValidationModel[];
@@ -44,36 +46,52 @@ const initialEntities = () => {
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
     ],
     columns: [
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
     ],
     vGap: { value: 1, unit: 'rem' },
@@ -104,32 +122,46 @@ const initialEntities = () => {
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         height: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
     ],
     columns: [
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
       {
         id: crypto.randomUUID(),
         width: { value: 1, unit: 'fr' },
+        useMinMax: false,
+        max: { value: 1, unit: 'fr' },
       },
     ],
     vGap: { value: 1, unit: 'rem' },
@@ -162,6 +194,7 @@ export const initialGridsState: GridsState = gridsAdapter.getInitialState({
   referenceContainer: 'viewport',
   error: null,
   useTailwind: false,
+  generationMode: 'Tailwind v3',
   useClassName: false,
   warnings: [],
   errors: [],
@@ -246,6 +279,8 @@ const reducer = createReducer(
                 {
                   id: crypto.randomUUID(),
                   width: { value: 1, unit: 'fr' },
+                  useMinMax: false,
+                  max: { value: 1, unit: 'fr' },
                 },
               ],
             }
@@ -270,6 +305,8 @@ const reducer = createReducer(
                 {
                   id: crypto.randomUUID(),
                   height: { value: 1, unit: 'fr' },
+                  useMinMax: false,
+                  max: { value: 1, unit: 'fr' },
                 },
               ],
             }
@@ -294,6 +331,11 @@ const reducer = createReducer(
               ...row.height,
               ...changes.height,
             },
+            useMinMax: changes.useMinMax ?? false,
+            max: {
+              ...row.max,
+              ...changes.max,
+            },
             id: row.id,
           };
         }),
@@ -314,6 +356,11 @@ const reducer = createReducer(
             width: {
               ...column.width,
               ...changes.width,
+            },
+            useMinMax: changes.useMinMax ?? false,
+            max: {
+              ...column.max,
+              ...changes.max,
             },
             id: column.id,
           };
@@ -365,6 +412,9 @@ const reducer = createReducer(
   }),
   on(GridsActions.updateUseTailwind, (state, { selection }) => {
     return { ...state, useTailwind: selection };
+  }),
+  on(GridsActions.updateGenerationMode, (state, { generationMode }) => {
+    return { ...state, generationMode };
   }),
   on(GridsActions.updateUseClassName, (state, { selection }) => {
     return { ...state, useClassName: selection };
@@ -535,12 +585,14 @@ const reducer = createReducer(
       {},
       ...preset.grids.map((grid) => ({ [grid.id]: grid }))
     );
+    const order = preset.grids.map((grid) => grid.id);
 
     return {
       ...state,
       entities,
       error: null,
       loaded: true,
+      order,
       ids: Object.keys(entities),
       selectedId: preset.grids[0].id,
       useClassName: preset.globals.useClassName,

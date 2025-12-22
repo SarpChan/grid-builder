@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { ValueUnitComponent } from '../value-unit/value-unit.component';
 import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.component';
+import { ToggleValueUnitComponent } from '../toggle-value-unit/toggle-value-unit.component';
 
 @Component({
   selector: 'grid-builder-row-form',
@@ -28,6 +29,7 @@ import { TooltipButtonComponent } from '../tooltip-button/tooltip-button.compone
     HlmButtonDirective,
     TranslateModule,
     TooltipButtonComponent,
+    ToggleValueUnitComponent,
   ],
   templateUrl: './row-form.component.html',
   styleUrl: './row-form.component.scss',

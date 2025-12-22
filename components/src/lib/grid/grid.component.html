@@ -23,7 +23,7 @@
       class="absolute grid grid-flow-col h-full"
       #rowSelection
     >
-      @for (col of grid().columns; track col; let index = $index) {
+      @for (col of grid().columns; track col) {
       <div
         class="relative h-full w-full flex-grow flex-shrink-0 flex items-start group-hover:z-100 group"
       >
@@ -42,7 +42,7 @@
               class="duration-[50] w-full flex justify-center select-none pt-2 group-hover:text-white transition-colors"
             >
               <span class="truncate">
-                {{ 'selectors.col' | translate }} {{ index + 1 }}
+                {{ 'selectors.col' | translate }} {{ $index + 1 }}
               </span>
             </div>
           </button>
@@ -50,7 +50,7 @@
             <div>
               <span
                 >{{ 'selectors.tooltip.column' | translate }}
-                {{ index + 1 }}</span
+                {{ $index + 1 }}</span
               >
             </div>
           </span>

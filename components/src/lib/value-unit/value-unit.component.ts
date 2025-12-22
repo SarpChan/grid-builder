@@ -17,7 +17,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Unit, isUnit, units } from '@grid-builder/models';
+import { Unit, isUnit, units, units_without_value } from '@grid-builder/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
@@ -38,6 +38,9 @@ export type Option = { label: string; value: Unit | undefined };
   ],
   templateUrl: './value-unit.component.html',
   styleUrl: './value-unit.component.scss',
+  host: {
+    class: 'w-full',
+  },
 })
 export class ValueUnitComponent implements OnInit {
   valueLabel = input('forms.value');
@@ -64,6 +67,11 @@ export class ValueUnitComponent implements OnInit {
   currentValue = signal<number | undefined>(undefined);
   currentOption = signal<Option | undefined>(undefined);
 
+  shouldHideValue = computed(() => {
+    const currentOption = this.currentOption();
+
+    return units_without_value.includes(currentOption?.value as Unit);
+  });
   _disabled = false;
   @Input()
   set disabled(value: boolean) {
@@ -86,8 +94,10 @@ export class ValueUnitComponent implements OnInit {
   fb = inject(FormBuilder);
 
   form = this.fb.nonNullable.group({
-    value: [this.defaultValue(), [Validators.min(0)]],
-    unit: [this.defaultUnit(), [Validators.required]],
+    value: this.fb.nonNullable.control(this.defaultValue(), [
+      Validators.min(0),
+    ]),
+    unit: this.fb.control<Unit | undefined>(undefined, [Validators.required]),
   });
 
   controlContainer = inject(ControlContainer);
@@ -103,7 +113,7 @@ export class ValueUnitComponent implements OnInit {
       }
       this.currentValue.set(changed.value);
       const unit = changed.unit;
-      if (isUnit(unit)) {
+      if (unit) {
         this.currentOption.set({ value: unit, label: unit });
       }
     });
@@ -113,7 +123,7 @@ export class ValueUnitComponent implements OnInit {
         if (this.form && this.id()) {
           this.currentValue.set(this.form.value.value);
           const unit = this.form.value.unit;
-          if (isUnit(unit)) {
+          if (unit) {
             this.currentOption.set({ value: unit, label: unit });
           }
         }
@@ -125,7 +135,7 @@ export class ValueUnitComponent implements OnInit {
   ngOnInit() {
     this.currentValue.set(this.form.value.value);
     const unit = this.form.value.unit;
-    if (isUnit(unit)) {
+    if (unit) {
       this.currentOption.set({ value: unit, label: unit });
     }
 

@@ -1,7 +1,7 @@
 <div class="grid grid-flow-row h-full relative">
-  <form [formGroup]="form" class="flex flex-col relative">
+  <form [formGroup]="form" class="flex flex-col relative items-center">
     <div
-      class="flex gap-2 items-center justify-between"
+      class="flex gap-2 items-center justify-between w-full"
       [ngClass]="{
       'flex-col-reverse mb-0': !appSettingsFacade.isSidebarOpen$(),
       'mb-2': appSettingsFacade.isSidebarOpen$(),
@@ -57,7 +57,7 @@
     </div>
     }
     <div
-      class="flex flex-col justify-between flex-grow"
+      class="flex flex-col justify-between items-center flex-grow"
       [ngClass]="{
       'w-8': !appSettingsFacade.isSidebarOpen$(),
       }"
@@ -347,7 +347,7 @@
       </div>
       @if (appSettingsFacade.isSidebarOpen$()) {
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 w-full">
         <!-- row / column controls -->
 
         <div class="w-full flex justify-between items-center gap-4">
@@ -428,6 +428,7 @@
             position="above"
             variant="ghost"
             [description]="'actions.descriptions.reset' | translate"
+            [classOverride]="'pl-0'"
             class="w-full group"
             (click)="reset()"
           >

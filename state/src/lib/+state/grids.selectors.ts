@@ -108,6 +108,7 @@ export const selectGlobals = createSelector(selectGridsState, (state) => ({
   useTailwind: state.useTailwind,
   useClassName: state.useClassName,
   referenceContainer: state.referenceContainer,
+  generationMode: state.generationMode,
 }));
 
 export const selectOrderedGrids = createSelector(

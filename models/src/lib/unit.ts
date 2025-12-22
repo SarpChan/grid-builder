@@ -28,6 +28,8 @@ export const units = [
   'cqmin',
   'cqmax',
   'q',
+  'min-content',
+  'max-content',
 ] as const;
 export type Unit = (typeof units)[number];
 
@@ -37,6 +39,11 @@ export const absolute_units: Unit[] = ['px', 'cm', 'mm', 'in', 'pt', 'pc'];
 
 export const dynamic_units: Unit[] = ['fr', 'auto', '%'];
 
+export const units_without_value: Unit[] = [
+  'auto',
+  'min-content',
+  'max-content',
+];
 export const viewport_units = ['vw', 'vh', 'vmin', 'vmax', 'vb', 'vi'];
 
 export const container_units = ['cqw', 'cqh', 'cqi', 'cqb', 'cqmin', 'cqmax'];

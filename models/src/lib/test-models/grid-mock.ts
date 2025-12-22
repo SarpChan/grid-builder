@@ -8,12 +8,16 @@ export const gridMock: Grid = {
     {
       id: 'd698aa75-8e0b-49bf-aa5c-e86e12602f5e',
       height: { value: 1, unit: 'rem' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
   ],
   columns: [
     {
       id: '19a74ea1-08c5-44a6-a520-5032aaa11b83',
       width: { value: 1, unit: 'rem' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
   ],
   items: [

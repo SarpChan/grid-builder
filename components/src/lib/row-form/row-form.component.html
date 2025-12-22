@@ -5,6 +5,17 @@
     formName="height"
     [defaultUnit]="defaultUnit"
   ></grid-builder-value-unit>
+
+  <grid-builder-toggle-value-unit
+    class="self-start"
+    [valueLabel]="'forms.max' | translate"
+    [defaultUnit]="defaultUnit"
+    [checkboxLabel]="'forms.use_minmax' | translate"
+    [toggleName]="'useMinMax'"
+    [controlName]="'max'"
+    [active]="!!selected()?.useMinMax"
+  ></grid-builder-toggle-value-unit>
+
   <grid-builder-tooltip-button
     position="right"
     variant="destructive"

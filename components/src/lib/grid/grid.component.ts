@@ -12,7 +12,12 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { Grid, Selectable, SelectionElement } from '@grid-builder/models';
+import {
+  Grid,
+  Selectable,
+  SelectionElement,
+  units_without_value,
+} from '@grid-builder/models';
 import { AppSettingsFacade, GridsFacade } from '@grid-builder/state';
 import { clamp } from '@grid-builder/utils';
 import { TranslateModule } from '@ngx-translate/core';
@@ -51,10 +56,37 @@ export class GridComponent {
 
   gridStyle = computed(() => {
     const rowText = this.grid()
-      .rows.map((row) => row.height.value + row.height.unit)
+      .rows.map((row) => {
+        const first = units_without_value.includes(row.height.unit)
+          ? row.height.unit
+          : `${row.height.value}${row.height.unit}`;
+
+        if (row.useMinMax) {
+          const second = units_without_value.includes(row.max.unit)
+            ? row.max.unit
+            : `${row.max.value}${row.max.unit}`;
+          return `minmax(${first},${second})`;
+        }
+
+        return first;
+      })
       .join(' ');
+
     const columnText = this.grid()
-      .columns.map((column) => column.width.value + column.width.unit)
+      .columns.map((column) => {
+        const first = units_without_value.includes(column.width.unit)
+          ? column.width.unit
+          : `${column.width.value}${column.width.unit}`;
+
+        if (column.useMinMax) {
+          const second = units_without_value.includes(column.max.unit)
+            ? column.max.unit
+            : `${column.max.value}${column.max.unit}`;
+          return `minmax(${first},${second})`;
+        }
+
+        return first;
+      })
       .join(' ');
 
     const vGap =

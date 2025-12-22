@@ -25,7 +25,7 @@ export class LanguageSelectorComponent implements OnInit {
         const selected = this.appsSettingsFacade.currentLang$();
         if (selected) {
           const option = toRepr(selected);
-          option.label = `${toFlag(option.value)} / ${selected}`;
+          option.label = `${selected}`;
           this.currentLang.set(option);
         }
       },
@@ -37,13 +37,13 @@ export class LanguageSelectorComponent implements OnInit {
     const langs = this.translateService.getLangs();
 
     const current = toRepr(this.translateService.currentLang ?? '');
-    current.label = `${toFlag(current.value)} ${current.label}`;
+    current.label = `${current.label}`;
     this.currentLang.set(current);
 
     this.options.set(
       langs.map((lang) => {
         const option = toRepr(lang);
-        option.label = `${toFlag(option.value)} / ${lang}`;
+        option.label = `${lang}`;
         return option;
       })
     );

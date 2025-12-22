@@ -3,7 +3,7 @@
   <brn-radio-group
     hlm
     [value]="referenceContainerValue"
-    class="gap-2 grid grid-cols-2"
+    class="gap-2 flex flex-wrap justify-between"
   >
     <h2 class="col-span-2">{{ 'forms.reference_container' | translate }}</h2>
 
@@ -24,29 +24,21 @@
     </brn-radio>
   </brn-radio-group>
 
-  <!-- Use Tailwind -->
-  <brn-radio-group hlm [value]="twValue" class="gap-2 grid grid-cols-2">
-    <h2 class="col-span-2">{{ 'forms.generate_tailwind' | translate }}</h2>
-
-    <brn-radio hlm value="true" (click)="selectTW(true)">
-      <hlm-radio-indicator
-        (click)="selectTW(true)"
-        indicator
-      ></hlm-radio-indicator>
-      {{ 'forms.yes' | translate }}
-    </brn-radio>
-
-    <brn-radio hlm value="false" (click)="selectTW(false)">
-      <hlm-radio-indicator
-        (click)="selectTW(false)"
-        indicator
-      ></hlm-radio-indicator>
-      {{ 'forms.no_use_css' | translate }}
-    </brn-radio>
-  </brn-radio-group>
+  <!-- Generation Mode -->
+  <grid-builder-combobox
+    [options]="generationOptions"
+    [label]="'forms.generation_mode' | translate"
+    [currentOption]="currentGenerationMode()"
+    [placeholder]="'forms.generation_mode' | translate"
+    (selectOption)="selectGenerationMode($event)"
+  ></grid-builder-combobox>
 
   <!-- Use ClassName -->
-  <brn-radio-group hlm [value]="classNameValue" class="gap-2 grid grid-cols-2">
+  <brn-radio-group
+    hlm
+    [value]="classNameValue"
+    class="gap-2 flex flex-wrap justify-between"
+  >
     <h2 class="col-span-2">{{ 'forms.css_class_attribute' | translate }}</h2>
 
     <brn-radio hlm value="true" (click)="selectClass(true)">

@@ -6,6 +6,7 @@ import {
   AddGrid,
   AreaInstance,
   Column,
+  GenerationMode,
   Grid,
   ReferenceContainer,
   Row,
@@ -107,6 +108,10 @@ export class GridsFacade {
     this.store.dispatch(GridsActions.updateUseTailwind({ selection }));
   }
 
+  updateGenerationMode(generationMode: GenerationMode) {
+    this.store.dispatch(GridsActions.updateGenerationMode({ generationMode }));
+  }
+
   updateUseClassName(selection: boolean) {
     this.store.dispatch(GridsActions.updateUseClassName({ selection }));
   }
@@ -197,36 +202,52 @@ const grid: AddGrid = {
     {
       id: crypto.randomUUID(),
       height: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       height: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       height: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       height: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       height: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
   ],
   columns: [
     {
       id: crypto.randomUUID(),
       width: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       width: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
     {
       id: crypto.randomUUID(),
       width: { value: 1, unit: 'fr' },
+      useMinMax: false,
+      max: { value: 1, unit: 'fr' },
     },
   ],
   vGap: { value: 1, unit: 'rem' },

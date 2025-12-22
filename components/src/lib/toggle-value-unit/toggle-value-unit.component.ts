@@ -29,6 +29,9 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
   ],
   templateUrl: './toggle-value-unit.component.html',
   styleUrl: './toggle-value-unit.component.scss',
+  host: {
+    class: 'w-full',
+  },
 })
 export class ToggleValueUnitComponent implements OnInit {
   checkboxLabel = input('Enable');
@@ -45,7 +48,8 @@ export class ToggleValueUnitComponent implements OnInit {
   controlName = input('use');
   toggleName = input('toggle');
 
-  active = false;
+  active = input(false);
+
   form!: FormGroup;
 
   controlContainer = inject(ControlContainer);

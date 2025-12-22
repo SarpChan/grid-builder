@@ -1,6 +1,6 @@
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AppSettingsFacade,
@@ -34,6 +34,17 @@ export class AppComponent implements OnInit {
   appSettingsFacade = inject(AppSettingsFacade);
   translateService = inject(TranslateService);
 
+  sideBarWidth = computed(() => {
+    const isPreview = this.appSettingsFacade.isPreview$();
+    const isSidebarOpen = this.appSettingsFacade.isSidebarOpen$();
+
+    if (isPreview) {
+      return '';
+    }
+
+    return isSidebarOpen ? 'minmax(10.75rem,226px)' : '64px';
+  });
+
   constructor() {
     this.translateService.addLangs(['en', 'de']);
 
@@ -50,6 +61,7 @@ export class AppComponent implements OnInit {
       .pipe(takeUntilDestroyed())
       .subscribe((t) => this.appSettingsFacade.setCurrentLanguage(t.lang));
   }
+
   ngOnInit(): void {
     if (
       localStorage['theme'] === 'dark' ||
